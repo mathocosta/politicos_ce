@@ -1,5 +1,10 @@
 # Políticos CE
 
+## Ambiente
+* Python 3.6.5
+* Flask 0.12.2
+* MySQL 5.7.19
+
 ## Como executar
 ### Instale as dependências:
 ```console
@@ -7,7 +12,7 @@ $ pip install -r requeriments.txt
 ```
 
 ### Prepare o ambiente
-Basicamente mova o arquivo `contrib/setup.cfg` para o root e coloque as configurações solicitadas.
+Basicamente mova o arquivo `contrib/.env.sample` para o root, renomeie para `.env` e coloque as configurações solicitadas.
 
 ### Crie a estrutura básica do banco:
 ```console

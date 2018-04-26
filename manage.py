@@ -11,8 +11,8 @@ manager.add_command("runserver", Server())
 manager.add_command("shell", Shell())
 manager.add_command("db", MigrateCommand)
 
-@manager.command
-def seed():
-    from data_capture import fetch_politician_data
+# @manager.command
+# def seed():
+#     pass
 
 manager.run()
