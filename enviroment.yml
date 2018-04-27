@@ -1,0 +1,52 @@
+name: politicos_ce
+channels:
+- conda-forge
+- defaults
+dependencies:
+- alembic=0.9.9=py_0
+- asn1crypto=0.24.0=py36_0
+- beautifulsoup4=4.6.0=py36_0
+- ca-certificates=2018.4.16=0
+- certifi=2018.4.16=py36_0
+- cffi=1.11.5=py36_0
+- chardet=3.0.4=py36_0
+- click=6.7=py_1
+- cryptography=2.2.1=py36_0
+- flask=0.12.2=py36_0
+- flask-migrate=2.1.1=py36_0
+- flask-script=2.0.6=py_0
+- flask-sqlalchemy=2.3.2=py_0
+- idna=2.6=py36_1
+- itsdangerous=0.24=py_2
+- jinja2=2.10=py36_0
+- libiconv=1.14=vc14_4
+- libxml2=2.9.5=vc14_1
+- libxslt=1.1.32=vc14_0
+- lxml=4.2.1=py36_0
+- mako=1.0.7=py36_0
+- markupsafe=1.0=py36_0
+- openssl=1.0.2o=vc14_0
+- pip=9.0.3=py36_0
+- pycparser=2.18=py36_0
+- pymysql=0.8.0=py_0
+- pyopenssl=17.5.0=py36_1
+- pysocks=1.6.8=py36_1
+- python=3.6.5=1
+- python-dateutil=2.7.2=py_0
+- python-decouple=3.1=py_0
+- python-editor=1.0.3=py36_0
+- requests=2.18.4=py36_1
+- setuptools=39.0.1=py36_0
+- six=1.11.0=py36_1
+- sqlalchemy=1.2.7=py36h65ede16_0
+- urllib3=1.22=py36_0
+- vc=14=0
+- vs2015_runtime=14.0.25420=0
+- werkzeug=0.14.1=py_0
+- wheel=0.31.0=py36_0
+- win_inet_pton=1.0.1=py36_1
+- wincertstore=0.2=py36_0
+- zlib=1.2.11=vc14_0
+- pip:
+  - win-inet-pton==1.0.1
+
