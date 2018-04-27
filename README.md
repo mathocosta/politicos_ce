@@ -12,7 +12,7 @@ $ pip install -r requeriments.txt
 ```
 
 ### Prepare o ambiente
-Basicamente mova o arquivo `contrib/.env.sample` para o root, renomeie para `.env` e coloque as configurações solicitadas.
+Basicamente copie o arquivo `contrib/.env.sample` para o root, renomeie para `.env` e coloque as configurações solicitadas.
 
 ### Crie a estrutura básica do banco:
 ```console
