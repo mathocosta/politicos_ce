@@ -11,11 +11,11 @@ def get_data_from_senator(id):
 
 	print('Obtendo os dados do senador...')
 
-	r = requests.get("http://legis.senado.gov.br/dadosabertos/senador/{0}".format(id))
+	r = requests.get("http://legis.senado.gov.br/dadosabertos/senador/{0}/autorias".format(id))
 
 	soup = BeautifulSoup(r.content, 'xml')
 
-	dados = soup.find_all('Materia')
+	dados = soup.find_all('Autoria')
 
 	tamanho = len(dados) - 1
 
@@ -29,13 +29,15 @@ def get_data_from_senator(id):
 			'type' : dados[i].SiglaSubtipoMateria.text,
 			'proposition_number' : dados[i].NumeroMateria.text,
 			'year' : dados[i].AnoMateria.text,
+			'ongoing' : dados[i].IndicadorTramitando.text,
+			'original_author' : dados[i].IndicadorAutorPrincipal.text,
 			'description' : dados[i].EmentaMateria.text
 		}
 
 	return retorno
 
 def main():
-	print(get_data_from_senator(5322))
+	print(get_data_from_senator(3396))
 
 
 if __name__ == '__main__':
