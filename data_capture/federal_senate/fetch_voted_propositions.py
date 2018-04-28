@@ -21,17 +21,19 @@ def get_data_from_senator(id):
 
 	print(tamanho)
 
+	retorno = {}
+
 	for i in range(0, tamanho):
-		print("Código da sessão:")
-		print(dados[i].CodigoSessao.text)
-		print("Título da votação:")
-		print(dados[i].DescricaoVotacao.text)
-		print("Voto:")
-		print(dados[i].DescricaoVoto.text)
-		print("")
+		retorno[i] = {
+			'session_code' : dados[i].CodigoSessao.text,
+			'votation_title' : dados[i].DescricaoVotacao.text,
+			'vote' : dados[i].DescricaoVoto.text
+		}
+
+	return retorno
 
 def main():
-	get_data_from_senator(615)
+	print(get_data_from_senator(615))
 
 
 if __name__ == '__main__':
