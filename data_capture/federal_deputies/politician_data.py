@@ -7,18 +7,13 @@ dados desejados dos deputados cearenses.
 import requests
 from bs4 import BeautifulSoup
 
-
-def get_deputies_from_ce(data):
-    for d in data:
-        if d.uf.text == 'CE':
-            yield d
+HEAD_OPTIONS = {'accept': 'application/xml'}
 
 
 def get_data_from_deputie(id):
-    head_options = {'accept': 'application/xml'}
     r = requests.get(
         "https://dadosabertos.camara.leg.br/api/v2/deputados/{0}".format(id),
-        headers=head_options)
+        headers=HEAD_OPTIONS)
 
     soup = BeautifulSoup(r.content, 'xml')
     dados = soup.dados
@@ -36,27 +31,34 @@ def get_data_from_deputie(id):
 def parse_deputies(data):
     result = list()
 
-    for d in get_deputies_from_ce(data):
+    for d in data:
         print("Obtendo os dados do dep. {0} ({1}) ...".format(
-            d.nomeParlamentar.text, d.ideCadastro.text))
-        result.append(get_data_from_deputie(d.ideCadastro.text))
+            d.nome.text, d.id.text))
+        result.append(get_data_from_deputie(d.id.text))
 
     return result
 
 
 def fetch_deputies_data():
     print("Obtendo os dados dos deputados...")
+    payload = {
+        'siglaUf': 'ce',
+        'itens': '30',
+        'ordenarPor': 'nome'
+    }
     r = requests.get(
-        'http://www.camara.leg.br/SitCamaraWS/deputados.asmx/ObterDeputados')
+        'https://dadosabertos.camara.leg.br/api/v2/deputados',
+        params=payload,
+        headers=HEAD_OPTIONS)
 
     soup = BeautifulSoup(r.content, 'xml')
-    deputies_data = parse_deputies(soup.find_all('deputado'))
+    deputies_data = parse_deputies(soup.find_all('deputado_'))
 
     return deputies_data
 
 
 def main():
-    data = fetch_deputies_data()
+    print(fetch_deputies_data())
 
 
 if __name__ == '__main__':
