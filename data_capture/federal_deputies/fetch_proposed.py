@@ -1,4 +1,4 @@
-"""Implementação da captação das propostas de um senador
+"""Implementação da captação das propostas de um deputado federal
 
 Os dados são obtidos da API do Senado, e filtrados para obter os
 dados desejados dos senadores cearenses.
