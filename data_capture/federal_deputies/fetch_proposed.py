@@ -1,7 +1,8 @@
 """Implementação da captação das propostas de um deputado federal
 
-Os dados são obtidos da API do Senado, e filtrados para obter os
-dados desejados dos senadores cearenses.
+Os dados são obtidos da API completa da Câmara dos Deputados, e 
+filtrados para obter as propostas apresentadas por um deputado
+federal qualquer
 """
 
 import requests
