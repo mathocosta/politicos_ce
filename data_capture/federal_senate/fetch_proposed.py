@@ -7,38 +7,41 @@ dados desejados dos senadores cearenses.
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_data_from_senator(id):
 
-	print('Obtendo os dados do senador...')
+    print('Obtendo os dados do senador...')
 
-	r = requests.get("http://legis.senado.gov.br/dadosabertos/senador/{0}/autorias".format(id))
+    r = requests.get(
+        "http://legis.senado.gov.br/dadosabertos/senador/{0}/autorias".format(id))
 
-	soup = BeautifulSoup(r.content, 'xml')
+    soup = BeautifulSoup(r.content, 'xml')
 
-	dados = soup.find_all('Autoria')
+    propositions = soup.find_all('Autoria')
 
-	tamanho = len(dados) - 1
+    number_of_propositions = len(propositions) - 1
 
-	print(tamanho)
+    print(number_of_propositions)
 
-	retorno = {}
+    result = {}
 
-	for i in range(0, tamanho):
-		retorno[i] = {
-			'proposition_code' : dados[i].CodigoMateria.text,
-			'type' : dados[i].SiglaSubtipoMateria.text,
-			'proposition_number' : dados[i].NumeroMateria.text,
-			'year' : dados[i].AnoMateria.text,
-			'ongoing' : dados[i].IndicadorTramitando.text,
-			'original_author' : dados[i].IndicadorAutorPrincipal.text,
-			'description' : dados[i].EmentaMateria.text
-		}
+    for i in range(0, number_of_propositions):
+        result[i] = {
+            'proposition_code': propositions[i].CodigoMateria.text,
+            'type': propositions[i].SiglaSubtipoMateria.text,
+            'proposition_number': propositions[i].NumeroMateria.text,
+            'year': propositions[i].AnoMateria.text,
+            'ongoing': propositions[i].IndicadorTramitando.text,
+            'original_author': propositions[i].IndicadorAutorPrincipal.text,
+            'description': propositions[i].EmentaMateria.text
+        }
 
-	return retorno
+    return result
+
 
 def main():
-	print(get_data_from_senator(3396))
+    print(get_data_from_senator(3396))
 
 
 if __name__ == '__main__':
-	main()
+    main()
