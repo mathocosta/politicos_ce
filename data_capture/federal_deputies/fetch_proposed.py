@@ -1,6 +1,6 @@
 """Implementação da captação das propostas de um deputado federal
 
-Os dados são obtidos da API completa da Câmara dos Deputados, e 
+Os dados são obtidos da API completa da Câmara dos Deputados, e
 filtrados para obter as propostas apresentadas por um deputado
 federal qualquer
 """
@@ -8,41 +8,43 @@ federal qualquer
 import requests
 from bs4 import BeautifulSoup
 
-def get_data_from_senator(nome):
 
-	print('Obtendo as proposições do deputado...')
+def get_data_from_deputie(name):
 
-	r = requests.get("http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor={0}&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=".format(nome))
+    print('Obtendo as proposições do deputado...')
 
-	soup = BeautifulSoup(r.content, 'xml')
+    r = requests.get(
+        "http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor={0}&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=".format(name))
 
-	dados = soup.find_all('proposicao')
+    soup = BeautifulSoup(r.content, 'xml')
 
-	tamanho = len(dados) - 1
+    propositions = soup.find_all('proposicao')
 
-	print(tamanho)
+    number_of_propositions = len(propositions) - 1
 
-	retorno = {}
+    print(number_of_propositions)
 
-	for i in range(0, tamanho):
-		retorno[i] = {
-			'proposition_code' : dados[i].id.text,
-			'proposition_name' : dados[i].nome.text,
-			'type' : dados[i].tipoProposicao.sigla.text,
-			'proposition_number' : dados[i].numero.text,
-			'year' : dados[i].ano.text,
-			'proposition_date' : dados[i].datApresentacao.text,
-			'title' : dados[i].txtExplicacaoEmenta.text,
-			'description' : dados[i].txtEmenta.text,
-			'ongoing' : dados[i].situacao.descricao.text
-			
-		}
+    result = {}
 
-	return retorno
+    for i in range(0, number_of_propositions):
+        result[i] = {
+            'proposition_code': propositions[i].id.text,
+            'proposition_name': propositions[i].nome.text,
+            'type': propositions[i].tipoProposicao.sigla.text,
+            'proposition_number': propositions[i].numero.text,
+            'year': propositions[i].ano.text,
+            'proposition_date': propositions[i].datApresentacao.text,
+            'title': propositions[i].txtExplicacaoEmenta.text,
+            'description': propositions[i].txtEmenta.text,
+            'ongoing': propositions[i].situacao.descricao.text
+        }
+
+    return result
+
 
 def main():
-	print(get_data_from_senator("vitor valim"))
+    print(get_data_from_deputie("vitor valim"))
 
 
 if __name__ == '__main__':
-	main()
+    main()

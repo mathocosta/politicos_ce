@@ -7,39 +7,42 @@ dados desejados dos senadores cearenses.
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_data_from_senator(id):
 
-	print('Obtendo os dados do senador...')
+    print('Obtendo os dados do senador...')
 
-	r = requests.get("http://legis.senado.leg.br/dadosabertos/senador/{0}/votacoes".format(id))
+    r = requests.get(
+        "http://legis.senado.leg.br/dadosabertos/senador/{0}/votacoes".format(id))
 
-	soup = BeautifulSoup(r.content, 'xml')
+    soup = BeautifulSoup(r.content, 'xml')
 
-	dados = soup.find_all('Votacao')
+    polls = soup.find_all('Votacao')
 
-	tamanho = len(dados) - 1
+    number_of_polls = len(polls) - 1
 
-	print(tamanho)
+    print(number_of_polls)
 
-	retorno = {}
+    result = {}
 
-	for i in range(0, tamanho):
-		retorno[i] = {
-			'session_code' : dados[i].CodigoSessao.text,
-			'votation_title' : dados[i].DescricaoVotacao.text,
-			'vote' : dados[i].DescricaoVoto.text
-		}
+    for i in range(0, number_of_polls):
+        result[i] = {
+            'session_code': polls[i].CodigoSessao.text,
+            'votation_title': polls[i].DescricaoVotacao.text,
+            'vote': polls[i].DescricaoVoto.text
+        }
 
-	return retorno
+    return result
+
 
 def main():
-	print(get_data_from_senator(615))
+    print(get_data_from_senator(615))
 
 
 if __name__ == '__main__':
-	main()
+    main()
 
-#esse aqui é pra usar um xml local
+# esse aqui é pra usar um xml local
 '''
 def get_data_from_senator():
 
