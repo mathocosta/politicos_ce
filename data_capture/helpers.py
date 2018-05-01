@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 """Algumas funções auxiliares"""
+import glob
+import json
+import os
+from datetime import datetime
 
 
 def candidacy_filter(candidacy):
@@ -33,3 +37,29 @@ def candidacy_parser(data):
         })
 
     return result
+
+
+def save_dataset(data, name):
+    """Salva os dados em um arquivo de backup"""
+    today = datetime.strftime(datetime.now(), '%Y-%m-%d')
+    backup_dir = os.path.join(os.getcwd(), './backups')
+    file_path = os.path.join(
+        os.getcwd(), backup_dir, '{0}-{1}.json'.format(name, today))
+
+    if not os.path.exists(backup_dir):
+        os.makedirs(backup_dir)
+
+    with open(file_path, 'w', encoding='utf8') as file:
+        file.write(json.dumps(data, ensure_ascii=False))
+
+
+def get_dataset(name):
+    """Pega os dados do arquivo de backup"""
+    backup_dir = os.path.join(os.getcwd(), 'backups')
+    all_backup_files = glob.glob('{0}/{1}*'.format(backup_dir, name))
+    last_backup = max(all_backup_files, key=os.path.getctime)
+
+    with open(os.path.join(backup_dir, last_backup), encoding='utf8') as file:
+        json_data = json.load(file)
+
+        return json_data

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Captação do histórico de candidaturas dos deputados federais"""
 import requests
-from data_capture.helpers import candidacy_parser
+
+from data_capture.helpers import candidacy_parser, get_dataset, save_dataset
 
 
 def fetch_candidacies_data():
@@ -18,4 +19,7 @@ def fetch_candidacies_data():
 
     json_data = r.json()
 
-    return candidacy_parser(json_data['objects'])
+    if r.status_code == 200:
+        save_dataset(json_data['objects'], 'federal-deputies')
+
+    return candidacy_parser(get_dataset('federal-deputies'))

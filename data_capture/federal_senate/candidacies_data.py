@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Captação do histórico de candidaturas dos senadores"""
 import requests
-from data_capture.helpers import candidacy_parser
+
+from data_capture.helpers import candidacy_parser, get_dataset, save_dataset
 
 
 def fetch_candidacies_data(name):
@@ -12,4 +13,7 @@ def fetch_candidacies_data(name):
 
     json_data = r.json()
 
-    return candidacy_parser(json_data['objects'])
+    if r.status_code == 200:
+        save_dataset(json_data['objects'], 'senators')
+
+    return candidacy_parser(get_dataset('senators'))

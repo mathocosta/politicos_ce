@@ -14,9 +14,7 @@
 #     print(fetch_candidacies_data(s['civil_name']))
 
 # Dep. Estadual
-# from data_capture.state_deputies.dataset import fetch_dataset
 # from data_capture.state_deputies.candidacies_data import get_candidacies_data
-# dataset = fetch_dataset()
-# data = get_candidacies_data(dataset)
+# data = get_candidacies_data()
 # for d in data:
 #     print(d)

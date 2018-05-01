@@ -7,37 +7,14 @@ em alguns momentos pode não responder, por isso é feito um backup dos dados
 para ser usado em caso de não funcionar a requisição. Os dados usados na
 aplicação, são os do backup.
 """
-import os
 import glob
 import json
-import requests
+import os
 from datetime import datetime
 
+import requests
 
-def get_dataset():
-    """Pega os dados do arquivo de backup"""
-    backup_dir = os.path.join(os.getcwd(), 'backups')
-    all_backup_files = glob.glob('{0}/*'.format(backup_dir))
-    last_backup = max(all_backup_files, key=os.path.getctime)
-
-    with open(os.path.join(backup_dir, last_backup), encoding='utf8') as file:
-        json_data = json.load(file)
-
-        return json_data
-
-
-def save_dataset(data):
-    """Salva os dados em um arquivo de backup"""
-    today = datetime.strftime(datetime.now(), '%Y-%m-%d')
-    backup_dir = os.path.join(os.getcwd(), './backups')
-    file_path = os.path.join(
-        os.getcwd(), backup_dir, 'politicos-dataset-{}.json'.format(today))
-
-    if not os.path.exists(backup_dir):
-        os.makedirs(backup_dir)
-
-    with open(file_path, 'w', encoding='utf8') as file:
-        file.write(json.dumps(data, ensure_ascii=False))
+from data_capture.helpers import get_dataset, save_dataset
 
 
 def fetch_dataset():
@@ -57,6 +34,6 @@ def fetch_dataset():
 
     if r.status_code == 200:
         json_data = json.loads(r.text)
-        save_dataset(json_data['objects'])
+        save_dataset(json_data['objects'], 'state-deputies')
 
-    return get_dataset()
+    return get_dataset('state-deputies')
