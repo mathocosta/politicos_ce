@@ -3,17 +3,7 @@
 
 
 def candidacy_filter(candidacy):
-    """Filtra os dados das candidaturas.
-
-    Basicamente pega os dados brutos de uma candidatura, processa e retorna
-    os dados desejados.
-
-    Args:
-        candidacy (dict)
-
-    Returns:
-        dict: Dicionário com os dados filtrados.
-    """
+    """Filtra os dados das candidaturas."""
     return {
         'elected': candidacy['elected'],
         'date': candidacy['election_round']['date'],
@@ -21,3 +11,25 @@ def candidacy_filter(candidacy):
         'institution': candidacy['institution']['name'],
         'position': candidacy['institution']['political_offices'][0]['name']
     }
+
+
+def candidacy_parser(data):
+    """Processa os dados brutos das candidaturas por político
+
+    Basicamente pega os dados brutos do político, processa e retorna
+    os somente o nome, e o histórico de candidaturas.
+
+    Args:
+        data (dict)
+
+    Returns:
+        dict: Dicionário com os dados filtrados.
+    """
+    result = list()
+    for d in data:
+        result.append({
+            'politician_name': d['name'],
+            'candidacies': list(map(candidacy_filter, d['candidacies']))
+        })
+
+    return result

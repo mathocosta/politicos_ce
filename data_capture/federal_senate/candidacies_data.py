@@ -1,19 +1,7 @@
 # -*- coding: utf-8 -*-
 """Captação do histórico de candidaturas dos senadores"""
 import requests
-from data_capture.helpers import candidacy_filter
-
-
-def parse_data(data):
-    """Processa os dados brutos das candidaturas por político"""
-    result = list()
-    for d in data:
-        result.append({
-            'politician_name': d['name'],
-            'candidacies': list(map(candidacy_filter, d['candidacies']))
-        })
-
-    return result
+from data_capture.helpers import candidacy_parser
 
 
 def fetch_candidacies_data(name):
@@ -24,4 +12,4 @@ def fetch_candidacies_data(name):
 
     json_data = r.json()
 
-    return parse_data(json_data['objects'])
+    return candidacy_parser(json_data['objects'])
