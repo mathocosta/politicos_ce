@@ -5,7 +5,8 @@ Nesse caso, os dados usados, são os mesmos do `/state_deputies/politician_data.
 portanto é usado o mesmo dataset.
 """
 import requests
-from dataset import fetch_dataset
+from data_capture.state_deputies.dataset import fetch_dataset
+from data_capture.helpers import candidacy_filter
 
 
 def candidacy_filter(candidacy):
@@ -35,14 +36,3 @@ def get_candidacies_data(dataset):
     """Obtém os dados de candidaturas dos deputados"""
 
     return parse_data(dataset)
-
-
-def main():
-    dataset = fetch_dataset()
-    data = get_candidacies_data(dataset)
-    for d in data:
-        print(d)
-
-
-if __name__ == '__main__':
-    main()

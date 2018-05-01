@@ -1,16 +1,7 @@
 # -*- coding: utf-8 -*-
 """Captação do histórico de candidaturas dos deputados federais"""
 import requests
-
-
-def candidacy_filter(candidacy):
-    return {
-        'elected': candidacy['elected'],
-        'date': candidacy['election_round']['date'],
-        'election_round': candidacy['election_round']['round_number'],
-        'institution': candidacy['institution']['name'],
-        'position': candidacy['institution']['political_offices'][0]['name']
-    }
+from data_capture.helpers import candidacy_filter
 
 
 def parse_data(data):
@@ -40,13 +31,3 @@ def fetch_candidacies_data():
     json_data = r.json()
 
     return parse_data(json_data['objects'])
-
-
-def main():
-    data = fetch_candidacies_data()
-    print(data[0]['politician_name'])
-    print(data[0]['candidacies'])
-
-
-if __name__ == '__main__':
-    main()
