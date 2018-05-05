@@ -24,7 +24,8 @@ def get_data_from_deputie(id):
         'parliamentary_name': dados.ultimoStatus.nomeEleitoral.text,
         'party': dados.ultimoStatus.siglaPartido.text,
         'hometown': dados.municipioNascimento.text,
-        'scholarity': dados.escolaridade.text
+        'scholarity': dados.escolaridade.text,
+        'position': 'federal-deputy'
     }
 
 

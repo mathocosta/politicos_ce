@@ -23,7 +23,8 @@ def get_data_from_senator(id):
         'parliamentary_name': dados.IdentificacaoParlamentar.NomeParlamentar.text,
         'party': dados.IdentificacaoParlamentar.SiglaPartidoParlamentar.text,
         'hometown': '',
-        'scholarity': ''
+        'scholarity': '',
+        'position': 'senator'
     }
 
 

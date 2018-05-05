@@ -12,7 +12,8 @@ def political_data_parser(dataset):
             'party': d['political_parties'][-1]['political_party']['siglum'],
             'hometown': d['place_of_birth'],
             'scholarity': d['education']['name'],
-            'occupation': d['occupation']['name']
+            'occupation': d['occupation']['name'],
+            'position': 'state-deputy'
         })
 
     return result
