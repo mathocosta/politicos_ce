@@ -4,7 +4,7 @@
     <h1>{{ title }}</h1>
     {% for p in politicians %}
         <div>
-            <img src="" alt="Imagem do senador">
+            <img src="" alt="Imagem de {{ p.parliamentary_name }}">
             <h2>{{ p.parliamentary_name }}</h2>
             <h3>{{ p.party_siglum }}</h3>
         </div>
