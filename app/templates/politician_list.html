@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    {% for p in politicians %}
+        <div>
+            <img src="" alt="Imagem do senador">
+            <h2>{{ p.parliamentary_name }}</h2>
+            <h3>{{ p.party_siglum }}</h3>
+        </div>
+    {% endfor %}
+{% endblock %}

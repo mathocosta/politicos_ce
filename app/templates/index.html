@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
-</head>
-<body>
-    <h1>Hello</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Políticos CE</h1>
+    <div>
+        <div>
+            <h2>Senadores</h2>
+            <a href="/politician-list/senator">Explorar</a>
+        </div>
+        <div>
+            <h2>Deputados Federais</h2>
+            <a href="/politician-list/federal-deputy">Explorar</a>
+        </div>
+        <div>
+            <h2>Deputados Estaduais</h2>
+            <a href="/politician-list/state-deputy">Explorar</a>
+        </div>
+    </div>
+{% endblock %}
