@@ -8,14 +8,14 @@ class Politician(db.Model):
     __tablename__ = 'politicians'
 
     id = db.Column('id', db.Integer, primary_key=True)
-    civil_name = db.Column('civil_name', db.String(255))
-    parliamentary_name = db.Column('parliamentary_name', db.String(255))
+    civil_name = db.Column('civil_name', db.String(80))
+    parliamentary_name = db.Column('parliamentary_name', db.String(80))
     # party_id = db.Column('party_id', db.Integer, db.ForeignKey(
     #     'political_parties.id'), nullable=False)
-    party_siglum = db.Column('party_siglum', db.String(255))
-    scholarity = db.Column('scholarity', db.String(255))
-    hometown = db.Column('hometown', db.String(100))
-    position = db.Column('position', db.String(255))
+    party_siglum = db.Column('party_siglum', db.String(80))
+    scholarity = db.Column('scholarity', db.String(80))
+    hometown = db.Column('hometown', db.String(80))
+    position = db.Column('position', db.String(80))
 
     def __init__(self, civil_name, parliamentary_name,
                  scholarity, hometown, party_siglum, position):

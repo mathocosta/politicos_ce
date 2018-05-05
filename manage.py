@@ -11,8 +11,10 @@ manager.add_command("runserver", Server())
 manager.add_command("shell", Shell())
 manager.add_command("db", MigrateCommand)
 
+
 @manager.command
 def seed():
     seed_database()
+
 
 manager.run()
