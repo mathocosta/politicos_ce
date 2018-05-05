@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """Arquivo com os modelos usados no banco de dados"""
-from app import db
+from app import db, whooshee
 
 
+@whooshee.register_model(
+    'civil_name', 'parliamentary_name', 'party_siglum', 'position')
 class Politician(db.Model):
     """Entidade que representa e guarda os dados de um político"""
     __tablename__ = 'politicians'

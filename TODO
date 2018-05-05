@@ -12,4 +12,5 @@ Captação dos Dados:
     ☐ Reescrever o `seed.py`
     1. Os imports tão meio esquisitos e o fica meio bagunçado
     2. Colocar para salvar os ids também
+    ☐ No `views.py`, colocar para verificar se o `name_field` está vazio.
 

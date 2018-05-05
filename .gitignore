@@ -106,11 +106,14 @@ venv.bak/
 # VSCode workspace settings
 .vscode
 
-# PyCharm 
+# PyCharm
 .idea
 
 # Backups folder
 /backups
+
+# Whoosh folder
+/whoosh
 
 # Configuration file
 setup.cfg
