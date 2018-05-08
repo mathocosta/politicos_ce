@@ -7,10 +7,15 @@ Captação dos Dados:
     Nessa parte tem muito código repetido, da para passar muita coisa para um arquivo e usar nos outros. @low
     ☐ @bug no histórico de candidaturas dos senadores
     Nessa parte não pega tá pegando os dados de um dos senadores, mas é por causa que o nome dele tá escrito sem acento na API dos políticos, enquanto na do Senado tá com acento. A forma como foi implementado faz que seja pego os dados somente dos que estão em exercício, que não necessáriamente são os eleitos (podem ser substituídos por suplentes). As formas de ajeitar isso é: deixar assim, ou captar os dados dos senadores eleitos e seus respectivos suplentes.
+    ☐ @bug na página de político específico
+    Na página dos deputados federais não está funcionando aparecer as proposições.
     ☐ Descobrir alguma forma que não seja extremamente trabalhosa de recuperar todos os votos de um deputado federal
     ☐ Ajeitar a caixa dos nomes dos dep. federais.
     ☐ Reescrever o `seed.py`
     1. Os imports tão meio esquisitos e o fica meio bagunçado
     2. Colocar para salvar os ids também
     ☐ No `views.py`, colocar para verificar se o `name_field` está vazio.
-
+    ☐ Reescrever o `README.md`
+    ☐ Ajeitar os nomes das chaves do dicionário das proposições
+    Eu não achei os nomes intuitivos, em alguns o title é maior que o description, e o nome não é o nome da proposição e sim o tipo dela de forma escrita.
+    ☐ Na página de listagem dos políticos, colocar para listar em ordem alfabética.
