@@ -1,8 +1,14 @@
-"""Arquivo com a configuração das rotas da aplicação"""
+"""Arquivo com a configuração das rotas da aplicação
+
+Obs.: Todas as consultas com o banco de dados retornam instâncians de objetos
+da entidade específica, que está modelada no `models.py`.
+"""
 from flask import render_template, request
 
 from app import app, db
 from app.models import Politician
+from data_capture.federal_deputies.fetch_proposed import get_data_from_deputie
+from data_capture.federal_senate.fetch_proposed import get_data_from_senator
 
 
 @app.route('/')
@@ -11,7 +17,7 @@ def index():
 
 
 @app.route('/search')
-def search():
+def show_search_results():
     # FIXME: Não tem algo para verificar se o campo 'name' está vazio.
     politicians = Politician.query.whooshee_search(
         request.args.get('name_field')).all()
@@ -29,7 +35,7 @@ def search():
 
 
 @app.route('/politician-list/<position>')
-def politician_list(position):
+def show_politician_list(position):
     title = ""
     politicians = list()
 
@@ -45,3 +51,24 @@ def politician_list(position):
 
     return render_template(
         'politician_list.html', title=title, politicians=politicians)
+
+
+@app.route('/politician/<int:politician_id>')
+def show_politician_page(politician_id):
+    politician_data = Politician.query.get_or_404(politician_id)
+    position = ""
+    propositions = list()
+
+    if politician_data.position == 'senator':
+        position = 'Senador'
+        propositions = get_data_from_senator(politician_data.registered_id)
+    elif politician_data.position == 'federal-deputy':
+        position = 'Deputado Federal'
+        propositions = get_data_from_deputie(politician_data.registered_id)
+    elif politician_data.position == 'state-deputy':
+        position = 'Deputado Estadual'
+
+    print(propositions)
+    return render_template(
+        "politician.html", politician_data=politician_data,
+        position=position, propositions=propositions)

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ politician_data.parliamentary_name }}</h1>
+    <h2>{{ position }}</h2>
+    <h2>{{ politician_data.party_siglum }}</h2>
+
+    {% for _, v in propositions.items() %}
+        <div>
+            <p>{{ v.type }} nº {{ v.proposition_number }}</p>
+            <p>{{ v.description }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

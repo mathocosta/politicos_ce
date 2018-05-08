@@ -7,6 +7,7 @@
             <img src="" alt="Imagem de {{ p.parliamentary_name }}">
             <h2>{{ p.parliamentary_name }}</h2>
             <h3>{{ p.party_siglum }}</h3>
+            <a href="/politician/{{ p.id }}">link</a>
         </div>
     {% endfor %}
 {% endblock %}
