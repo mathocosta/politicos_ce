@@ -10,6 +10,7 @@ class Politician(db.Model):
     __tablename__ = 'politicians'
 
     id = db.Column('id', db.Integer, primary_key=True)
+    registered_id = db.Column('registered_id', db.Integer)
     civil_name = db.Column('civil_name', db.String(80))
     parliamentary_name = db.Column('parliamentary_name', db.String(80))
     # party_id = db.Column('party_id', db.Integer, db.ForeignKey(
@@ -19,8 +20,9 @@ class Politician(db.Model):
     hometown = db.Column('hometown', db.String(80))
     position = db.Column('position', db.String(80))
 
-    def __init__(self, civil_name, parliamentary_name,
+    def __init__(self, registered_id, civil_name, parliamentary_name,
                  scholarity, hometown, party_siglum, position):
+        self.registered_id = registered_id
         self.civil_name = civil_name
         self.parliamentary_name = parliamentary_name
         self.scholarity = scholarity

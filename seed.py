@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Código que coloca os dados necessários no banco de dados"""
-from decouple import config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -10,6 +9,7 @@ import data_capture.state_deputies.politician_data as sd
 from app.models import Politician
 from data_capture.state_deputies.dataset import \
     fetch_dataset as fetch_sd_dataset
+from decouple import config
 
 engine = create_engine(config('SQLALCHEMY_DATABASE_URI'))
 Session = sessionmaker(bind=engine)
@@ -18,8 +18,8 @@ session = Session()
 
 def save_political_data(data):
     for p in data:
-        new_politician = Politician(
-            p['civil_name'], p['parliamentary_name'], p['scholarity'], p['hometown'], p['party'], p['position'])
+        new_politician = Politician(p['registered_id'], p['civil_name'], p['parliamentary_name'],
+                                    p['scholarity'], p['hometown'], p['party'], p['position'])
         session.add(new_politician)
 
 
