@@ -1,9 +1,13 @@
+import sys
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_whooshee import Whooshee
 from flask_migrate import Migrate
 from decouple import config
 
+# Adicionando o modulo externo ao path
+sys.path.append(os.path.join(os.getcwd(), 'data_capture'))
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')
