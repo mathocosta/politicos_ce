@@ -13,7 +13,8 @@ def political_data_parser(dataset):
             'hometown': d['place_of_birth'],
             'scholarity': d['education']['name'],
             'occupation': d['occupation']['name'],
-            'position': 'state-deputy'
+            'position': 'state-deputy',
+            'url_photo': d['picture']
         })
 
     return result

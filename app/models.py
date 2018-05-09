@@ -19,9 +19,10 @@ class Politician(db.Model):
     scholarity = db.Column('scholarity', db.String(80))
     hometown = db.Column('hometown', db.String(80))
     position = db.Column('position', db.String(80))
+    photo_url = db.Column('photo_url', db.String(255))
 
     def __init__(self, registered_id, civil_name, parliamentary_name,
-                 scholarity, hometown, party_siglum, position):
+                 scholarity, hometown, party_siglum, position, photo_url):
         self.registered_id = registered_id
         self.civil_name = civil_name
         self.parliamentary_name = parliamentary_name
@@ -29,6 +30,7 @@ class Politician(db.Model):
         self.hometown = hometown
         self.party_siglum = party_siglum
         self.position = position
+        self.photo_url = photo_url
 
 # class Candidacy(db.Model):
 #     """Entidade que representa e guarda os dados de uma candidatura de um político"""
