@@ -1,13 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    {% for p in politicians %}
-        <div>
-            <img src="" alt="Imagem de {{ p.parliamentary_name }}">
-            <h2>{{ p.parliamentary_name }}</h2>
-            <h3>{{ p.party_siglum }}</h3>
-            <a href="/politician/{{ p.id }}">link</a>
+<div id="content">
+    <div class="header" id="header_politicos">
+        <div class="hamburger">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
         </div>
-    {% endfor %}
+        <button class="btn noFill userBtn">
+            <span id="userIcon">
+                <span>Login</span>
+            </span>
+        </button>
+    </div>
+    <div id="top_content">
+        <div id="top_content_1">
+            <h1>{{ title }}</h1>
+            <p>
+                Eles representam os estados brasileiros na política, elaboram as leis e ﬁscalizam os atos do Executivo. Uma das responsabilidades do Senado é aprovar a indicação feita pelo Poder Executivo de nomes para ocupar cargos importantes e de diplomatas que representaram o Brasil no exterior.
+            </p>
+        </div>
+        <a id="btn_saiba_mais" href="/">
+            <button class="btn fill">Saiba mais</button>
+        </a>
+    </div>
+    <div id="middle_content">
+        <p>A lista está organizada em ordem alfabética</p>
+        <div id="all_boxes">
+            {% for p in politicians %}
+            <div class="politic_box">
+                <img class="photo_politic" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
+                <div>
+                    <h2 class="name_politic">{{ p.parliamentary_name }}</h2>
+                    <h4 class="p_siglum">{{ p.party_siglum }}</h4>
+                    <br><a href="/politician/{{ p.id }}">Ir para a página</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="footer"></div>
+</div>
 {% endblock %}

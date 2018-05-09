@@ -18,8 +18,10 @@ session = Session()
 
 def save_political_data(data):
     for p in data:
-        new_politician = Politician(p['registered_id'], p['civil_name'], p['parliamentary_name'],
-                                    p['scholarity'], p['hometown'], p['party'], p['position'])
+        new_politician = Politician(p['registered_id'], p['civil_name'],
+                                    p['parliamentary_name'], p['scholarity'],
+                                    p['hometown'], p['party'], p['position'],
+                                    p['url_photo'])
         session.add(new_politician)
 
 

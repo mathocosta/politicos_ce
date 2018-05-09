@@ -23,10 +23,10 @@ def get_data_from_senator(id):
 
     print(number_of_propositions)
 
-    result = {}
+    result = list()
 
     for i in range(0, number_of_propositions):
-        result[i] = {
+        result.append({
             'proposition_code': propositions[i].CodigoMateria.text,
             'type': propositions[i].SiglaSubtipoMateria.text,
             'proposition_number': propositions[i].NumeroMateria.text,
@@ -34,7 +34,7 @@ def get_data_from_senator(id):
             'ongoing': propositions[i].IndicadorTramitando.text,
             'original_author': propositions[i].IndicadorAutorPrincipal.text,
             'description': propositions[i].EmentaMateria.text
-        }
+        })
 
     return result
 

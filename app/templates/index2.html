@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Políticos CE</h1>
+
+    <!-- Barra de pesquisa -->
+    <div>
+        <form method="GET" action="search">
+            <select name="position_field">
+                <option value="senator">Senador</option>
+                <option value="federal-deputy">Deputado Federal</option>
+                <option value="state-deputy">Deputado Estadual</option>
+              </select>
+            <input type="search" name="name_field" placeholder="Nome">
+            <input type="submit" value="Buscar">
+        </form>
+    </div>
+
+    <!-- Lista com os cargos -->
+    <div>
+        <div>
+            <h2>Senadores</h2>
+            <a href="/politician-list/senator">Explorar</a>
+        </div>
+        <div>
+            <h2>Deputados Federais</h2>
+            <a href="/politician-list/federal-deputy">Explorar</a>
+        </div>
+        <div>
+            <h2>Deputados Estaduais</h2>
+            <a href="/politician-list/state-deputy">Explorar</a>
+        </div>
+    </div>
+{% endblock %}

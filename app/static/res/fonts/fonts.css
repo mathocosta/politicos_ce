@@ -1,0 +1,95 @@
+
+
+
+@font-face {
+    font-family: 'AsapBoldItalic';
+    src: url('fonts/AsapBoldItalic.eot');
+    src: url('fonts/AsapBoldItalic.eot') format('embedded-opentype'),
+         url('fonts/AsapBoldItalic.woff2') format('woff2'),
+         url('fonts/AsapBoldItalic.woff') format('woff'),
+         url('fonts/AsapBoldItalic.ttf') format('truetype'),
+         url('fonts/AsapBoldItalic.svg#AsapBoldItalic') format('svg');
+}
+
+
+@font-face {
+    font-family: 'AsapMediumItalic';
+    src: url('fonts/AsapMediumItalic.eot');
+    src: url('fonts/AsapMediumItalic.eot') format('embedded-opentype'),
+         url('fonts/AsapMediumItalic.woff2') format('woff2'),
+         url('fonts/AsapMediumItalic.woff') format('woff'),
+         url('fonts/AsapMediumItalic.ttf') format('truetype'),
+         url('fonts/AsapMediumItalic.svg#AsapMediumItalic') format('svg');
+}
+
+@font-face {
+    font-family: 'AsapRegular';
+    src: url('fonts/AsapRegular.eot');
+    src: url('fonts/AsapRegular.eot') format('embedded-opentype'),
+         url('fonts/AsapRegular.woff2') format('woff2'),
+         url('fonts/AsapRegular.woff') format('woff'),
+         url('fonts/AsapRegular.ttf') format('truetype'),
+         url('fonts/AsapRegular.svg#AsapRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'AsapItalic';
+    src: url('fonts/AsapItalic.eot');
+    src: url('fonts/AsapItalic.eot') format('embedded-opentype'),
+         url('fonts/AsapItalic.woff2') format('woff2'),
+         url('fonts/AsapItalic.woff') format('woff'),
+         url('fonts/AsapItalic.ttf') format('truetype'),
+         url('fonts/AsapItalic.svg#AsapItalic') format('svg');
+}
+
+@font-face {
+    font-family: 'AsapMedium';
+    src: url('fonts/AsapMedium.eot');
+    src: url('fonts/AsapMedium.eot') format('embedded-opentype'),
+         url('fonts/AsapMedium.woff2') format('woff2'),
+         url('fonts/AsapMedium.woff') format('woff'),
+         url('fonts/AsapMedium.ttf') format('truetype'),
+         url('fonts/AsapMedium.svg#AsapMedium') format('svg');
+}
+
+@font-face {
+    font-family: 'AsapBold';
+    src: url('fonts/AsapBold.eot');
+    src: url('fonts/AsapBold.eot') format('embedded-opentype'),
+         url('fonts/AsapBold.woff2') format('woff2'),
+         url('fonts/AsapBold.woff') format('woff'),
+         url('fonts/AsapBold.ttf') format('truetype'),
+         url('fonts/AsapBold.svg#AsapBold') format('svg');
+}
+
+@font-face {
+    font-family: 'AsapSemiBold';
+    src: url('fonts/AsapSemiBold.eot');
+    src: url('fonts/AsapSemiBold.eot') format('embedded-opentype'),
+         url('fonts/AsapSemiBold.woff2') format('woff2'),
+         url('fonts/AsapSemiBold.woff') format('woff'),
+         url('fonts/AsapSemiBold.ttf') format('truetype'),
+         url('fonts/AsapSemiBold.svg#AsapSemiBold') format('svg');
+}
+
+@font-face {
+    font-family: 'AsapSemiBoldItalic';
+    src: url('fonts/AsapSemiBoldItalic.eot');
+    src: url('fonts/AsapSemiBoldItalic.eot') format('embedded-opentype'),
+         url('fonts/AsapSemiBoldItalic.woff2') format('woff2'),
+         url('fonts/AsapSemiBoldItalic.woff') format('woff'),
+         url('fonts/AsapSemiBoldItalic.ttf') format('truetype'),
+         url('fonts/AsapSemiBoldItalic.svg#AsapSemiBoldItalic') format('svg');
+}
+
+@font-face {
+    font-family: 'AsapBoldItalic';
+    src: url('fonts/AsapBoldItalic.eot');
+    src: url('fonts/AsapBoldItalic.eot') format('embedded-opentype'),
+         url('fonts/AsapBoldItalic.woff2') format('woff2'),
+         url('fonts/AsapBoldItalic.woff') format('woff'),
+         url('fonts/AsapBoldItalic.ttf') format('truetype'),
+         url('fonts/AsapBoldItalic.svg#AsapBoldItalic') format('svg');
+}
+
+

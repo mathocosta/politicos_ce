@@ -24,10 +24,10 @@ def get_data_from_deputie(name):
 
     print(number_of_propositions)
 
-    result = {}
+    result = list()
 
     for i in range(0, number_of_propositions):
-        result[i] = {
+        result.append({
             'proposition_code': propositions[i].id.text,
             'proposition_name': propositions[i].nome.text,
             'type': propositions[i].tipoProposicao.sigla.text,
@@ -37,7 +37,7 @@ def get_data_from_deputie(name):
             'title': propositions[i].txtExplicacaoEmenta.text,
             'description': propositions[i].txtEmenta.text,
             'ongoing': propositions[i].situacao.descricao.text
-        }
+        })
 
     return result
 
