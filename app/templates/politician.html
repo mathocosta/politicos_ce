@@ -1,14 +1,300 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ politician_data.parliamentary_name }}</h1>
-    <h2>{{ position }}</h2>
-    <h2>{{ politician_data.party_siglum }}</h2>
-
-    {% for _, v in propositions.items() %}
-        <div>
-            <p>{{ v.type }} nº {{ v.proposition_number }}</p>
-            <p>{{ v.description }}</p>
+<div id="content">
+    <div class="header" id="header_especific_politic">
+        <div class="hamburger">
+            <div class="bar1 bar_p_especific"></div>
+            <div class="bar2 bar_p_especific"></div>
+            <div class="bar3 bar_p_especific"></div>
         </div>
-    {% endfor %}
+        <button class="btn noFill userBtn btn_p_especific">
+            <span id="userIcon" class="userIcon_p_especific">
+                <span>Login</span>
+            </span>
+        </button>
+    </div>
+    <div id="title_content">
+        <div id="title_content_1">
+            <img class="photo_politic photo_especific" src="{{ politician_data.photo_url }}">
+            <h1 id="name_politic_especific">{{ politician_data.parliamentary_name }}</h1>
+            <div id="details">Mais detalhes
+                <span></span>
+            </div>
+            <div id="info_basic">
+                <h3 id="cargo">{{ position }}</h3>
+                <h3 id="partido">{{ politician_data.party_siglum }}</h3>
+            </div>
+        </div>
+
+    </div>
+    <h2 class="project_prop_title">Projetos Propostos</h2>
+    <div class="project_prop">
+
+        <div class="project_prop_inner all_project_prop">
+            {% for p in propositions %}
+                <div class="especific_project_prop">
+                    <div class="prop_status">status</div>
+                    <h4 class="prop_type_n">
+                        <span class="prop_type">{{ p.type }}</span> n°
+                        <span class="prop_n">{{ p.proposition_number }}</span>
+                    </h4>
+
+                    <h3 class="prop_name">Nome do Projeto</h3>
+                    <p class="prop_desc">{{ p.description }}</p>
+                    <a href="#" class="prop_details">mais detalhes</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="box_status_type">
+        <div class="box_prop">
+            <h2 class="display_ib">Status das proposições</h2>
+            <select class="select_year select_year_prop_status" class="display_ib">
+            </select>
+            <div class='pie_chart'>75</div>
+        </div>
+
+        <div class="box_prop">
+            <h2 class="display_ib">Tipo de proposição</h2>
+            <select class="select_year" class="display_ib">
+                <option>2018</option>
+                <option>2017</option>
+                <option>2016</option>
+            </select>
+
+            <h3>Total:
+                <span id="total_prop"> 272</span>
+            </h3>
+            <div id="graph_prop_type">
+                <div id="pec" class="graph_colums"></div>
+                <div id="pl" class="graph_colums"></div>
+                <div id="rcp" class="graph_colums"></div>
+                <div id="rem" class="graph_colums"></div>
+                <div id="bk_graph">
+                    <div class="graph_lines"> 60
+                        <div class="lines"></div>
+                    </div>
+                    <div class="graph_lines"> 40
+                        <div class="lines"></div>
+                    </div>
+                    <div class="graph_lines"> 20
+                        <div class="lines"></div>
+                    </div>
+                    <div class="graph_lines"> 0
+                        <div class="lines"></div>
+                        <div class="colum_text">PEC</div>
+                        <div class="colum_text">PL</div>
+                        <div class="colum_text">RCP</div>
+                        <div class="colum_text">REM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h2 class="project_prop_title">Projetos Votados</h2>
+
+    <div id="prop_voted">
+
+        <input type="radio" name="tabs" class="tabs" id="tab1" checked>
+
+        <label for="tab1">
+            <div class="choice">
+                SIM
+            </div>
+            <div class="choice_detailed">
+                Propostas que o candidato concordou
+            </div>
+        </label>
+
+        <div class="content_yes">
+            <div class="project_voted">
+
+                <div class="project_prop_inner voted_yes">
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir</p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir</p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" class="tabs" id="tab2">
+        <label for="tab2">
+            <div class="choice">
+                NÃO
+            </div>
+            <div class="choice_detailed">
+                Propostas que o candidato foi conra
+            </div>
+        </label>
+        <div class="content_no">
+
+            <div class="project_voted">
+
+                <div class="project_prop_inner voted_no">
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir</p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">
+                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
+                        </p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" class="tabs" id="tab3">
+        <label for="tab3">
+            <div class="choice">
+                ABSTEVE
+            </div>
+            <div class="choice_detailed">
+                Propostas que o candidato não votou
+            </div>
+
+        </label>
+        <div class="content_abstain">
+            <div class="project_voted">
+                <div class="project_prop_inner voted_abstain">
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">
+                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
+                        </p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">
+                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
+                        </p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" class="tabs" id="tab4">
+        <label for="tab4">
+            <div class="choice">
+                SECRETO
+            </div>
+            <div class="choice_detailed">
+                Votações sem detalhes divulgados
+            </div>
+
+        </label>
+        <div class="content_secret">
+            <div class="project_voted">
+
+                <div class="project_prop_inner voted_secret">
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">
+                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
+                        </p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">
+                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
+                        </p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+
+                    <div class="especific_project_prop">
+                        <div class="prop_status">status</div>
+                        <h4 class="prop_type_n">
+                            <span class="prop_type">PEC</span> n°
+                            <span class="prop_n">120</span>
+                        </h4>
+
+                        <h3 class="prop_name">Nome do Projeto</h3>
+                        <p class="prop_desc">
+                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
+                        </p>
+                        <a href="#" class="prop_details">mais detalhes</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <select class="select_year select_year_project_voted" class="display_ib">
+            <option>2018</option>
+            <option>2017</option>
+            <option>2016</option>
+        </select>
+
+        <div id="line"></div>
+        <div id="holder"></div>
+    </div>
+
+    <div id="footer" class="footer_especific_politic"></div>
+</div>
 {% endblock %}

@@ -1,0 +1,719 @@
+@import "../res/fonts/fonts.css";
+
+
+/*GENERAL STYLE*/
+body{
+	margin:0;
+	width: 100%;
+	overflow-x: hidden;
+}
+#content{
+	margin: auto;
+	width: 1366px;
+	height: auto;
+}
+
+.btn {
+	font-family: AsapSemiBold;
+	font-size: 14px;
+	color : #00B8A9;
+	width : 87px;
+	height: 32.5px;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.noFill{
+	background-color: transparent;
+	border-width: 2px;
+	border-color: #00B8A9;
+	border-style: solid;
+
+}
+
+.fill{
+	border-style: none;
+	color : #ffffff;
+	background-color: #00B8A9;
+}
+
+h1{
+	font-family: AsapMedium;
+	font-size: 60px;
+	font-weight: normal;
+	color: #333333;
+	margin: 0;
+}
+h2{
+	font-family: AsapMedium;
+	font-size: 42px;
+	font-weight: normal;
+	color: #333333;
+}
+h3{
+	font-family: AsapMedium;
+	font-size: 18px;
+	font-weight: normal;
+	color: #333333;
+}
+h4{
+	font-family: AsapRegular;
+	font-size: 14px;
+	font-weight: normal;
+}
+p{
+	font: 18px AsapRegular;
+	color: #333333;
+}
+a{
+	font: 14px AsapRegular;
+	color: #5580E0;
+}
+button, select, input:focus{
+	outline: none;
+}
+
+.display_ib{
+	display: inline-block;
+}
+
+/*END GENERAL STYLE*/
+
+
+/*HEADER STYLE*/
+.header{
+	width: 1366px;
+	height: 100px;
+	background-color: transparent;
+}
+
+.hamburger{
+	display: inline-block;
+	position: relative;
+	width: 30px;
+	height: 32.5px;
+	padding: 44px 0 0 125px;
+	cursor: pointer;
+}
+.bar1, .bar2, .bar3 {
+    width: 30px;
+    height: 4px;
+    background-color: #00B8A9;
+    margin: 3px 0 6px;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 5px);
+    transform: rotate(-45deg) translate(-9px, 5px);
+    padding-left: 4px;
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+	padding-left: 4px;
+    -webkit-transform: rotate(45deg) translate(-9px, -5px);
+    transform: rotate(45deg) translate(-9px, -5px);
+}
+
+
+.userBtn{
+	display: inline-block;
+	float: right;
+	position: relative;
+	margin : 44px 125px 0 0;
+}
+
+#userIcon{
+
+	width: 17px;
+	height: 21px;
+	display: flex;
+	margin-left: 5px;
+	background-image: url(/static/res/icons/icon.svg);
+	background-repeat: no-repeat;
+}
+#userIcon span{
+	padding-left: 20px;
+	line-height: 20px;
+}
+
+/*END HEADER STYLE*/
+
+/*INFO 1 STYLE ------------------------------*/
+
+#info1{
+	height: 668px;
+
+	overflow: hidden;
+}
+#info1_part1{
+	padding : 80px 0 0 245px;
+}
+#info1 img{
+	position: absolute;
+	margin-top: -280px;
+	margin-left: 540px;
+	z-index: -999;
+}
+#title_info1{
+	color: #333333;
+	width: 700px;
+}
+#info1 h4{
+	color : #333333;
+	position: relative;
+}
+
+/*search style*/
+#select_item{
+	-webkit-appearance: none;  /* Remove estilo padrão do Chrome */
+	-moz-appearance: none; /* Remove estilo padrão do FireFox */
+	appearance: none; /* Remove estilo padrão do FireFox*/
+	border: none;
+	border-right: solid;
+	border-width: 2px;
+	border-color: #b2b2b2;
+	color: #333333;
+	background-color: #f9f9f9;
+	border-radius: 20px 0 0 20px ;
+	width: auto;
+	height: 40px;
+	font: 14px AsapRegular;
+	font-weight: normal;
+	padding: 0 20px;
+	background: url(/static/res/icons/dropdown_icon.svg) 95% / 15% no-repeat;
+	background-size: 8% auto;
+
+
+}
+
+#select_item option{
+	font: 14px AsapRegular;
+	font-weight: normal;
+}
+
+#search_bar{
+	-webkit-appearance: none;  /* Remove estilo padrão do Chrome */
+	-moz-appearance: none; /* Remove estilo padrão do FireFox */
+	appearance: none; /* Remove estilo padrão do FireFox*/
+	border: none;
+	width: 480px;
+	height: 40px;
+	border-radius:20px;
+	box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.15);
+}
+#search_input{
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font: 14px AsapRegular;
+	width: 212px;
+	border: none;
+	color: #333333;
+}
+
+#search_submit{
+	margin-right: 5px;
+    float: right;
+    margin-top: 4px;
+}
+#boxes{
+	text-align: center;
+	margin-top: 110px;
+}
+.explore_box{
+	display: inline-table;
+	background-color: #ffffff;
+	width: 240px;
+	height: 220px;
+	margin: 0 40px;
+	box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.15);
+	border-left: solid;
+	border-width: 4px;
+	border-color: #F8F3D4;
+
+	font: 35px AsapSemiBold;
+	color: #333333;
+	text-align: left;
+
+}
+.explore_box h3{
+	margin: 0 0 0 15px;
+	height: 105px;
+}
+#img_senadores{
+	margin: auto;
+	width: 210px;
+	height: 61px;
+	background: url(/static/res/icons/senadores_img.png) no-repeat;
+}
+.btn_explorar{
+	margin-left: 15px;
+}
+/*END INFO 1 STYLE---------------------------*/
+
+
+/*INFO 2 STYLE*/
+
+#info2{
+	width: 1366px;
+	height: 880px;
+	margin: auto;
+	background: url(/static/res/icons/mapa_ceara.png) 22% 20% no-repeat;
+}
+#info2_part1{
+	padding: 160px 0 0 500px;
+}
+#info2_part1 p{
+	text-align: justify;
+	width: 635px;
+}
+#title_info2{
+	font-size: 42px ;
+	margin: 0;
+	width: 550px;
+}
+#info_boxes{
+	text-align: center;
+	margin-top: 110px;
+}
+.info_box{
+	font-size: 42px !important;
+	width: 420px;
+	height: 400px;
+	display: inline-table;
+	margin: 0 30px;
+}
+
+.info_box h2{
+	text-align: left;
+}
+.info_box p{
+	text-align: justify;
+
+}
+
+#img_transparency, #img_bd{
+	display: inline-block;
+
+}
+
+#img_transparency{
+	background: url(/static/res/icons/transparente_icon.png) no-repeat;
+	width: 148px;
+	height: 150px;
+
+}
+#img_bd{
+	background: url(/static/res/icons/bd_icon.png) no-repeat;
+	width: 128px;
+	height: 150px;
+}
+
+/*END INFO 2 STYLE*/
+
+
+/*INFO 3 STYLE*/
+
+#info3{
+	width: 1366px;
+	height: 364px;
+	background-color: #FFDE7D;
+	margin-top: 120px;
+}
+#info3_part1{
+	padding: 30px 0 0 245px;
+}
+#info3_part1 p{
+	width: 390px;
+}
+#title_info3{
+	width: 440px;
+}
+
+/*END INFO 3 STYLE*/
+
+
+/*FOOTER STYLE*/
+
+#footer{
+	width: 1366px;
+	height: 215px;
+	background-color: #333333;
+
+}
+
+.footer_especific_politic{
+	margin-top: 140px;
+}
+/*END FOOTER STYLE*/
+
+
+
+
+/*PG POLITICOS STYLE*/
+#header_politicos{
+	background-color: #FFDE7D;
+}
+#top_content{
+	background-color: #FFDE7D;
+	width: 1366px;
+	height: auto;
+}
+#top_content_1{
+	display: inline-block;
+	padding : 80px 0 60px 245px;
+}
+#top_content_1 p{
+	font-size: 14px;
+	width: 630px;
+
+}
+#middle_content{
+	/*text-align: center;*/
+}
+#middle_content p{
+
+	color: #B2B2B2;
+	font-size: 14px;
+	margin: 10px 0 0 245px;
+	text-align: left;
+}
+
+#btn_saiba_mais{
+	float: right;
+	margin: 200px 125px 0 0;
+}
+
+#all_boxes{
+	margin: 50px 0 50px 220px;
+}
+.politic_box{
+
+	margin:25px;
+	display: inline-flex;
+	width: 250px;
+	height: 90px;
+	box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.15);
+	border-left: solid;
+	border-width: 4px;
+	border-color: #F8F3D4;
+}
+.photo_politic{
+	display: inline-block;
+	width: 90px;
+	height: 90px;
+}
+.name_politic{
+
+	display: inline-block;
+	font-size: 18px;
+}
+
+.name_politic,.p_siglum{
+	display: inline-block;
+	margin: 20px 0 0 18px;
+	/*margin-left: 18px;*/
+}
+
+
+/*END PG POLITICOS STYLE*/
+
+
+
+/*PG POLITICO ESPECIFICO STYLE*/
+#header_especific_politic{
+	background-color: #00B8A9;
+}
+#title_content{
+	background-color: #00B8A9;
+	width: 1366px;
+	height: auto;
+}
+#title_content_1{
+	display: inline-block;
+	padding : 50px 0 60px 245px;
+}
+
+.bar_p_especific{
+	background-color: #FFDE7D;
+}
+
+.btn_p_especific{
+	color : #FFDE7D;
+	border-color: #FFDE7D;
+}
+
+.userIcon_p_especific{
+	background-image: url(/static/res/icons/icon_y.svg) !important;
+}
+
+#details{
+	color: #333333;
+	font: 14px AsapSemiBold;
+
+}
+
+.photo_especific,#infos_basic,#title_content_1 h1, #details{
+	display: inline-block;
+}
+
+.photo_especific,#title_content_1 h1{
+	vertical-align: middle;
+}
+#title_content_1 h1, #details{
+	margin: 0 15px 0 15px;
+}
+#details{
+	cursor: pointer;
+	width: 115px;
+	vertical-align: bottom;
+	margin-bottom: 21px !important;
+	background: url(/static/res/icons/dropdown_icon.svg) 92% no-repeat;
+}
+#details:hover{
+	text-decoration: underline;
+}
+#partido{
+	font-family: AsapSemiBold;
+	color: #FFDE7D;
+}
+#info_basic{
+	margin-left: 115px;
+}
+#cargo,#partido{
+	margin:0;
+}
+.project_prop{
+	margin: 50px 0 50px 243px;
+	overflow: scroll;
+}
+
+.project_prop_title{
+	margin-left: 243px;
+}
+.project_prop_inner{
+	width: 2000px;
+}
+.especific_project_prop{
+	width: 335px;
+	height: 150px;
+	box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.15);
+	padding: 10px 0 0 25px;
+	margin: 0 12px 75px 1px;
+	display: inline-block;
+}
+.prop_type_n,.prop_name{
+	margin: 0;
+}
+.prop_desc{
+	font-size: 14px;
+	width: 300px;
+}
+
+.prop_status{
+
+	font: 14px AsapRegular;
+	width : 87px;
+	height: 22px;
+	border-radius: 20px;
+	background-color: transparent;
+	border-width: 2px;
+	color : #48E237;
+	border-color: #48E237;
+	border-style: solid;
+	text-align: center;
+	padding-top: 2px;
+	float: right;
+	margin-right: 25px;
+}
+
+
+#box_status_type{
+	text-align: center;
+}
+.box_prop{
+	width: 400px;
+	height: 300px;
+	margin: 50px 38px 50px 40px;
+	/*background-color: #F4E58C;*/
+	display: inline-table;
+}
+.box_prop h2{
+	font-size: 25px;
+	vertical-align: middle;
+}
+.box_prop h3{
+	text-align: left;
+	margin-left: 30px;
+	color: #B58CEA;
+}
+.select_year{
+	-webkit-appearance: none;  /* Remove estilo padrão do Chrome */
+	-moz-appearance: none; /* Remove estilo padrão do FireFox */
+	appearance: none; /* Remove estilo padrão do FireFox*/
+	border: none;
+	color: #333333;
+	width: 115px;
+	height: 30px;
+	font: 14px AsapSemiBold;
+	font-weight: normal;
+	padding: 0 30px;
+	margin: 20px 10px 0 0;
+	background: url(/static/res/icons/dropdown_icon.svg) 94% no-repeat;
+	box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.15);
+	float: right;
+}
+
+.pie_chart{
+	width: 200px;
+	height: 200px;
+	margin-top: 10px;
+}
+
+
+#graph_prop_type{
+	width:370px;
+	height: 180px;
+	position: relative;
+	margin-left: 30px;
+}
+.graph_colums{
+
+	background-color: #948BE8;
+	display: inline-block;
+	border-radius: 4px;
+	position: absolute;
+	bottom: 0;
+	z-index: 99;
+}
+#pec{
+	width: 55px;
+	height: 120px;
+	left:30px;
+}
+#pl{
+	width: 55px;
+	height: 120px;
+	left:115px;
+}
+#rcp{
+	width: 55px;
+	height: 120px;
+	left:200px;
+}
+#rem{
+	width: 55px;
+	height: 120px;
+	left:285px;
+}
+#bk_graph{
+	width: 370px;
+	height: 180px;
+	top: 0;
+	left: 0;
+	position: absolute;
+}
+.graph_lines{
+	font: 14px AsapMedium;
+	color: #B2B2B2;
+	width: 100%;
+	height: 56px;
+	text-align: left;
+}
+.lines {
+	width: 94%;
+	height: 1px;
+	background-color: #ECECEC;
+	float: right;
+	margin-top:10px;
+	z-index: -99;
+}
+.colum_text{
+	display: inline-block;
+	margin-left: 39px;
+	text-align: center;
+	width: 42px;
+}
+
+#prop_voted {
+	width: 880px;
+  position: relative;
+  height: 360px;
+  max-width: 98%;
+  margin: 0 auto;
+}
+
+#prop_voted:after {
+  content: '.';
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  visibility: none;
+}
+input.tabs {
+  display: none;
+}
+input.tabs + label {
+  line-height: 40px;
+  float: left;
+  font: 25px AsapMedium;
+  color: #333;
+  cursor: pointer;
+  transition: background ease-in-out .3s;
+  width:190px;
+  height: 80px;
+  padding: 20px 0 0 30px;
+  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.15);
+}
+.choice_detailed{
+	font: 14px AsapRegular;
+	color: #B2B2B2;
+	width: 140px;
+}
+input.tabs:checked + label {
+  color: #333;
+  background: #B0F28C;
+}
+input.tabs + label + div {
+  width: 1127px;
+  opacity: 0;
+  position: absolute;
+  /*background: #eee;*/
+  top: 200px;
+  left: 0;
+  height: 300px;
+  z-index: -1;
+  transition: opacity ease-in-out .3s;
+}
+input.tabs:checked + label + div {
+  opacity: 1;
+  z-index: 1000;
+}
+#holder{
+	margin-top: 110px;
+	width: 880px;
+	height: 300px;
+}
+
+#line{
+	position: absolute;
+	width: 1920px;
+	height: 3px;
+	top: 100px;
+	left: -500px;
+	background-color: #B0F28C;
+}
+
+.project_voted{
+	overflow: scroll;
+}
+
+.select_year_project_voted{
+	float: left;
+}
+
+/*END PG POLITICO ESPECIFICO STYLE*/

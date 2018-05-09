@@ -1,34 +1,100 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1>Políticos CE</h1>
-
-    <!-- Barra de pesquisa -->
-    <div>
-        <form method="GET" action="search">
-            <select name="position_field">
-                <option value="senator">Senador</option>
-                <option value="federal-deputy">Deputado Federal</option>
-                <option value="state-deputy">Deputado Estadual</option>
-              </select>
-            <input type="search" name="name_field" placeholder="Nome">
-            <input type="submit" value="Buscar">
-        </form>
+{% block content%}
+<div id="content">
+    <div class="header">
+        <div class="hamburger">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <button class="btn noFill userBtn">
+            <span id="userIcon">
+                <span>Login</span>
+            </span>
+        </button>
     </div>
 
-    <!-- Lista com os cargos -->
-    <div>
-        <div>
-            <h2>Senadores</h2>
-            <a href="/politician-list/senator">Explorar</a>
+    <div id="info1">
+        <div id="info1_part1">
+            <h1 id="title_info1">O que nossos políticos estão fazendo?</h1>
+            <h4>Acompanhe o trabalho dos seus eleitos do legislativo numa plataforma transparente e livre de influências</h4>
+
+            <div id="search_bar">
+                <form method="GET" action="search">
+                        <select id="select_item" name="position_field">
+                            <option value="senator">Senador</option>
+                            <option value="federal-deputy">Deputado Federal</option>
+                            <option value="state-deputy">Deputado Estadual</option>
+                        </select>
+                        <input id="search_input" type="text" name="name_field" placeholder="Nome">
+                        <input type="submit" value="Buscar" class="btn fill" id="search_submit">
+                </form>
+            </div>
+            <img src="/static/res/icons/brasil3.png">
         </div>
-        <div>
-            <h2>Deputados Federais</h2>
-            <a href="/politician-list/federal-deputy">Explorar</a>
-        </div>
-        <div>
-            <h2>Deputados Estaduais</h2>
-            <a href="/politician-list/state-deputy">Explorar</a>
+        <div id="boxes">
+            <div id="explore_box1" class="explore_box">
+                <div id="img_senadores"></div>
+                <h3>Senadores</h3>
+                <a href="/politician-list/senator">
+                    <button class="btn noFill btn_explorar">Explorar</button>
+                </a>
+            </div>
+            <div id="explore_box2" class="explore_box">
+                <div id="img_senadores"></div>
+                <h3>Deputados Federais</h3>
+                <a href="/politician-list/federal-deputy">
+                    <button class="btn noFill btn_explorar">Explorar</button>
+                </a>
+            </div>
+            <div id="explore_box3" class="explore_box">
+                <div id="img_senadores"></div>
+                <h3>Deputados Estaduais</h3>
+                <a href="/politician-list/state-deputy">
+                    <button class="btn noFill btn_explorar">Explorar</button>
+                </a>
+            </div>
         </div>
     </div>
+    <div id="info2">
+        <div id="info2_part1">
+            <h2 id="title_info2">Uma plataforma política sobre o legislativo cearence</h2>
+            <p>Pesquise, explore e entenda sobre o trabalho que está sendo realizado pelos políticos eleitos da esfera legislativa
+                do ceará e seu perﬁl, eles são responsáveis por elaborar as leis que regulam o Estado, a conduta dos cidadãos
+                e das organizações públicas e privadas. No Brasil, o Poder Legislativo é com posto pela Câmara dos Deputados
+                (que representa os cidadãos) e pelo Senado Federal (que representa os Estados e o Distrito Federal), formando
+                o Congresso Nacional, que se localiza em Brasília. </p>
+        </div>
+        <div id="info_boxes">
+            <div class="info_box">
+                <h2>Transparente e livre de influências</h2>
+                <p>Esta plataforma foi contruida para ﬁns acadêmicos por alunos da Universidade Federal do Ceará Ceará, portando,
+                    se caracteriza totalmente apartidária</p>
+                <div id="img_transparency"></div>
+            </div>
+            <div class="info_box">
+                <h2>Mantida com dados oficiais do governo</h2>
+                <p>
+                    Todas as informações foram extraídas da base de dados dos governos federal e estadual, foram usados os bancos:
+                </p>
+                <div id="img_bd"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="info3">
+        <div id="info3_part1">
+            <h2 id="title_info3">Entenda melhor sobre o poder legislativo</h2>
+            <p>
+                Compreenda as diferenças entre os poderes e quais as principais funções, direitos e obrigações que nossospolíticos têm
+            </p>
+            <a href="#">
+                <button class="btn fill">Saiba mais</button>
+            </a>
+        </div>
+    </div>
+    <div id="footer">
+    </div>
+</div>
 {% endblock %}

@@ -68,7 +68,6 @@ def show_politician_page(politician_id):
     elif politician_data.position == 'state-deputy':
         position = 'Deputado Estadual'
 
-    print(propositions)
     return render_template(
         "politician.html", politician_data=politician_data,
-        position=position, propositions=propositions)
+        position=position, propositions=propositions[:5])
