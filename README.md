@@ -8,7 +8,7 @@
 ## Como executar
 ### Instale as dependências:
 ```console
-$ pip install -r requeriments.txt
+$ pip install -r requirements.txt
 ```
 
 ### Prepare o ambiente
