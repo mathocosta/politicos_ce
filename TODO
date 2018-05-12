@@ -21,4 +21,4 @@ Aplicação:
     ☐ No `views.py`, colocar para verificar se o `name_field` está vazio.
     ☐ Na página de listagem dos políticos, colocar para listar em ordem alfabética.
 
-    ☐ Reescrever o `README.md`
+    ✔ Reescrever o `README.md` @done(18-05-12 14:33)

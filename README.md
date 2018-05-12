@@ -12,7 +12,7 @@ $ pip install -r requeriments.txt
 ```
 
 ### Prepare o ambiente
-Basicamente copie o arquivo `contrib/.env.sample` para o root, renomeie para `.env` e coloque as configurações solicitadas.
+Basicamente copie o arquivo `contrib/.env.sample` para a raiz do projeto, renomeie para `.env` e coloque as configurações solicitadas.
 
 ### Crie a estrutura básica do banco:
 ```console
@@ -33,23 +33,30 @@ Agora vá para [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 ## Estrutura do projeto
 ```
-nome_do_projeto
+politicos_ce
     /app
         /__init__.py
-        /module_one
-            /__init__.py
-            ...
         /templates
-            /404.html
-            /module_one
+            /base.html
+            /index.html
+            /politician_list.html
+            /politician.html
         /static
-            /style.css
-            /scripts.js
+            /css
+            /js
+            /libs
+            /res
     /data_capture
-    /migrations             # Obs.: Gerada automáticamente
+        /federal_senate
+        /federal_deputies
+        /state_deputies
+    /migrations             # Gerada automáticamente
+    /whoosh                 # Gerada automáticamente
+    seed.py
     manage.py
     setup.cfg
-    requeriments.txt
+    enviroment.yml
+    requirements.txt
     README.md
     .gitignore
 ```
