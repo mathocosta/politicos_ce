@@ -64,7 +64,7 @@ def show_politician_page(politician_id):
         propositions = get_data_from_senator(politician_data.registered_id)
     elif politician_data.position == 'federal-deputy':
         position = 'Deputado Federal'
-        propositions = get_data_from_deputie(politician_data.registered_id)
+        propositions = get_data_from_deputie(politician_data.parliamentary_name)
     elif politician_data.position == 'state-deputy':
         position = 'Deputado Estadual'
 

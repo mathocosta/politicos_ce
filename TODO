@@ -20,7 +20,7 @@ Captação dos Dados:
     É preciso colocar um filtro para pegar somente as proposições dos tipos que são desejados.
 
 Aplicação:
-    ☐ @bug na página de político específico
+    ✔ @bug na página de político específico @done(18-05-16 18:29)
     Na página dos deputados federais não está funcionando aparecer as proposições.
     ☐ No `views.py`, colocar para verificar se o `name_field` está vazio.
     ☐ No página de político específico, não pode aparecer a parte das proposições dos dep. estaduais
