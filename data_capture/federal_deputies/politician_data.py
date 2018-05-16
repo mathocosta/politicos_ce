@@ -20,8 +20,8 @@ def get_data_from_deputie(id):
 
     return {
         'registered_id': dados.id.text,
-        'civil_name': dados.nomeCivil.text,
-        'parliamentary_name': dados.ultimoStatus.nomeEleitoral.text,
+        'civil_name': dados.nomeCivil.text.title(),
+        'parliamentary_name': dados.ultimoStatus.nomeEleitoral.text.title(),
         'party': dados.ultimoStatus.siglaPartido.text,
         'hometown': dados.municipioNascimento.text,
         'scholarity': dados.escolaridade.text,
