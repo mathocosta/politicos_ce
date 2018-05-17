@@ -34,15 +34,15 @@
         <div class="project_prop_inner all_project_prop">
             {% for p in propositions %}
                 <div class="especific_project_prop">
-                    <div class="prop_status">status</div>
+                    <div class="prop_status">{{ p.status }}</div>
                     <h4 class="prop_type_n">
-                        <span class="prop_type">{{ p.type }}</span> n°
-                        <span class="prop_n">{{ p.proposition_number }}</span>
+                        <span class="prop_type">{{ p.siglum }}</span> n°
+                        <span class="prop_n">{{ p.number }}</span>
                     </h4>
 
                     <h3 class="prop_name">Nome do Projeto</h3>
                     <p class="prop_desc">{{ p.description }}</p>
-                    <a href="#" class="prop_details">mais detalhes</a>
+                    <a href="{{ p.url }}" class="prop_details">mais detalhes</a>
                 </div>
             {% endfor %}
         </div>
@@ -114,18 +114,6 @@
             <div class="project_voted">
 
                 <div class="project_prop_inner voted_yes">
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
-
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir</p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
-
                     <div class="especific_project_prop">
                         <div class="prop_status">status</div>
                         <h4 class="prop_type_n">

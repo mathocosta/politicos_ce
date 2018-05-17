@@ -8,7 +8,7 @@ Captação dos Dados:
     ☐ @bug no histórico de candidaturas dos senadores
     Nessa parte não pega tá pegando os dados de um dos senadores, mas é por causa que o nome dele tá escrito sem acento na API dos políticos, enquanto na do Senado tá com acento. A forma como foi implementado faz que seja pego os dados somente dos que estão em exercício, que não necessáriamente são os eleitos (podem ser substituídos por suplentes). As formas de ajeitar isso é: deixar assim, ou captar os dados dos senadores eleitos e seus respectivos suplentes.
     ☐ Descobrir alguma forma que não seja extremamente trabalhosa de recuperar todos os votos de um deputado federal
-    ☐ Conseguir pegar o link da página das propostas dos dep. federais. @high
+    ✔ Conseguir pegar o link da página das propostas dos dep. federais. @high @done(18-05-17 19:56)
     Na lista das propostas, em cada uma há a <uri> que são os dados detalhados da proposta. Nesses dados há a <url> que leva a um pdf com a proposta na integra.
     ✔ Ajeitar a caixa dos nomes dos dep. federais. @done(18-05-12 17:50)
     ☐ Reescrever o `seed.py`
@@ -18,6 +18,9 @@ Captação dos Dados:
     Eu não achei os nomes intuitivos, em alguns o title é maior que o description, e o nome não é o nome da proposição e sim o tipo dela de forma escrita.
     ☐ Colocar um filtro nas proposições
     É preciso colocar um filtro para pegar somente as proposições dos tipos que são desejados.
+    ☐ Ajeitar os dados pegos nas votações dos senadores
+    Não tá pegando o que aparece na página, que é a ementa da matéria. Por isso precisa colocar para pegar nos textos.
+    Exemplo: http://legis.senado.leg.br/dadosabertos/materia/textos/110428
 
 Aplicação:
     ✔ @bug na página de político específico @done(18-05-16 18:29)
