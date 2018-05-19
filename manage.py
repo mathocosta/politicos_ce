@@ -7,7 +7,7 @@ from seed import seed_database
 
 manager = Manager(app)
 
-manager.add_command("runserver", Server())
+manager.add_command("runserver", Server(threaded=True))
 manager.add_command("shell", Shell())
 manager.add_command("db", MigrateCommand)
 
