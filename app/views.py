@@ -4,6 +4,7 @@ Obs.: Todas as consultas com o banco de dados retornam instâncians de objetos
 da entidade específica, que está modelada no `models.py`.
 """
 from flask import render_template, request
+from werkzeug.contrib.cache import SimpleCache
 
 from app import app, db
 from app.models import Politician
@@ -13,6 +14,8 @@ from data_capture.federal_senate.fetch_proposed import \
     get_data_from_senator as get_props_from_senator
 from data_capture.federal_senate.fetch_voted_propositions import \
     get_data_from_senator as get_votes_from_senator
+
+c = SimpleCache()
 
 
 @app.route('/')
@@ -57,6 +60,17 @@ def show_politician_list(position):
         'politician_list.html', title=title, politicians=politicians)
 
 
+def get_senator_data(id, registered_id):
+    propositions_key = "{}-propositions".format(id)
+    propositions = c.get(propositions_key)
+
+    if propositions is None:
+        propositions = get_props_from_senator(registered_id)
+        c.set(propositions_key, propositions, timeout=86400)
+
+    return propositions
+
+
 @app.route('/politician/<int:politician_id>')
 def show_politician_page(politician_id):
     politician_data = Politician.query.get_or_404(politician_id)
@@ -66,8 +80,9 @@ def show_politician_page(politician_id):
 
     if politician_data.position == 'senator':
         position = 'Senador'
-        propositions = get_props_from_senator(politician_data.registered_id)
-        votes = get_votes_from_senator(politician_data.registered_id)
+        propositions = get_senator_data(
+            politician_id, politician_data.registered_id)
+        # votes = get_votes_from_senator(politician_data.registered_id)
     elif politician_data.position == 'federal-deputy':
         position = 'Deputado Federal'
         propositions = get_props_from_deputie(
