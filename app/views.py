@@ -7,8 +7,12 @@ from flask import render_template, request
 
 from app import app, db
 from app.models import Politician
-from data_capture.federal_deputies.fetch_proposed import get_data_from_deputie
-from data_capture.federal_senate.fetch_proposed import get_data_from_senator
+from data_capture.federal_deputies.fetch_proposed import \
+    get_data_from_deputie as get_props_from_deputie
+from data_capture.federal_senate.fetch_proposed import \
+    get_data_from_senator as get_props_from_senator
+from data_capture.federal_senate.fetch_voted_propositions import \
+    get_data_from_senator as get_votes_from_senator
 
 
 @app.route('/')
@@ -58,16 +62,19 @@ def show_politician_page(politician_id):
     politician_data = Politician.query.get_or_404(politician_id)
     position = ""
     propositions = list()
+    votes = list()
 
     if politician_data.position == 'senator':
         position = 'Senador'
-        propositions = get_data_from_senator(politician_data.registered_id)
+        propositions = get_props_from_senator(politician_data.registered_id)
+        votes = get_votes_from_senator(politician_data.registered_id)
     elif politician_data.position == 'federal-deputy':
         position = 'Deputado Federal'
-        propositions = get_data_from_deputie(politician_data.parliamentary_name)
+        propositions = get_props_from_deputie(
+            politician_data.parliamentary_name)
     elif politician_data.position == 'state-deputy':
         position = 'Deputado Estadual'
 
     return render_template(
         "politician.html", politician_data=politician_data,
-        position=position, propositions=propositions[:5])
+        position=position, propositions=propositions[:5], votes=votes)

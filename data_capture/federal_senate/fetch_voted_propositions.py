@@ -8,12 +8,30 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def get_individual_proposition(id):
+    r = requests.get(
+        "http://legis.senado.leg.br/dadosabertos/materia/{}".format(id))
+    soup = BeautifulSoup(r.content, 'xml')
+    materia = soup.Materia
+
+    type_description = materia.IdentificacaoMateria.DescricaoSubtipoMateria.text
+
+    return {
+        'description': materia.DadosBasicosMateria.EmentaMateria.text,
+        'siglum': materia.IdentificacaoMateria.SiglaSubtipoMateria.text,
+        'number': materia.IdentificacaoMateria.NumeroMateria.text,
+        'year': materia.IdentificacaoMateria.AnoMateria.text,
+        'type_description': type_description
+    }
+
+
 def get_data_from_senator(id):
 
-    print('Obtendo os dados do senador...')
-
+    print("Obtendo votações do senador ".format(id))
+    payload = {'sigla': 'pec'}
     r = requests.get(
-        "http://legis.senado.leg.br/dadosabertos/senador/{0}/votacoes".format(id))
+        "http://legis.senado.leg.br/dadosabertos/senador/{0}/votacoes".format(
+            id), params=payload)
 
     soup = BeautifulSoup(r.content, 'xml')
 
@@ -21,18 +39,36 @@ def get_data_from_senator(id):
 
     number_of_polls = len(polls) - 1
 
-    print(number_of_polls)
-
-    result = {}
+    all_votes = {
+        'yes': list(),
+        'no': list(),
+        'abstention': list(),
+        'secret': list()
+    }
 
     for i in range(0, number_of_polls):
-        result[i] = {
+        votation_data = {
             'session_code': polls[i].CodigoSessao.text,
             'votation_title': polls[i].DescricaoVotacao.text,
+            'secret_poll': polls[i].IndicadorVotacaoSecreta.text,
+            'result': polls[i].DescricaoResultado.text,
             'vote': polls[i].DescricaoVoto.text
         }
+        votation_data.update(get_individual_proposition(
+            polls[i].IdentificacaoMateria.CodigoMateria.text))
 
-    return result
+        if polls[i].IndicadorVotacaoSecreta.text == 'Sim':
+            all_votes['secret'].append(votation_data)
+        else:
+            voto = polls[i].DescricaoVoto.text
+            if voto == 'Sim':
+                all_votes['yes'].append(votation_data)
+            elif voto == 'Não':
+                all_votes['no'].append(votation_data)
+            else:
+                all_votes['abstention'].append(votation_data)
+
+    return all_votes
 
 
 def main():

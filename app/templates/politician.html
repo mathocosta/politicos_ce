@@ -114,17 +114,19 @@
             <div class="project_voted">
 
                 <div class="project_prop_inner voted_yes">
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
+                    {% for v in votes['yes'][:5] %}
+                        <div class="especific_project_prop">
+                            <div class="prop_status">{{ v.result }}</div>
+                            <h4 class="prop_type_n">
+                                <span class="prop_type">{{ v.siglum }}</span> n°
+                                <span class="prop_n">{{ v.number }}</span>
+                            </h4>
 
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir</p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
+                            <h3 class="prop_name">Nome do Projeto</h3>
+                            <p class="prop_desc">{{ v.description }}</p>
+                            <a href="#" class="prop_details">mais detalhes</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -134,7 +136,7 @@
                 NÃO
             </div>
             <div class="choice_detailed">
-                Propostas que o candidato foi conra
+                Propostas que o candidato foi contra
             </div>
         </label>
         <div class="content_no">
@@ -142,31 +144,19 @@
             <div class="project_voted">
 
                 <div class="project_prop_inner voted_no">
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
+                    {% for v in votes['no'][:5] %}
+                        <div class="especific_project_prop">
+                            <div class="prop_status">{{ v.result }}</div>
+                            <h4 class="prop_type_n">
+                                <span class="prop_type">{{ v.siglum }}</span> n°
+                                <span class="prop_n">{{ v.number }}</span>
+                            </h4>
 
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir</p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
-
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
-
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">
-                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
-                        </p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
+                            <h3 class="prop_name">Nome do Projeto</h3>
+                            <p class="prop_desc">{{ v.description }}</p>
+                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -176,40 +166,26 @@
                 ABSTEVE
             </div>
             <div class="choice_detailed">
-                Propostas que o candidato não votou
+                Propostas que o político não votou
             </div>
 
         </label>
         <div class="content_abstain">
             <div class="project_voted">
                 <div class="project_prop_inner voted_abstain">
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
+                    {% for v in votes['abstention'][:5] %}
+                        <div class="especific_project_prop">
+                            <div class="prop_status">{{ v.result }}</div>
+                            <h4 class="prop_type_n">
+                                <span class="prop_type">{{ v.siglum }}</span> n°
+                                <span class="prop_n">{{ v.number }}</span>
+                            </h4>
 
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">
-                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
-                        </p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
-
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
-
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">
-                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
-                        </p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
+                            <h3 class="prop_name">Nome do Projeto</h3>
+                            <p class="prop_desc">{{ v.description }}</p>
+                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -227,47 +203,19 @@
             <div class="project_voted">
 
                 <div class="project_prop_inner voted_secret">
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
+                    {% for v in votes['secret'][:5] %}
+                        <div class="especific_project_prop">
+                            <div class="prop_status">{{ v.result }}</div>
+                            <h4 class="prop_type_n">
+                                <span class="prop_type">{{ v.siglum }}</span> n°
+                                <span class="prop_n">{{ v.number }}</span>
+                            </h4>
 
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">
-                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
-                        </p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
-
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
-
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">
-                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
-                        </p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
-
-                    <div class="especific_project_prop">
-                        <div class="prop_status">status</div>
-                        <h4 class="prop_type_n">
-                            <span class="prop_type">PEC</span> n°
-                            <span class="prop_n">120</span>
-                        </h4>
-
-                        <h3 class="prop_name">Nome do Projeto</h3>
-                        <p class="prop_desc">
-                            Pequena descrição do projeto, um resumo ou as primeiras linhas dele, coloca o que for mais fácil de conseguir
-                        </p>
-                        <a href="#" class="prop_details">mais detalhes</a>
-                    </div>
+                            <h3 class="prop_name">Nome do Projeto</h3>
+                            <p class="prop_desc">{{ v.description }}</p>
+                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 
