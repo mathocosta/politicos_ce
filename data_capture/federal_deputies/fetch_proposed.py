@@ -10,6 +10,14 @@ from bs4 import BeautifulSoup
 
 HEAD_OPTIONS = {'accept': 'application/xml'}
 
+def make_excerpt(text):
+    excerpt = text
+
+    if (len(text) > 110):
+        excerpt = text[:110]
+        excerpt += '...'
+
+    return excerpt
 
 def get_individual_proposition(id):
     # Antiga API
@@ -54,12 +62,13 @@ def get_data_from_deputie(name):
 
     for i in range(0, number_of_propositions):
         prop = get_individual_proposition(propositions[i].id.text)
+        description = make_excerpt(propositions[i].ementa.text)
 
         result.append({
             'id': propositions[i].id.text,
             'siglum': propositions[i].siglaTipo.text,
             'number': propositions[i].numero.text,
-            'description': propositions[i].ementa.text,
+            'description': description,
             'year': propositions[i].ano.text,
             'status': prop['status'],
             'url': prop['url']
