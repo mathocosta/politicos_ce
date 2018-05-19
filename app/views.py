@@ -62,7 +62,7 @@ def show_politician_page(politician_id):
     politician_data = Politician.query.get_or_404(politician_id)
     position = ""
     propositions = list()
-    votes = list()
+    votes = dict.fromkeys(['yes', 'no', 'abstention', 'secret'], list())
 
     if politician_data.position == 'senator':
         position = 'Senador'
