@@ -7,6 +7,8 @@ dados desejados dos senadores cearenses.
 import requests
 from bs4 import BeautifulSoup
 
+from data_capture.federal_senate.helpers import make_excerpt
+
 
 def get_individual_proposition(id):
     r = requests.get(
@@ -15,9 +17,10 @@ def get_individual_proposition(id):
     materia = soup.Materia
 
     type_description = materia.IdentificacaoMateria.DescricaoSubtipoMateria.text
+    description = make_excerpt(materia.DadosBasicosMateria.EmentaMateria.text)
 
     return {
-        'description': materia.DadosBasicosMateria.EmentaMateria.text,
+        'description': description,
         'siglum': materia.IdentificacaoMateria.SiglaSubtipoMateria.text,
         'number': materia.IdentificacaoMateria.NumeroMateria.text,
         'year': materia.IdentificacaoMateria.AnoMateria.text,

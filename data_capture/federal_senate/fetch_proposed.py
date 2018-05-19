@@ -7,22 +7,8 @@ dados desejados dos senadores cearenses.
 import requests
 from bs4 import BeautifulSoup
 
-
-def get_proposition_url(id):
-    r = requests.get(
-        "http://legis.senado.leg.br/dadosabertos/materia/textos/{}".format(id))
-
-    soup = BeautifulSoup(r.content, 'xml')
-    texts = soup.Materia.Textos.find_all("Texto")
-
-    url = ""
-
-    for t in texts:
-        if t.DescricaoTipoTexto.text == 'Projeto de Lei':
-            url = t.UrlTexto.text
-            break
-
-    return url
+from data_capture.federal_senate.helpers import (get_proposition_url,
+                                                 make_excerpt)
 
 
 def get_props_by_type(id, prop_type):
@@ -40,7 +26,7 @@ def get_props_by_type(id, prop_type):
     Returns:
         list: Proposições desse tipo.
     """
-    print('Obtendo os dados do senador...')
+    print("Obtendo os dados do senador para {}".format(prop_type))
 
     payload = {'sigla': prop_type}
 
@@ -57,7 +43,9 @@ def get_props_by_type(id, prop_type):
     result = list()
 
     for i in range(0, number_of_propositions):
-        url = get_proposition_url(propositions[i].CodigoMateria.text)
+        url = get_proposition_url(propositions[i].CodigoMateria.text,
+                                  propositions[i].DescricaoSubtipoMateria.text)
+        description = make_excerpt(propositions[i].EmentaMateria.text)
 
         result.append({
             'proposition_code': propositions[i].CodigoMateria.text,
@@ -66,11 +54,12 @@ def get_props_by_type(id, prop_type):
             'year': propositions[i].AnoMateria.text,
             'status': propositions[i].IndicadorTramitando.text,
             'original_author': propositions[i].IndicadorAutorPrincipal.text,
-            'description': propositions[i].EmentaMateria.text,
+            'description': description,
             'url': url
         })
 
     return result
+
 
 def get_data_from_senator(id):
     result = list()
@@ -78,6 +67,7 @@ def get_data_from_senator(id):
     result.extend(get_props_by_type(id, 'pec'))
 
     return result
+
 
 def main():
     print(get_data_from_senator(3396))
