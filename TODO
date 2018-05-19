@@ -18,9 +18,13 @@ Captação dos Dados:
     Eu não achei os nomes intuitivos, em alguns o title é maior que o description, e o nome não é o nome da proposição e sim o tipo dela de forma escrita.
     ☐ Colocar um filtro nas proposições
     É preciso colocar um filtro para pegar somente as proposições dos tipos que são desejados.
-    ☐ Ajeitar os dados pegos nas votações dos senadores
+    ✔ Ajeitar os dados pegos nas votações dos senadores @done(18-05-19 15:28)
     Não tá pegando o que aparece na página, que é a ementa da matéria. Por isso precisa colocar para pegar nos textos.
     Exemplo: http://legis.senado.leg.br/dadosabertos/materia/textos/110428
+    ✔ @bug para pegar o link dos documentos das proposições votadas dos senadores @done(18-05-19 15:47)
+    O código é exatamente igual ao que pega as proposições do senador, mas por algum motivo,
+    dá um erro NoneType não tem find_all, coisa assim. Só que rodando o arquivo separadamente funciona
+    perfeitamente.
 
 Aplicação:
     ✔ @bug na página de político específico @done(18-05-16 18:29)
@@ -30,3 +34,5 @@ Aplicação:
     ☐ Na página de listagem dos políticos, colocar para listar em ordem alfabética.
 
     ✔ Reescrever o `README.md` @done(18-05-12 14:33)
+    ☐ Outro Reescrever o `REAME.md`
+    Colocar as informações do projeto (o que é, o que se propõe, equipe etc.)

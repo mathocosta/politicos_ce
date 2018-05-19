@@ -15,19 +15,21 @@ def get_proposition_url(id, type_description):
     Returns:
         str: URL do documento
     """
-
+    print("id: {0} type: {1}".format(id, type_description))
     r = requests.get(
         "http://legis.senado.leg.br/dadosabertos/materia/textos/{}".format(id))
 
     soup = BeautifulSoup(r.content, 'xml')
-    texts = soup.Materia.Textos.find_all("Texto")
 
     url = ''
 
-    for t in texts:
-        if t.DescricaoTipoTexto.text.upper() in type_description.upper():
-            url = t.UrlTexto.text
-            break
+    if soup.Materia.Textos is not None:
+        texts = soup.Materia.Textos.find_all("Texto")
+
+        for t in texts:
+            if t.DescricaoTipoTexto.text.upper() in type_description.upper():
+                url = t.UrlTexto.text
+                break
 
     return url
 

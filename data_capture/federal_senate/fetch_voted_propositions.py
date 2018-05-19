@@ -7,7 +7,8 @@ dados desejados dos senadores cearenses.
 import requests
 from bs4 import BeautifulSoup
 
-from data_capture.federal_senate.helpers import make_excerpt
+from data_capture.federal_senate.helpers import (get_proposition_url,
+                                                 make_excerpt)
 
 
 def get_individual_proposition(id):
@@ -18,19 +19,21 @@ def get_individual_proposition(id):
 
     type_description = materia.IdentificacaoMateria.DescricaoSubtipoMateria.text
     description = make_excerpt(materia.DadosBasicosMateria.EmentaMateria.text)
+    url = get_proposition_url(id, type_description)
 
     return {
         'description': description,
         'siglum': materia.IdentificacaoMateria.SiglaSubtipoMateria.text,
         'number': materia.IdentificacaoMateria.NumeroMateria.text,
         'year': materia.IdentificacaoMateria.AnoMateria.text,
-        'type_description': type_description
+        'type_description': type_description,
+        'url': url
     }
 
 
 def get_data_from_senator(id):
 
-    print("Obtendo votações do senador ".format(id))
+    print("Obtendo votações do senador {}".format(id))
     payload = {'sigla': 'pec'}
     r = requests.get(
         "http://legis.senado.leg.br/dadosabertos/senador/{0}/votacoes".format(
