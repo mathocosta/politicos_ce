@@ -81,6 +81,7 @@ class ShowPoliticianPage(View):
                                votes=self.votes)
 
     def fetch_external_data(self):
+        politician_id = self.politician_data.id
         registered_id = self.politician_data.registered_id
         propositions = list()
         votes = dict.fromkeys(
@@ -89,22 +90,22 @@ class ShowPoliticianPage(View):
         if self.politician_data.position == 'senator':
             self.position = 'Senador'
             propositions = self._fetch_propositions(
-                registered_id, get_props_from_senator)
+                politician_id, registered_id, get_props_from_senator)
             votes = self._fetch_votes(
-                registered_id, get_votes_from_senator)
+                politician_id, registered_id, get_votes_from_senator)
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
             # FIXME: Remover isso, é pq nao pode (ainda) o id do deputado.
             registered_id = self.politician_data.parliamentary_name
             propositions = self._fetch_propositions(
-                registered_id, get_props_from_deputie)
+                politician_id, registered_id, get_props_from_deputie)
         elif self.politician_data.position == 'state-deputy':
             self.position = 'Deputado Estadual'
 
         return propositions, votes
 
-    def _fetch_propositions(self, registered_id, callback):
-        propositions_key = "{}-propositions".format(id)
+    def _fetch_propositions(self, politician_id, registered_id, callback):
+        propositions_key = "{}-propositions".format(politician_id)
         propositions = c.get(propositions_key)
 
         if propositions is None:
@@ -114,8 +115,8 @@ class ShowPoliticianPage(View):
 
         return propositions
 
-    def _fetch_votes(self, registered_id, callback):
-        votes_key = "{}-votes".format(id)
+    def _fetch_votes(self, politician_id, registered_id, callback):
+        votes_key = "{}-votes".format(politician_id)
         votes = c.get(votes_key)
 
         if votes is None:
