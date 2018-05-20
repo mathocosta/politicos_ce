@@ -4,7 +4,7 @@ Obs.: Todas as consultas com o banco de dados retornam instâncians de objetos
 da entidade específica, que está modelada no `models.py`.
 """
 import pandas as pd
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from flask.views import View, MethodView
 from werkzeug.contrib.cache import SimpleCache
 
@@ -124,7 +124,11 @@ class ShowPoliticianPage(View):
             votes = df.to_dict('records')
             c.set(votes_key, votes)
 
-        filtered_votes = self._votes_filter(pd.DataFrame(votes))
+        if len(votes) > 1:
+            filtered_votes = self._votes_filter(pd.DataFrame(votes))
+        else:
+            filtered_votes = dict.fromkeys(
+                ['yes', 'no', 'abstention', 'secret'], list())
 
         return filtered_votes
 
@@ -148,3 +152,55 @@ class ShowPoliticianPage(View):
 
 app.add_url_rule('/politician/<int:politician_id>',
                  view_func=ShowPoliticianPage.as_view('show_politician_page'))
+
+# INDIVIDUAL POLITICIAN PAGE API
+class PoliticianPageAPI(MethodView):
+    def get(self):
+        politician_id = request.args.get('id', None)
+
+        if not politician_id:
+            return
+
+        graph = request.args.get('graph', 1)
+
+        self.politician_data = Politician.query.get_or_404(politician_id)
+
+        if graph == 1:
+            return self._props_status_number()
+        else:
+            return self._props_types_number()
+
+    def _props_status_number(self):
+        position = self.politician_data.position
+        props_df = None
+
+        if position == 'senator':
+            props_df = self._fetch_propositions(get_props_from_senator)
+        elif position == 'federal-deputy':
+            props_df = self._fetch_propositions(get_props_from_deputie)
+
+        return jsonify(props_df.status.value_counts().to_dict())
+
+    def _props_types_number(self):
+        position = self.politician_data.position
+        props_df = None
+
+        if position == 'senator':
+            props_df = self._fetch_propositions(get_props_from_senator)
+        elif position == 'federal-deputy':
+            props_df = self._fetch_propositions(get_props_from_deputie)
+
+        return jsonify(props_df.siglum.value_counts().to_dict())
+
+    def _fetch_propositions(self, callback):
+        propositions_key = "{}-propositions".format(self.politician_data.id)
+        propositions = c.get(propositions_key)
+
+        df = pd.DataFrame(propositions)
+
+        return df
+
+
+politician_page_api = PoliticianPageAPI.as_view('politician_page_api')
+app.add_url_rule('/politician/api/',
+                 view_func=politician_page_api, methods=['GET'])
