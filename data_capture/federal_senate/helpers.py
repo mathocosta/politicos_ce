@@ -15,7 +15,7 @@ def get_proposition_url(id, type_description):
     Returns:
         str: URL do documento
     """
-    print("id: {0} type: {1}".format(id, type_description))
+    # print("id: {0} type: {1}".format(id, type_description))
     r = requests.get(
         "http://legis.senado.leg.br/dadosabertos/materia/textos/{}".format(id))
 

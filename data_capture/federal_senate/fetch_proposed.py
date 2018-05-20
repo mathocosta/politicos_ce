@@ -4,6 +4,7 @@ Os dados são obtidos da API do Senado, e filtrados para obter os
 dados desejados dos senadores cearenses.
 """
 
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
@@ -28,7 +29,7 @@ def get_props_by_type(id, prop_type):
     """
     print("Obtendo os dados do senador para {}".format(prop_type))
 
-    payload = {'sigla': prop_type}
+    payload = {'sigla': prop_type, 'ano': 2018}
 
     r = requests.get(
         "http://legis.senado.gov.br/dadosabertos/senador/{0}/autorias".format(
@@ -66,7 +67,9 @@ def get_data_from_senator(id):
     result.extend(get_props_by_type(id, 'pls'))
     result.extend(get_props_by_type(id, 'pec'))
 
-    return result
+    df = pd.DataFrame(result)
+
+    return df
 
 
 def main():
