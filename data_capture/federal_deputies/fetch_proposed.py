@@ -5,10 +5,12 @@ filtrados para obter as propostas apresentadas por um deputado
 federal qualquer
 """
 
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 HEAD_OPTIONS = {'accept': 'application/xml'}
+
 
 def make_excerpt(text):
     excerpt = text
@@ -18,6 +20,7 @@ def make_excerpt(text):
         excerpt += '...'
 
     return excerpt
+
 
 def get_individual_proposition(id):
     # Antiga API
@@ -86,7 +89,9 @@ def get_data_from_deputie(name):
         #     'url': url
         # })
 
-    return result
+    df = pd.DataFrame(result)
+
+    return df
 
 
 def main():

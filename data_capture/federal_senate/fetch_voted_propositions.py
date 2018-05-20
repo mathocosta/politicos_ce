@@ -4,6 +4,7 @@ Os dados são obtidos da API do Senado, e filtrados para obter os
 dados desejados dos senadores cearenses.
 """
 
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
@@ -32,7 +33,6 @@ def get_individual_proposition(id):
 
 
 def get_data_from_senator(id):
-
     print("Obtendo votações do senador {}".format(id))
     payload = {'sigla': 'pec'}
     r = requests.get(
@@ -45,12 +45,7 @@ def get_data_from_senator(id):
 
     number_of_polls = len(polls) - 1
 
-    all_votes = {
-        'yes': list(),
-        'no': list(),
-        'abstention': list(),
-        'secret': list()
-    }
+    all_votes = list()
 
     for i in range(0, number_of_polls):
         votation_data = {
@@ -63,18 +58,11 @@ def get_data_from_senator(id):
         votation_data.update(get_individual_proposition(
             polls[i].IdentificacaoMateria.CodigoMateria.text))
 
-        if polls[i].IndicadorVotacaoSecreta.text == 'Sim':
-            all_votes['secret'].append(votation_data)
-        else:
-            voto = polls[i].DescricaoVoto.text
-            if voto == 'Sim':
-                all_votes['yes'].append(votation_data)
-            elif voto == 'Não':
-                all_votes['no'].append(votation_data)
-            else:
-                all_votes['abstention'].append(votation_data)
+        all_votes.append(votation_data)
 
-    return all_votes
+    df = pd.DataFrame(all_votes)
+
+    return df
 
 
 def main():

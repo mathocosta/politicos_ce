@@ -3,6 +3,7 @@
 Obs.: Todas as consultas com o banco de dados retornam instâncians de objetos
 da entidade específica, que está modelada no `models.py`.
 """
+import pandas as pd
 from flask import render_template, request
 from werkzeug.contrib.cache import SimpleCache
 
@@ -60,12 +61,53 @@ def show_politician_list(position):
         'politician_list.html', title=title, politicians=politicians)
 
 
+def votes_filter(df) -> dict:
+    is_secret = df.secret_poll == 'Sim'
+    is_yes = df.vote == 'Sim'
+    is_no = df.vote == 'Não'
+
+    filtered_votes = dict()
+    filtered_votes['secret'] = df.loc[is_secret].to_dict('records')
+    filtered_votes['yes'] = df.loc[is_yes].to_dict('records')
+    filtered_votes['no'] = df.loc[is_no].to_dict('records')
+    # FIXME: Ver outra forma de fazer essa verificação
+    filtered_votes['abstention'] = df.loc[(df.secret_poll == 'Não')
+                                          & (df.vote != 'Sim')
+                                          & (df.vote != 'Não')
+                                          ].to_dict('records')
+
+    return filtered_votes
+
+
 def get_senator_data(id, registered_id):
     propositions_key = "{}-propositions".format(id)
     propositions = c.get(propositions_key)
 
+    votes_key = "{}-votes".format(id)
+    votes = c.get(votes_key)
+
     if propositions is None:
-        propositions = get_props_from_senator(registered_id)
+        df = get_props_from_senator(registered_id)
+        propositions = df.to_dict('records')
+        c.set(propositions_key, propositions, timeout=86400)
+
+    if votes is None:
+        df = get_votes_from_senator(registered_id)
+        votes = df.to_dict('records')
+        c.set(votes_key, votes)
+
+    filtered_votes = votes_filter(pd.DataFrame(votes))
+
+    return propositions, filtered_votes
+
+
+def get_deputy_data(id, registered_id):
+    propositions_key = "{}-propositions".format(id)
+    propositions = c.get(propositions_key)
+
+    if propositions is None:
+        df = get_props_from_deputie(registered_id)
+        propositions = df.to_dict('records')
         c.set(propositions_key, propositions, timeout=86400)
 
     return propositions
@@ -80,13 +122,12 @@ def show_politician_page(politician_id):
 
     if politician_data.position == 'senator':
         position = 'Senador'
-        propositions = get_senator_data(
+        propositions, votes = get_senator_data(
             politician_id, politician_data.registered_id)
-        # votes = get_votes_from_senator(politician_data.registered_id)
     elif politician_data.position == 'federal-deputy':
         position = 'Deputado Federal'
-        propositions = get_props_from_deputie(
-            politician_data.parliamentary_name)
+        propositions = get_deputy_data(
+            politician_id, politician_data.parliamentary_name)
     elif politician_data.position == 'state-deputy':
         position = 'Deputado Estadual'
 
