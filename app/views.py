@@ -122,7 +122,7 @@ class ShowPoliticianPage(View):
         if votes is None:
             df = callback(registered_id)
             votes = df.to_dict('records')
-            c.set(votes_key, votes)
+            c.set(votes_key, votes, timeout=86400)
 
         if len(votes) > 1:
             filtered_votes = self._votes_filter(pd.DataFrame(votes))
