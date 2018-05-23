@@ -21,25 +21,26 @@
                 Eles representam os estados brasileiros na política, elaboram as leis e ﬁscalizam os atos do Executivo. Uma das responsabilidades do Senado é aprovar a indicação feita pelo Poder Executivo de nomes para ocupar cargos importantes e de diplomatas que representaram o Brasil no exterior.
             </p>
         </div>
-        <a id="btn_saiba_mais" href="/">
+        <a id="btn_saiba_mais" href="/know-more">
             <button class="btn fill">Saiba mais</button>
         </a>
     </div>
-    <div id="middle_content">
+    <div id="middle_content_all_politics">
         <p>A lista está organizada em ordem alfabética</p>
         <div id="all_boxes">
             {% for p in politicians %}
-            <div class="politic_box">
-                <img class="photo_politic" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
-                <div>
-                    <h2 class="name_politic">{{ p.parliamentary_name }}</h2>
-                    <h4 class="p_siglum">{{ p.party_siglum }}</h4>
-                    <br><a href="/politician/{{ p.id }}">Ir para a página</a>
+            <a href="/politician/{{ p.id }}">
+                <div class="politic_box">
+                    <img class="photo_mask" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
+                    <div>
+                        <h2 class="name_politic">{{ p.parliamentary_name }}</h2>
+                        <h4 class="p_siglum">{{ p.party_siglum }}</h4>
+                    </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
     </div>
-    <div id="footer"></div>
+    <div id="footer" class="full_width"></div>
 </div>
 {% endblock %}

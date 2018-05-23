@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:svg="http://www.w3.org/2000/svg"
+xmlns="http://www.w3.org/2000/svg" version="1.1"
+width="360" height="185">
+<!-- Created with the Wikimedia parliament diagram creator (http://tools.wmflabs.org/parliamentdiagram/parliamentinputform.html) -->
+<g>
+<text x="175" y="175" style="font-size:36px;font-weight:bold;text-align:center;text-anchor:middle;font-family:Sans">81</text>
+  <g style="fill:#DA1208" id="PT">
+    <circle cx="15.19" cy="172.01" r="8.00"/>
+    <circle cx="35.22" cy="172.01" r="8.00"/>
+    <circle cx="55.26" cy="172.01" r="8.00"/>
+    <circle cx="75.30" cy="172.02" r="8.00"/>
+    <circle cx="95.38" cy="172.02" r="8.00"/>
+    <circle cx="18.31" cy="147.11" r="8.00"/>
+    <circle cx="38.61" cy="147.85" r="8.00"/>
+    <circle cx="59.36" cy="147.28" r="8.00"/>
+    <circle cx="79.88" cy="148.36" r="8.00"/>
+  </g>
+  <g style="fill:#22BBCC" id="REDE">
+    <circle cx="25.17" cy="122.97" r="8.00"/>
+  </g>
+  <g style="fill:#FF6600" id="PDT">
+    <circle cx="101.36" cy="147.74" r="8.00"/>
+    <circle cx="46.00" cy="124.61" r="8.00"/>
+  </g>
+  <g style="fill:#DA251C" id="PCdoB">
+    <circle cx="68.32" cy="123.86" r="8.00"/>
+  </g>
+  <g style="fill:#FA7F72" id="PPS">
+    <circle cx="35.61" cy="100.15" r="8.00"/>
+  </g>
+  <g style="fill:#00BFFF" id="PTB">
+    <circle cx="89.73" cy="126.37" r="8.00"/>
+    <circle cx="57.18" cy="102.93" r="8.00"/>
+  </g>
+  <g style="fill:#99FF33" id="DEM">
+    <circle cx="49.39" cy="79.18" r="8.00"/>
+    <circle cx="81.77" cy="102.70" r="8.00"/>
+    <circle cx="114.16" cy="126.24" r="8.00"/>
+    <circle cx="71.83" cy="83.44" r="8.00"/>
+  </g>
+  <g style="fill:#254890" id="PSD">
+    <circle cx="104.33" cy="107.21" r="8.00"/>
+    <circle cx="66.19" cy="60.53" r="8.00"/>
+    <circle cx="99.17" cy="84.65" r="8.00"/>
+    <circle cx="89.55" cy="66.67" r="8.00"/>
+  </g>
+  <g style="fill:#FFCC00" id="PSB">
+    <circle cx="85.62" cy="44.66" r="8.00"/>
+    <circle cx="132.66" cy="109.40" r="8.00"/>
+    <circle cx="122.91" cy="91.88" r="8.00"/>
+    <circle cx="109.82" cy="53.11" r="8.00"/>
+  </g>
+  <g style="fill:#FF8C00" id="PP">
+    <circle cx="119.82" cy="70.44" r="8.00"/>
+    <circle cx="107.24" cy="31.91" r="8.00"/>
+    <circle cx="144.50" cy="81.18" r="8.00"/>
+    <circle cx="132.08" cy="43.15" r="8.00"/>
+    <circle cx="130.54" cy="22.59" r="8.00"/>
+    <circle cx="142.90" cy="60.63" r="8.00"/>
+    <circle cx="155.26" cy="98.68" r="8.00"/>
+  </g>
+  <g style="fill:#0F0073" id="PR">
+    <circle cx="155.70" cy="37.05" r="8.00"/>
+    <circle cx="154.98" cy="16.91" r="8.00"/>
+    <circle cx="167.95" cy="75.69" r="8.00"/>
+    <circle cx="167.46" cy="55.63" r="8.00"/>
+  </g>
+  <g style="fill:#FFFF00" id="PODE">
+    <circle cx="180.00" cy="15.00" r="8.00"/>
+    <circle cx="180.00" cy="35.00" r="8.00"/>
+    <circle cx="180.00" cy="95.00" r="8.00"/>
+  </g>
+  <g style="fill:#009966" id="PTC">
+    <circle cx="192.54" cy="55.63" r="8.00"/>
+  </g>
+  <g style="fill:#4DBCE7" id="PRB">
+    <circle cx="192.05" cy="75.69" r="8.00"/>
+  </g>
+  <g style="fill:#1E90FF" id="PSDB">
+    <circle cx="205.02" cy="16.91" r="8.00"/>
+    <circle cx="204.30" cy="37.05" r="8.00"/>
+    <circle cx="204.74" cy="98.68" r="8.00"/>
+    <circle cx="217.10" cy="60.63" r="8.00"/>
+    <circle cx="229.46" cy="22.59" r="8.00"/>
+    <circle cx="227.92" cy="43.15" r="8.00"/>
+    <circle cx="215.50" cy="81.18" r="8.00"/>
+    <circle cx="252.76" cy="31.91" r="8.00"/>
+    <circle cx="240.18" cy="70.44" r="8.00"/>
+    <circle cx="250.18" cy="53.11" r="8.00"/>
+    <circle cx="237.09" cy="91.88" r="8.00"/>
+  </g>
+  <g style="fill:#2E8B57" id="PMDB">
+    <circle cx="227.34" cy="109.40" r="8.00"/>
+    <circle cx="274.38" cy="44.66" r="8.00"/>
+    <circle cx="270.45" cy="66.67" r="8.00"/>
+    <circle cx="260.83" cy="84.65" r="8.00"/>
+    <circle cx="293.81" cy="60.53" r="8.00"/>
+    <circle cx="255.67" cy="107.21" r="8.00"/>
+    <circle cx="288.17" cy="83.44" r="8.00"/>
+    <circle cx="245.84" cy="126.24" r="8.00"/>
+    <circle cx="278.23" cy="102.70" r="8.00"/>
+    <circle cx="310.61" cy="79.18" r="8.00"/>
+    <circle cx="302.82" cy="102.93" r="8.00"/>
+    <circle cx="270.27" cy="126.37" r="8.00"/>
+    <circle cx="324.39" cy="100.15" r="8.00"/>
+    <circle cx="291.68" cy="123.86" r="8.00"/>
+    <circle cx="314.00" cy="124.61" r="8.00"/>
+    <circle cx="258.64" cy="147.74" r="8.00"/>
+    <circle cx="334.83" cy="122.97" r="8.00"/>
+    <circle cx="280.12" cy="148.36" r="8.00"/>
+    <circle cx="300.64" cy="147.28" r="8.00"/>
+    <circle cx="321.39" cy="147.85" r="8.00"/>
+    <circle cx="341.69" cy="147.11" r="8.00"/>
+    <circle cx="264.62" cy="172.02" r="8.00"/>
+    <circle cx="284.70" cy="172.02" r="8.00"/>
+  </g>
+  <g style="fill:#009038" id="PSC">
+    <circle cx="304.74" cy="172.01" r="8.00"/>
+  </g>
+  <g style="fill:#BDBDBD" id="SemPartido">
+    <circle cx="324.78" cy="172.01" r="8.00"/>
+    <circle cx="344.81" cy="172.01" r="8.00"/>
+  </g>
+</g>
+</svg>

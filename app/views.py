@@ -45,6 +45,12 @@ def show_search_results():
         'politician_list.html', title=title, politicians=politicians)
 
 
+# KNOW MORE PAGE
+@app.route('/know-more')
+def show_know_more():
+    return render_template('know_more.html')
+
+
 # POLITICIAN LIST PAGE
 @app.route('/politician-list/<position>')
 def show_politician_list(position):

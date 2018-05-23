@@ -1,236 +1,313 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="content">
-    <div class="header" id="header_especific_politic">
-        <div class="hamburger">
-            <div class="bar1 bar_p_especific"></div>
-            <div class="bar2 bar_p_especific"></div>
-            <div class="bar3 bar_p_especific"></div>
+<div  id= "content">
+    <div class="header full_width" id="header_especific_politic">
+        <div class="header_inner">
+            <div class="hamburger_menu">
+                <div class="hamburger" >
+                    <div class="bar1 bar_p_especific"></div>
+                    <div class="bar2 bar_p_especific"></div>
+                    <div class="bar3 bar_p_especific"></div>
+                </div>
+            </div>
+            <button class="btn noFill userBtn btn_p_especific"><span class="userIcon userIcon_p_especific"><span>Login</span></span></button>
         </div>
-        <button class="btn noFill userBtn btn_p_especific">
-            <span id="userIcon" class="userIcon_p_especific">
-                <span>Login</span>
-            </span>
-        </button>
     </div>
-    <div id="title_content">
+
+    <div class="header full_width" id="title_content">
         <div id="title_content_1">
-            <img class="photo_politic photo_especific" src="{{ politician_data.photo_url }}">
-            <h1 id="name_politic_especific">{{ politician_data.parliamentary_name }}</h1>
-            <div id="details">Mais detalhes
-                <span></span>
-            </div>
-            <div id="info_basic">
-                <h3 id="cargo">{{ position }}</h3>
-                <h3 id="partido">{{ politician_data.party_siglum }}</h3>
-            </div>
-        </div>
 
-    </div>
-    <h2 class="project_prop_title">Projetos Propostos</h2>
-    <div class="project_prop">
-
-        <div class="project_prop_inner all_project_prop">
-            {% for p in propositions %}
-                <div class="especific_project_prop">
-                    <div class="prop_status">{{ p.status }}</div>
-                    <h4 class="prop_type_n">
-                        <span class="prop_type">{{ p.siglum }}</span> n°
-                        <span class="prop_n">{{ p.number }}</span>
-                    </h4>
-
-                    <h3 class="prop_name">Nome do Projeto</h3>
-                    <p class="prop_desc">{{ p.description }}</p>
-                    <a href="{{ p.url }}" class="prop_details">mais detalhes</a>
+            <div id="title_content_1_inner">
+                <div class="photo_mask"><img class="photo_politic photo_especific" src="{{ politician_data.photo_url }}"></div>
+                <h1 id="name_politic_especific">{{ politician_data.parliamentary_name }}</h1>
+                <div id="details"><span> Mais detalhes </span>
+                    <img class="rotate_img" src="/static/res/icons/dropdown_icon.svg">
                 </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div id="box_status_type">
-        <div class="box_prop">
-            <h2 class="display_ib">Status das proposições</h2>
-            <select class="select_year select_year_prop_status" class="display_ib">
-            </select>
-            <div class='pie_chart'>75</div>
-        </div>
-
-        <div class="box_prop">
-            <h2 class="display_ib">Tipo de proposição</h2>
-            <select class="select_year" class="display_ib">
-                <option>2018</option>
-                <option>2017</option>
-                <option>2016</option>
-            </select>
-
-            <h3>Total:
-                <span id="total_prop"> 272</span>
-            </h3>
-            <div id="graph_prop_type">
-                <div id="pec" class="graph_colums"></div>
-                <div id="pl" class="graph_colums"></div>
-                <div id="rcp" class="graph_colums"></div>
-                <div id="rem" class="graph_colums"></div>
-                <div id="bk_graph">
-                    <div class="graph_lines"> 60
-                        <div class="lines"></div>
+                <div id="info_basic">
+                    <h3 id="cargo">{{ position }}</h3>
+                    <h3 id="partido">{{ politician_data.party_siglum }}</h3>
+                </div>
+                <div id="info_detail" class="info_detail_opacity">
+                    <div class="inner_left">
+                        <div class="info_detail_inner">
+                            <h4>Nome Completo</h4>
+                            <h3>{{ politician_data.civil_name }}</h3>
+                        </div>
+                        <div class="info_detail_inner">
+                            <h4 >Data de Nascimento</h4>
+                            <h3>30 de Setembro de 1952</h3>
+                        </div>
                     </div>
-                    <div class="graph_lines"> 40
-                        <div class="lines"></div>
-                    </div>
-                    <div class="graph_lines"> 20
-                        <div class="lines"></div>
-                    </div>
-                    <div class="graph_lines"> 0
-                        <div class="lines"></div>
-                        <div class="colum_text">PEC</div>
-                        <div class="colum_text">PL</div>
-                        <div class="colum_text">RCP</div>
-                        <div class="colum_text">REM</div>
+                    <div class="inner_right">
+                        <div class="info_detail_inner ">
+                            <h4 >Grau de Instrução</h4>
+                            <h3>{{ politician_data.scholarity }}</h3>
+                        </div>
+
+                        <div class="info_detail_inner ">
+                            <h4>Naturalidade</h4>
+                            <h3>{{ politician_data.hometown }}</h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div id="title_content_2">
+        </div>
     </div>
 
-    <h2 class="project_prop_title">Projetos Votados</h2>
 
-    <div id="prop_voted">
-
-        <input type="radio" name="tabs" class="tabs" id="tab1" checked>
-
-        <label for="tab1">
-            <div class="choice">
-                SIM
+    <div id="content_inner">
+        <div id="project_prop_container">
+            <div id="project_prop_head">
+                <div id="project_prop_head_inner">
+                    <h2 class="project_prop_title">Projetos Propostos</h2>
+                    <div class="btns_container">
+                        <button class="btn_n_p btn_prev" id="btn_prop_prev"><img src="/static/res/icons/prev_icon.svg"></button>
+                        <button class="btn_n_p btn_next" id="btn_prop_next"><img src="/static/res/icons/next_icon.svg"></button>
+                    </div>
+                </div>
             </div>
-            <div class="choice_detailed">
-                Propostas que o candidato concordou
-            </div>
-        </label>
-
-        <div class="content_yes">
-            <div class="project_voted">
-
-                <div class="project_prop_inner voted_yes">
-                    {% for v in votes['yes'][:5] %}
-                        <div class="especific_project_prop">
-                            <div class="prop_status">{{ v.result }}</div>
-                            <h4 class="prop_type_n">
-                                <span class="prop_type">{{ v.siglum }}</span> n°
-                                <span class="prop_n">{{ v.number }}</span>
-                            </h4>
-
-                            <h3 class="prop_name">Nome do Projeto</h3>
-                            <p class="prop_desc">{{ v.description }}</p>
-                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                        </div>
+            <div class="project_prop">
+                <div class="prop project_prop_inner all_project_prop">
+                    {% for p in propositions %}
+                    <div class="especific_project_prop">
+                        <div class="prop_status">{{ p.status }}</div>
+                        <h3 class="prop_type_n">
+                            <span class="prop_type">{{ p.siglum }}</span> n° <span class="prop_n">{{ p.number }}</span>
+                        </h3>
+                        <div class="prop_desc">{{ p.description }}</div>
+                        <a href="{{ p.url }}" class="prop_details">mais detalhes</a>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <input type="radio" name="tabs" class="tabs" id="tab2">
-        <label for="tab2">
-            <div class="choice">
-                NÃO
-            </div>
-            <div class="choice_detailed">
-                Propostas que o candidato foi contra
-            </div>
-        </label>
-        <div class="content_no">
 
-            <div class="project_voted">
+        <div id= "box_status_type">
+            <div id="box_status_type_inner">
+                <div class="box_prop" >
+                    <h2 class="display_ib">Status das proposições</h2>
+                    <select class="select_year select_year_prop_status" class="display_ib">
+                        <option>2018</option>
+                        <option>2017</option>
+                        <option>2016</option>
+                    </select>
 
-                <div class="project_prop_inner voted_no">
-                    {% for v in votes['no'][:5] %}
-                        <div class="especific_project_prop">
-                            <div class="prop_status">{{ v.result }}</div>
-                            <h4 class="prop_type_n">
-                                <span class="prop_type">{{ v.siglum }}</span> n°
-                                <span class="prop_n">{{ v.number }}</span>
-                            </h4>
+                    <!-- Colocar as quantidades de cada um-->
+                    <div class="dsp_none" id="aproved">35</div>
+                    <div class="dsp_none" id="published">65</div>
+                    <div class="dsp_none" id="refused">54</div>
+                    <div class="dsp_none" id="processing">46</div>
 
-                            <h3 class="prop_name">Nome do Projeto</h3>
-                            <p class="prop_desc">{{ v.description }}</p>
-                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+
+                    <!-- Gráfico de STATUS das proposições -->
+                    <div id="container_graph_legend">
+                        <div class="p_donut_chart_outer">
+                            <div class='propositions_donut_chart'>
+
+                            </div>
+                            <div class="rect_hover">10</div>
                         </div>
-                    {% endfor %}
+                        <div id="legend_status_prop">
+                            <div id="legend_status_prop_inner">
+                                <div class="circle_status" id="circle_published"></div><span>Publicado</span>
+                                <div class="circle_status" id="circle_aproved"></div><span>Aprovado</span>
+                                <div class="circle_status" id="circle_processing"></div><span>Tramitando</span>
+                                <div class="circle_status" id="circle_refused"></div><span>Recusado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box_prop box_prop_2" >
+                    <h2 class="display_ib">Tipo de proposição</h2>
+                    <select class="select_year select_year_prop_type" class="display_ib">
+                        <option>2018</option>
+                        <option>2017</option>
+                        <option>2016</option>
+                    </select>
+                    <!-- Gráfico dos TIPOS de proposições -->
+                    <div class="graph_prop_type_outer">
+                        <div class="graph_prop_type">
+                        </div>
+                    </div>
+                    <div class="dsp_none" id="show_total_props">200</div>
+                    <div class="dsp_none" id="qtd_pec">6</div>
+                    <div class="dsp_none" id="qtd_pl">7</div>
+                    <div class="dsp_none" id="qtd_rcp">8</div>
+                    <div class="dsp_none" id="qtd_rem">7</div>
+                    <div class="dsp_none" id="qtd_222">14</div>
                 </div>
             </div>
         </div>
-        <input type="radio" name="tabs" class="tabs" id="tab3">
-        <label for="tab3">
-            <div class="choice">
-                ABSTEVE
-            </div>
-            <div class="choice_detailed">
-                Propostas que o político não votou
-            </div>
 
-        </label>
-        <div class="content_abstain">
-            <div class="project_voted">
-                <div class="project_prop_inner voted_abstain">
-                    {% for v in votes['abstention'][:5] %}
-                        <div class="especific_project_prop">
-                            <div class="prop_status">{{ v.result }}</div>
-                            <h4 class="prop_type_n">
-                                <span class="prop_type">{{ v.siglum }}</span> n°
-                                <span class="prop_n">{{ v.number }}</span>
-                            </h4>
-
-                            <h3 class="prop_name">Nome do Projeto</h3>
-                            <p class="prop_desc">{{ v.description }}</p>
-                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <input type="radio" name="tabs" class="tabs" id="tab4">
-        <label for="tab4">
-            <div class="choice">
-                SECRETO
-            </div>
-            <div class="choice_detailed">
-                Votações sem detalhes divulgados
-            </div>
-
-        </label>
-        <div class="content_secret">
-            <div class="project_voted">
-
-                <div class="project_prop_inner voted_secret">
-                    {% for v in votes['secret'][:5] %}
-                        <div class="especific_project_prop">
-                            <div class="prop_status">{{ v.result }}</div>
-                            <h4 class="prop_type_n">
-                                <span class="prop_type">{{ v.siglum }}</span> n°
-                                <span class="prop_n">{{ v.number }}</span>
-                            </h4>
-
-                            <h3 class="prop_name">Nome do Projeto</h3>
-                            <p class="prop_desc">{{ v.description }}</p>
-                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-
+        <div id="project_voted_head">
+            <h2 class="project_prop_title">Projetos Votados</h2>
         </div>
 
-        <select class="select_year select_year_project_voted" class="display_ib">
-            <option>2018</option>
-            <option>2017</option>
-            <option>2016</option>
-        </select>
+        <div id="prop_voted_outer">
+            <div id="prop_voted">
+                <input type="radio" name="tabs" class="tabs" id="tab1" checked>
+                <label class="labels" id="label_yes" for="tab1">
+                    <div class="choice">SIM</div>
+                    <div class="choice_detailed choice_detailed_yes">
+                        Propostas que o político concordou
+                    </div>
+                </label>
 
-        <div id="line"></div>
-        <div id="holder"></div>
+                <div class= "content_yes">
+                    <div class="btns_container btns_container_2 ">
+                        <button class="btn_n_p btn_prev" id="btn_voted_yes_prev"><img src="/static/res/icons/prev_icon.svg"></button>
+                        <button class="btn_n_p btn_next" id="btn_voted_yes_next"><img src="/static/res/icons/next_icon.svg"></button>
+                    </div>
+                    <div class="content_voted_inner content_voted_yes_inner">
+                        <div class="project_voted project_voted_yes">
+
+                            <div class="project_prop_inner voted_yes">
+                                {% for v in votes['yes'][:5] %}
+                                    <div class="especific_project_prop">
+                                        <div class="prop_status">{{ v.result }}</div>
+                                        <h3 class="prop_type_n">
+                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                        </h3>
+                                        <div class="prop_desc">{{ v.description }}</div>
+                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="radio" name="tabs" class="tabs" id="tab2">
+                <label class="labels"  id="label_no" for="tab2">
+                    <div class="choice">
+                        NÃO
+                    </div>
+                    <div class="choice_detailed choice_detailed_no">
+                        Propostas que o político foi contra
+                    </div>
+                </label>
+                <div class= "content_no">
+                    <div class="project_voted project_voted_no">
+                        <div class="project_prop_inner voted_no">
+                            <div class="btns_container btns_container_2 ">
+                                <button class="btn_n_p btn_prev" id="btn_voted_no_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
+                                <button class="btn_n_p btn_next" id="btn_voted_no_next"> <img src="/static/res/icons/next_icon.svg"> </button>
+                            </div>
+                            {% for v in votes['no'][:5] %}
+                                <div class="especific_project_prop">
+                                    <div class="prop_status">{{ v.result }}</div>
+                                    <h3 class="prop_type_n">
+                                        <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                    </h3>
+                                    <div class="prop_desc">{{ v.description }}</div>
+                                    <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <input type="radio" name="tabs" class="tabs" id="tab3">
+                <label class="labels" id="label_abstain" for="tab3">
+                    <div class="choice">
+                        ABSTEVE
+                    </div>
+                    <div class="choice_detailed choice_detailed_abstain">
+                        Propostas que o político não votou
+                    </div>
+                </label>
+                <div class= "content_abstain">
+                    <div class="project_voted project_voted_abstain">
+                        <div class="project_prop_inner voted_abstain">
+                            <div class="btns_container btns_container_2">
+                                <button class="btn_n_p btn_prev" id="btn_voted_abstain_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
+                                <button class="btn_n_p btn_next" id="btn_voted_abstain_next"> <img src="/static/res/icons/next_icon.svg"> </button>
+                            </div>
+                            {% for v in votes['abstention'][:5] %}
+                                <div class="especific_project_prop">
+                                    <div class="prop_status">{{ v.result }}</div>
+                                    <h3 class="prop_type_n">
+                                        <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                    </h3>
+                                    <div class="prop_desc">{{ v.description }}</div>
+                                    <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+                <input type="radio" name="tabs" class="tabs" id="tab4">
+                <label class="labels" id="label_secret" for="tab4">
+                    <div class="choice">
+                        SECRETO
+                    </div>
+                    <div class="choice_detailed choice_detailed_secret">
+                        Votações sem detalhes divulgados
+                    </div>
+
+                </label>
+                <div class= "content_secret">
+                    <div class="project_voted project_voted_secret">
+
+                        <div class="project_prop_inner voted_secret">
+                            <div class="btns_container btns_container_2">
+                                <button class="btn_n_p btn_prev" id="btn_voted_secret_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
+                                <button class="btn_n_p btn_next" id="btn_voted_secret_next"> <img src="/static/res/icons/next_icon.svg"> </button>
+                            </div>
+                            {% for v in votes['abstention'][:5] %}
+                                <div class="especific_project_prop">
+                                    <div class="prop_status">{{ v.result }}</div>
+                                    <h3 class="prop_type_n">
+                                        <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                    </h3>
+                                    <div class="prop_desc">{{ v.description }}</div>
+                                    <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <select class="select_year select_year_project_voted" class="display_ib">
+                    <option>2018</option>
+                    <option>2017</option>
+                    <option>2016</option>
+                </select>
+
+                <div id="line"></div>
+                <div id="holder"></div>
+
+
+            </div>
+        </div>
+        <div id="party_trend" class="full_width">
+            <div id="party_trend_inner">
+                <h2>Tendencia partidária</h2>
+                <h3 id="party_trend_description">Quantas votações o candidato seguiu a indicação da sua legenda.</h3>
+                <h3 id="party_trend_percentage"><span id="val1">68</span> de <span id="val2">100</span></h3>
+            </div>
+            <div id="party_trend_graph_outer">
+                <div id="party_trend_graph_inner"></div>
+            </div>
+        </div>
+
+        <!-- <div id="candidature_history_graph"></div> -->
+        <div id="history_candidature_contaner" class="full_width">
+            <!-- <h2>Histórico de candidaturas</h2> -->
+            <div class="graph_history_candidature">
+                        <!-- <div class="dsp_none" id="qtd_pec">1</div>
+                        <div class="dsp_none" id="qtd_pl">2</div>
+                        <div class="dsp_none" id="qtd_rcp">3</div>
+                        <div class="dsp_none" id="qtd_rem">5</div>
+                        <div class="dsp_none" id="qtd_222">6</div> -->
+                    </div>
+                    <div class="time_line"></div>
+                </div>
+            </div>
+            <div id="footer" class="footer_especific_politic full_width"></div>
+        </div>
     </div>
-
-    <div id="footer" class="footer_especific_politic"></div>
-</div>
 {% endblock %}
