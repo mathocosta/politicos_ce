@@ -2,17 +2,19 @@
 
 {% block content %}
 <div id="content">
-    <div class="header" id="header_politicos">
-        <div class="hamburger">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+    <div class="header full_width" id="header_politicos">
+        <div class="header_inner">
+            <div class="hamburger_menu">
+                <div class="hamburger">
+                  <div class="bar1"></div>
+                  <div class="bar2"></div>
+                  <div class="bar3"></div>
+                </div>
+            </div>
+            <button class="btn noFill userBtn">
+                <span class="userIcon"><span>Login</span></span>
+            </button>
         </div>
-        <button class="btn noFill userBtn">
-            <span id="userIcon">
-                <span>Login</span>
-            </span>
-        </button>
     </div>
     <div id="top_content">
         <div id="top_content_1">
@@ -31,7 +33,9 @@
             {% for p in politicians %}
             <a href="/politician/{{ p.id }}">
                 <div class="politic_box">
-                    <img class="photo_mask" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
+                    <div class="photo_mask">
+                        <img class="photo_politic" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
+                    </div>
                     <div>
                         <h2 class="name_politic">{{ p.parliamentary_name }}</h2>
                         <h4 class="p_siglum">{{ p.party_siglum }}</h4>
