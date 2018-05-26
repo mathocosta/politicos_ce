@@ -96,8 +96,10 @@ $( window ).on('load', function() {
 	var path = window.location.pathname;
 	var page = path.split("/").pop();
 	
-	if ( page == "know_more.html" ) {
-    	getSVGSenatorStructure();
+	if ( page == "know-more" ) {
+    	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/c/c9/Senado_Federal_%28Brasil%29_-_atual.svg" , "#senator_structure");
+    	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/5/5f/C%C3%A2mara_dos_Deputados_%28Brasil%29_-_atual.svg", "#federal_deputies_structure")
+    	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/1/14/Assembleia_Legislativa_do_Estado_do_CE_-_atual.svg" , "#state_deputies_structure");
 	}
 	
 

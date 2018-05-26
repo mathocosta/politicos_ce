@@ -944,18 +944,18 @@ input.tabs:checked + label + div {
   width: 820px;
   font-size: 14px;
 }
-.content_know_more_1{
+.content_know_more{
   width: 100% !important;
   top: 150px !important;
 }
 .content_data h2{
   font: 25px AsapRegular;
 }
-#structure_content{
+.structure_content{
   position: relative;
   width: 360px;
 }
-#senator_structure text{
+#senator_structure text, #federal_deputies_structure text, #state_deputies_structure text{
   font-family: AsapRegular !important;
 }
 
@@ -973,7 +973,7 @@ input.tabs:checked + label + div {
   display: inline-block;
 }
 
-#work_place_cabinet_container{
+.work_place_cabinet_container{
   margin-top: 70px;
 }
 .container_info{

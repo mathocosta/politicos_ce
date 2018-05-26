@@ -621,14 +621,14 @@ function ajustPartyTrendGraphWidth(){
 }
 
 
-function getSVGSenatorStructure(){
+function getSVGStructure(url, id){
 	
-    var svgUrl = "https://upload.wikimedia.org/wikipedia/commons/c/c9/Senado_Federal_%28Brasil%29_-_atual.svg";
+    var svgUrl = url;
 
     $.get(svgUrl)
     .then(function(xmlDoc){
     	var svg = $(xmlDoc).find("svg");
-    	$("#senator_structure").append(svg);
+    	$(id).append(svg);
     });
 
 }
