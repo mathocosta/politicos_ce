@@ -491,7 +491,7 @@ function slidePropsAdaptResponsive(i, container){
 	$("#btn_"+container+"_prev").prop("disabled",true)
 				  				.css("filter","opacity(30%)");
 				  				
-	if(pages[i] == 1){
+	if(pages[i] == 1 || pages[i] == 0){
 		$("#btn_"+container+"_next").prop("disabled",true)
 				  					.css("filter","opacity(30%)");
 	}else{
@@ -560,15 +560,21 @@ function buttonClicked(event){
 	}
 
 
-	$(".project_"+type).stop().animate({
+	var containerProps = $("#"+type+"_"+(actualPage[index]*multiplier));
 
-		scrollLeft: $("#"+type+"_"+(actualPage[index]*multiplier)).position().left + leftPos - 10
+	if(containerProps.length > 0){
 
-	}, 500, 'swing',function(){
+		$(".project_"+type).stop().animate({
 
-		btn1.bind("click", { goNext: event.data.goNext, index: index, type: type }, buttonClicked);
-		btn2.bind("click", { goNext: !event.data.goNext, index: index, type: type }, buttonClicked);
-	});
+			scrollLeft: $("#"+type+"_"+(actualPage[index]*multiplier)).position().left + leftPos - 10
+
+		}, 500, 'swing',function(){
+
+			btn1.bind("click", { goNext: event.data.goNext, index: index, type: type }, buttonClicked);
+			btn2.bind("click", { goNext: !event.data.goNext, index: index, type: type }, buttonClicked);
+		});
+
+	}
 
 }
 
