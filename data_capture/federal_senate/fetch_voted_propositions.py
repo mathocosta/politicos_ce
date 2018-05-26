@@ -32,9 +32,12 @@ def get_individual_proposition(id):
     }
 
 
-def get_data_from_senator(id):
+def get_data_from_senator(id, year):
     print("Obtendo votações do senador {}".format(id))
-    payload = {'sigla': 'pec'}
+    payload = {
+        'sigla': 'pec',
+        'ano': year
+    }
     r = requests.get(
         "http://legis.senado.leg.br/dadosabertos/senador/{0}/votacoes".format(
             id), params=payload)

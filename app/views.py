@@ -115,7 +115,7 @@ class ShowPoliticianPage(View):
         propositions = c.get(propositions_key)
 
         if propositions is None:
-            df = callback(registered_id)
+            df = callback(registered_id, 2018)
             propositions = df.to_dict('records')
             c.set(propositions_key, propositions, timeout=86400)
 
@@ -126,7 +126,7 @@ class ShowPoliticianPage(View):
         votes = c.get(votes_key)
 
         if votes is None:
-            df = callback(registered_id)
+            df = callback(registered_id, 2018)
             votes = df.to_dict('records')
             c.set(votes_key, votes, timeout=86400)
 
@@ -161,6 +161,9 @@ app.add_url_rule('/politician/<int:politician_id>',
 
 # INDIVIDUAL POLITICIAN PAGE API
 class PoliticianPageAPI(MethodView):
+    DATAFRAME_COLUMNS = ['id', 'siglum', 'number',
+                         'description', 'year', 'status', 'url']
+
     def get(self):
         politician_id = request.args.get('id', None)
 
@@ -168,43 +171,79 @@ class PoliticianPageAPI(MethodView):
             return
 
         graph = request.args.get('graph', 1)
+        year = request.args.get('year', 2018)
 
         self.politician_data = Politician.query.get_or_404(politician_id)
 
         if graph == 1:
-            return self._props_status_number()
+            return self._props_status_number(year)
         else:
-            return self._props_types_number()
+            return self._props_types_number(year)
 
-    def _props_status_number(self):
+    def _props_status_number(self, year):
         position = self.politician_data.position
         props_df = None
 
         if position == 'senator':
-            props_df = self._fetch_propositions(get_props_from_senator)
+            registered_id = self.politician_data.registered_id
+            props_df = self._fetch_propositions(
+                registered_id, year, get_props_from_senator)
         elif position == 'federal-deputy':
-            props_df = self._fetch_propositions(get_props_from_deputie)
+            registered_id = self.politician_data.parliamentary_name
+            props_df = self._fetch_propositions(
+                registered_id, year, get_props_from_deputie)
 
         return jsonify(props_df.status.value_counts().to_dict())
 
-    def _props_types_number(self):
+    def _props_types_number(self, year):
         position = self.politician_data.position
         props_df = None
 
         if position == 'senator':
-            props_df = self._fetch_propositions(get_props_from_senator)
+            registered_id = self.politician_data.registered_id
+            props_df = self._fetch_propositions(
+                registered_id, year, get_props_from_senator)
         elif position == 'federal-deputy':
-            props_df = self._fetch_propositions(get_props_from_deputie)
+            registered_id = self.politician_data.parliamentary_name
+            props_df = self._fetch_propositions(
+                registered_id, year, get_props_from_deputie)
 
         return jsonify(props_df.siglum.value_counts().to_dict())
 
-    def _fetch_propositions(self, callback):
+    def _fetch_propositions(self, registered_id, year, callback):
+        """Obtém os dados das proposições por ano. Caso não tenha do ano
+        solicitado, é baixado novamente e adicionado aos dados já salvos.
+
+        Args:
+            registered_id (int): id do político
+            year (int): ano solicitado
+            callback (function): função que retorna os dados.
+
+        Returns:
+            list: dados solicitados
+        """
         propositions_key = "{}-propositions".format(self.politician_data.id)
-        propositions = c.get(propositions_key)
+        saved_propositions = c.get(propositions_key)
+        filtered_propositions = dict()
+        df = None
 
-        df = pd.DataFrame(propositions)
+        if saved_propositions is None:
+            df = callback(registered_id, 2018)
+            saved_propositions = df.to_dict('records')
+            c.set(propositions_key, saved_propositions, timeout=86400)
+            filtered_propositions = saved_propositions
+        else:
+            df = pd.DataFrame(saved_propositions,
+                              columns=self.DATAFRAME_COLUMNS)
+            years = df.year.tolist()
+            if year not in years:
+                df = pd.concat([df, callback(registered_id, year)])
+                propositions = df.to_dict('records')
+                c.set(propositions_key, propositions, timeout=86400)
 
-        return df
+        filtered_propositions = df[df.year == year]
+
+        return filtered_propositions
 
 
 politician_page_api = PoliticianPageAPI.as_view('politician_page_api')

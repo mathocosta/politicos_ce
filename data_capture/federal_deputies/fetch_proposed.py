@@ -38,7 +38,7 @@ def get_individual_proposition(id):
     }
 
 
-def get_data_from_deputie(name):
+def get_data_from_deputie(name, year):
     print('Obtendo as proposições do deputado...')
 
     # Antiga API
@@ -46,6 +46,7 @@ def get_data_from_deputie(name):
 
     payload = {
         'autor': name,
+        'ano': year,
         'siglaTipo': ['PEC', 'PL', 'RCP', 'REM'],
         'itens': 100,
         'ordem': 'ASC',
@@ -89,7 +90,9 @@ def get_data_from_deputie(name):
         #     'url': url
         # })
 
-    df = pd.DataFrame(result)
+    columns = ['id', 'siglum', 'number',
+               'description', 'year', 'status', 'url']
+    df = pd.DataFrame(result, columns=columns)
 
     return df
 

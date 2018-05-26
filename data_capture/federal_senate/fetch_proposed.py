@@ -12,7 +12,7 @@ from data_capture.federal_senate.helpers import (get_proposition_url,
                                                  make_excerpt)
 
 
-def get_props_by_type(id, prop_type):
+def get_props_by_type(id, prop_type, year):
     """Pega as proposições de um senador por tipo.
 
     A API de dados abertos do senado, ao contrário da câmara, não
@@ -23,13 +23,14 @@ def get_props_by_type(id, prop_type):
     Args:
         id (int): Identificador do Senador
         prop_type (str): Sigla do tipo da proposição
+        year (int): Ano da proposição
 
     Returns:
         list: Proposições desse tipo.
     """
     print("Obtendo os dados do senador para {}".format(prop_type))
 
-    payload = {'sigla': prop_type, 'ano': 2018}
+    payload = {'sigla': prop_type, 'ano': year}
 
     r = requests.get(
         "http://legis.senado.gov.br/dadosabertos/senador/{0}/autorias".format(
@@ -49,25 +50,26 @@ def get_props_by_type(id, prop_type):
         description = make_excerpt(propositions[i].EmentaMateria.text)
 
         result.append({
-            'proposition_code': propositions[i].CodigoMateria.text,
+            'id': propositions[i].CodigoMateria.text,
             'siglum': propositions[i].SiglaSubtipoMateria.text,
             'number': propositions[i].NumeroMateria.text,
+            'description': description,
             'year': propositions[i].AnoMateria.text,
             'status': propositions[i].IndicadorTramitando.text,
-            'original_author': propositions[i].IndicadorAutorPrincipal.text,
-            'description': description,
             'url': url
         })
 
     return result
 
 
-def get_data_from_senator(id):
+def get_data_from_senator(id, year):
     result = list()
-    result.extend(get_props_by_type(id, 'pls'))
-    result.extend(get_props_by_type(id, 'pec'))
+    result.extend(get_props_by_type(id, 'pls', year))
+    result.extend(get_props_by_type(id, 'pec', year))
 
-    df = pd.DataFrame(result)
+    columns = ['id', 'siglum', 'number',
+               'description', 'year', 'status', 'url']
+    df = pd.DataFrame(result, columns=columns)
 
     return df
 
