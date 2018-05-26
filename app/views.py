@@ -3,9 +3,11 @@
 Obs.: Todas as consultas com o banco de dados retornam instâncians de objetos
 da entidade específica, que está modelada no `models.py`.
 """
+import datetime
+
 import pandas as pd
-from flask import render_template, request, jsonify
-from flask.views import View, MethodView
+from flask import jsonify, render_template, request
+from flask.views import MethodView, View
 from werkzeug.contrib.cache import SimpleCache
 
 from app import app, db
@@ -115,7 +117,9 @@ class ShowPoliticianPage(View):
         propositions = c.get(propositions_key)
 
         if propositions is None:
-            df = callback(registered_id, 2018)
+            current_year = datetime.datetime.now().year
+            df = pd.concat([callback(registered_id, current_year),
+                            callback(registered_id, current_year - 1)])
             propositions = df.to_dict('records')
             c.set(propositions_key, propositions, timeout=86400)
 
@@ -126,7 +130,7 @@ class ShowPoliticianPage(View):
         votes = c.get(votes_key)
 
         if votes is None:
-            df = callback(registered_id, 2018)
+            df = callback(registered_id, datetime.datetime.now().year)
             votes = df.to_dict('records')
             c.set(votes_key, votes, timeout=86400)
 
@@ -171,7 +175,7 @@ class PoliticianPageAPI(MethodView):
             return
 
         graph = request.args.get('graph', 1)
-        year = request.args.get('year', 2018)
+        year = request.args.get('year', datetime.datetime.now().year)
 
         self.politician_data = Politician.query.get_or_404(politician_id)
 
@@ -228,7 +232,7 @@ class PoliticianPageAPI(MethodView):
         df = None
 
         if saved_propositions is None:
-            df = callback(registered_id, 2018)
+            df = callback(registered_id, datetime.datetime.now().year)
             saved_propositions = df.to_dict('records')
             c.set(propositions_key, saved_propositions, timeout=86400)
             filtered_propositions = saved_propositions
