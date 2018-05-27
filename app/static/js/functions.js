@@ -548,29 +548,48 @@ function changeColorChechedPropVoted(){
 
 	//troca as cores do checkbox checked
 	$(".labels").on("click", function(){
+
+		var selected = $(this).attr("id");
+		
+		
+
+		resetChoiceIconsColors();
+
+
 		$(".labels").each(function(){
-			$(this).css("background","transparent");
+			$(this).css("background","transparent");			
 		});
 		switch($(this).attr("id")){
 			case "label_yes":
 				$(this).css("background","#B0F28C");
 				$("#line").css("background", "#B0F28C");
+				$("#label_yes img").attr("src", "/static/res/icons/white_yes_icon.svg");
 				break;
 			case "label_no":
 				$(this).css("background","#F28C91");
 				$("#line").css("background", "#F28C91");
+				$("#label_no img").attr("src", "/static/res/icons/white_no_icon.svg");
 				break;
 			case "label_abstain":
 				$(this).css("background","#F4E58C");
 				$("#line").css("background", "#F4E58C");
+				$("#label_abstain img").attr("src", "/static/res/icons/white_abstain_icon.svg");
 				break;
 			case "label_secret":
 				$(this).css("background","#948BE8");
-				$("#line").css("background", "#948BE8");	
+				$("#line").css("background", "#948BE8");
+				$("#label_secret img").attr("src", "/static/res/icons/white_secret_icon.svg");	
 				break;	
 				
 		}
 	});
+}
+
+function resetChoiceIconsColors(){
+	$("#label_yes img").attr("src", "/static/res/icons/color_yes_icon.svg");
+	$("#label_no img").attr("src", "/static/res/icons/color_no_icon.svg");
+	$("#label_abstain img").attr("src", "/static/res/icons/color_abstain_icon.svg");
+	$("#label_secret img").attr("src", "/static/res/icons/color_secret_icon.svg");	
 }
 
 function responsiveChanges(){
