@@ -1,15 +1,5 @@
 
-
-var backgroundColor = "#fafafa"; 
-var lightFillColor = "#ffffff";
-var darkFillColor = "#9aed57";
-var textColor = "#333333";
-
 var graphsLoaded = false
-
-
-//Ajustar o svg estrutura do senado
-
 
 
 $( window ).on('load', function() {
@@ -39,30 +29,19 @@ $( window ).on('load', function() {
     	   //carregar os gráficos
 
     	   $(".box_prop").animate({opacity: 1},500);
-
-    	   /*$(".propositions_donut_chart").animate({opacity: 1},600);
-    	   $(".graph_prop_type").animate({opacity: 1},600);*/
-           
-
-
+   
            	var windowWidth = $(window).width();
 
             if(windowWidth <= 410){
-
            		showDonutChart(windowWidth / 1.8, windowWidth / 1.8);
-
            		showBarChart(windowWidth,200);
             }else{
             	showDonutChart(210,210);
             	showBarChart(370,230);
             }	
 
-
            graphsLoaded = true;
 
-           /*if($(window).width() <= 410 ){
-           		$(".propositions_donut_chart").empty();
-           }*/
     	}
     }
 	});
@@ -84,15 +63,8 @@ $( window ).on('load', function() {
 	slideProps(3,"voted_abstain");
 	slideProps(4,"voted_secret");
 
-	// $(".prop_desc").trunk8({
-	// 	lines: 3
-	// });
-
-
-	//slideProps();
 	showPoliticanDetails();
 	
-
 	var path = window.location.pathname;
 	var page = path.split("/").pop();
 	
@@ -105,11 +77,10 @@ $( window ).on('load', function() {
 
 	changeColorChechedPropVoted();
 
+	
+
 	/*Responsive script*/
 	responsiveChanges();
-
-
-
 
 	var w = $(window).width();
 	$(window).resize(function(){
@@ -119,23 +90,6 @@ $( window ).on('load', function() {
 		responsiveChanges();
 
 	});
-
-
-
-	/*$( window ).resize(function() { 		
-  		responsiveChanges();
-	});*/
-
-	
-	/*var myPrefetchedPage;
-	$.ajax({
-	  url: "../politic.html",
-	  cache: false,
-	  success: function(html){
-	    myPrefetchedPage = html;
-	  }
-	})*/
-
 	
 });
 

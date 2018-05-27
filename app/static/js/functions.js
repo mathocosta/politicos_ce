@@ -1,32 +1,22 @@
 function showDonutChart(width, height){
-	/*var width = 210,
-	    height = 210,*/
-	var radius = Math.min(width, height) / 2.2;
-  
+
+	var radius = Math.min(width, height) / 2.2;  
 	var color = d3.scale.ordinal()
 	    .range(["#B0F28C", "#8ECDED", "#F28C91", "#F4E58C"]);
-
 	var arc = d3.svg.arc()
 	    .outerRadius(radius)
 	    .innerRadius(radius - (radius*0.5));
 
-
-
+	
 	var qtd_aproved = $("#aproved").text();
-
 	var qtd_published = $("#published").text();
-
 	var qtd_refused = $("#refused").text();
-
 	var qtd_processing = $("#processing").text();
-
 
 	var data = [{ status: "Aprovado", qtd: qtd_aproved},
 	            { status: "Publicado", qtd: qtd_published},
 	            { status: "Recusado", qtd: qtd_refused},
 	            { status: "Tramitando", qtd: qtd_processing}];
-
-
 
 	var pie = d3.layout.pie()
 	    .sort(null)
@@ -35,8 +25,7 @@ function showDonutChart(width, height){
 	    .value(function(d) { 
 	      return d.qtd; 
 	    });
-
-	    
+    
 	var svg = d3.select(".propositions_donut_chart").append("svg")
 	    .attr("width", width)
 	    .attr("height", height)
@@ -50,7 +39,6 @@ function showDonutChart(width, height){
 	      .data(pie(data))
 	      .enter().append("g")
 	      .attr("class", "arc");
-
 
 	    var n = 0;
 	      g.append("path")
@@ -69,11 +57,8 @@ function showDonutChart(width, height){
 				})
 				.each("end", function(){
 					 if(!--n){
-
-					 	
-
+				
 					 	$(".slices").on("mouseenter",function(){
-
 
 					 		animateSlicesMouseEnterLeave($(this).attr("id"),radius, arc, true);
 
@@ -130,21 +115,6 @@ function showDonutChart(width, height){
 				}) ;
 
 
-
-	 /* g.append("text")
-	      .attr("transform", function(d) { 
-	        return "translate(" + arc.centroid(d) + ")"; 
-	      })
-	      .attr("dy", ".35em")
-	      .text(function(d) { return d.data.qtd; })
-	      .style("font","14px AsapRegular")
-		  .style("fill","#424242")*/
-
-		  // svg.append("path")
-		  //     // .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; })
-		  //     .attr("d", d3.svg.symbol().type("triangle-up"));
-
-
 	  svg.append("text")
 		  .attr("x", 0)
 		  .attr("y", 0)
@@ -175,10 +145,6 @@ function showDonutChart(width, height){
 		$(this).attr("id","slice_"+countSliceId);
 		countSliceId ++;
 	});
-
-	
-
-//var key = function(d){ return d.data.status; };
 
 }
 
@@ -253,10 +219,6 @@ function showBarChart(w, h){
 	  .attr("transform", "translate(0," + height + ")")
 	  .call(xAxis);
 
-
-
-
-
 	svg.append("g")
 	  .attr("class", "y axis axisLeft")
 	  .attr("transform", "translate(0,0)")
@@ -270,8 +232,6 @@ function showBarChart(w, h){
 	  .text("Total: "+ $("#show_total_props").text())
 	  .style("font","18px AsapMedium")
 	  .style("fill","#B58CEA");
-
-	//$("#show_total_props").text("");	
 
 	d3.selectAll(".graph .y .tick line")
 	.attr("x2", width );
@@ -386,62 +346,11 @@ function showHistoryChart(){
 	  .attr("class", "y axis")
 	  .attr("transform", "translate(0,0)")
 	  .call(yAxisLeft)
-	/*.append("text")
-	  .attr("x", 50)
-	  .attr("y", 6)
-	  .attr("dy", "-1em")
-	  .style("text-anchor", "end")
-	  .style("text-anchor", "end")
-	  //.text("Total: "+ $("#show_total_props").text())
-	  .style("font","18px AsapMedium")
-	  .style("fill","#B58CEA");
-
-	d3.selectAll(".graph .y .tick line")
-	.attr("x2", width );
-	d3.selectAll(".graph .y .tick text")
-	.attr("x", -4);*/
 
 	d3.selectAll(".graph_history .y .tick line")
 	.attr("x2", width );
 	d3.selectAll(".graph_history .y .tick text")
 		.attr("x", - 5);
-		
-
-	//bars = svg.selectAll(".bar").data(data).enter();
-
-	/*
-	var countIdBars = 0;
-	var rectY = function(d) { return y0(d.qtd); };
-	var rectH = function(d,i,j) { return height - y0(d.qtd); };
-	bars.append("rect")
-      .attr("class", "bars")
-      .attr("x", function(d) { return x(d.year) + 5; })
-      .attr("width", x.rangeBand()/1.2)
-      //.attr("y", rectY)
-      .attr("rx", 2)
-      .attr("ry", 2)
-      .attr("height", 0)
-      .attr("y",  height)
-      	.transition()
-      	.ease("sin")
-      	.duration(800)
-      		.attr("y", rectY)
-		  	.attr("height", rectH)
-		  	.each(function(){
-		  		d3.select(this).attr("id","bar_"+countIdBars)
-		  		countIdBars ++;
-		 	 })
-		  	.each("end", function(){
-		  		if(!--countIdBars){
-			  		$(".bars").on("mouseenter", function(){
-			  			animateBarMouseEnterLeave($(this).attr("id"), x ,height, y0, true);
-			  		});
-
-			  		$(".bars").on("mouseleave", function(){
-			  			animateBarMouseEnterLeave($(this).attr("id"), x, height, y0, false);
-			  		});
-		  		}
-		  	});*/
 	  
 }
 

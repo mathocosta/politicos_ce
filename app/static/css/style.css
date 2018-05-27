@@ -79,6 +79,7 @@ p{
   color: #333333;
 }
 a{
+  text-decoration: none;
   font: 14px AsapRegular;
   color: #5580E0;
 }
@@ -462,6 +463,7 @@ button, select, input:focus{
   display: inline-block;
   margin: 15px 0 0 18px;
   color: #333333;
+  width: 140px;
 
 }
 .p_siglum{
@@ -1487,6 +1489,7 @@ input.tabs:checked + label + div {
   .box_prop{
     width: 100%;
   }
+
 
 }
 @media (max-width: 416px){
