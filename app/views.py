@@ -19,6 +19,8 @@ from data_capture.federal_senate.fetch_proposed import \
 from data_capture.federal_senate.fetch_voted_propositions import \
     get_data_from_senator as get_votes_from_senator
 
+from data_capture.federal_deputies.voted_propositions import get_voting_data, get_votes_from_deputy
+
 c = SimpleCache()
 
 
@@ -104,9 +106,10 @@ class ShowPoliticianPage(View):
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
             # FIXME: Remover isso, é pq nao pode (ainda) o id do deputado.
-            registered_id = self.politician_data.parliamentary_name
-            propositions = self._fetch_propositions(
-                politician_id, registered_id, get_props_from_deputie)
+            # registered_id = self.politician_data.parliamentary_name
+            # propositions = self._fetch_propositions(
+            #     politician_id, registered_id, get_props_from_deputie)
+            votes = self._fetch_deputies_votes(registered_id)
         elif self.politician_data.position == 'state-deputy':
             self.position = 'Deputado Estadual'
 
@@ -124,6 +127,37 @@ class ShowPoliticianPage(View):
             c.set(propositions_key, propositions, timeout=86400)
 
         return propositions
+
+    # NOTE: Isso está separado por enquanto, pois ainda não pensei numa
+    # forma de juntar os métodos, ou fazer de uma forma mais geral. No mais,
+    # abaixo tem o método para as votações dos dep. federais, e depois o que
+    # é para os senadores.
+    def _fetch_deputies_votes(self, registered_id):
+        polls_dataset_key = 'deputies_votes_dataset'
+        polls_dataset = c.get(polls_dataset_key)
+
+        if polls_dataset is None:
+            df = get_voting_data(datetime.datetime.now().year)
+            polls_dataset = df.to_dict('records')
+            c.set(polls_dataset_key, polls_dataset, timeout=86400)
+
+        polls_dataset_df = pd.DataFrame(polls_dataset)
+
+        votes_key = "{}-votes".format(self.politician_data.id)
+        votes = c.get(votes_key)
+
+        if votes is None:
+            df = get_votes_from_deputy(registered_id, polls_dataset_df)
+            votes = df.to_dict('records')
+            c.set(votes_key, votes, timeout=86400)
+
+        if len(votes) > 1:
+            filtered_votes = self._votes_filter(pd.DataFrame(votes))
+        else:
+            filtered_votes = dict.fromkeys(
+                ['yes', 'no', 'abstention', 'secret'], list())
+
+        return filtered_votes
 
     def _fetch_votes(self, politician_id, registered_id, callback):
         votes_key = "{}-votes".format(politician_id)
