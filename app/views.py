@@ -179,7 +179,7 @@ class PoliticianPageAPI(MethodView):
 
         self.politician_data = Politician.query.get_or_404(politician_id)
 
-        if graph == 1:
+        if int(graph) == 1:
             return self._props_status_number(year)
         else:
             return self._props_types_number(year)
