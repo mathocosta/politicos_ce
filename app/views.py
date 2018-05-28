@@ -281,7 +281,7 @@ class PoliticianPageAPI(MethodView):
         df = None
 
         if saved_propositions is None:
-            df = callback(registered_id, datetime.datetime.now().year)
+            df = callback(registered_id, year)
             update_cache_value(propositions_key, df)
         else:
             df = pd.DataFrame(saved_propositions,
