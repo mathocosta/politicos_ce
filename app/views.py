@@ -14,17 +14,30 @@ from app import app, db
 from app.models import Politician
 from data_capture.federal_deputies.fetch_proposed import \
     get_data_from_deputie as get_props_from_deputie
+from data_capture.federal_deputies.voted_propositions import (get_votes_from_deputy,
+                                                              get_voting_data)
 from data_capture.federal_senate.fetch_proposed import \
     get_data_from_senator as get_props_from_senator
 from data_capture.federal_senate.fetch_voted_propositions import \
     get_data_from_senator as get_votes_from_senator
 
-from data_capture.federal_deputies.voted_propositions import get_voting_data, get_votes_from_deputy
-
 c = SimpleCache()
+CACHE_TIMEOUT = 86400
 
+
+def update_cache_value(key, df):
+    """Atualiza o valor da key no cache
+
+    Args:
+        key (str)
+        df (pd.DataFrame): Dados para salvar
+    """
+    saved = df.to_dict('records')
+    c.set(key, saved, timeout=CACHE_TIMEOUT)
 
 # INDEX PAGE
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -106,10 +119,10 @@ class ShowPoliticianPage(View):
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
             # FIXME: Remover isso, é pq nao pode (ainda) o id do deputado.
-            # registered_id = self.politician_data.parliamentary_name
-            # propositions = self._fetch_propositions(
-            #     politician_id, registered_id, get_props_from_deputie)
-            votes = self._fetch_deputies_votes(registered_id)
+            registered_id = self.politician_data.parliamentary_name
+            propositions = self._fetch_propositions(
+                politician_id, registered_id, get_props_from_deputie)
+            # votes = self._fetch_deputies_votes(registered_id)
         elif self.politician_data.position == 'state-deputy':
             self.position = 'Deputado Estadual'
 
@@ -198,9 +211,11 @@ app.add_url_rule('/politician/<int:politician_id>',
                  view_func=ShowPoliticianPage.as_view('show_politician_page'))
 
 # INDIVIDUAL POLITICIAN PAGE API
+
+
 class PoliticianPageAPI(MethodView):
-    DATAFRAME_COLUMNS = ['id', 'siglum', 'number',
-                         'description', 'year', 'status', 'url']
+    PROP_DF_COLUMNS = ['id', 'siglum', 'number',
+                       'description', 'year', 'status', 'url']
 
     def get(self):
         politician_id = request.args.get('id', None)
@@ -267,17 +282,14 @@ class PoliticianPageAPI(MethodView):
 
         if saved_propositions is None:
             df = callback(registered_id, datetime.datetime.now().year)
-            saved_propositions = df.to_dict('records')
-            c.set(propositions_key, saved_propositions, timeout=86400)
-            filtered_propositions = saved_propositions
+            update_cache_value(propositions_key, df)
         else:
             df = pd.DataFrame(saved_propositions,
-                              columns=self.DATAFRAME_COLUMNS)
+                              columns=self.PROP_DF_COLUMNS)
             years = df.year.tolist()
             if year not in years:
                 df = pd.concat([df, callback(registered_id, year)])
-                propositions = df.to_dict('records')
-                c.set(propositions_key, propositions, timeout=86400)
+                update_cache_value(propositions_key, df)
 
         filtered_propositions = df[df.year == year]
 
