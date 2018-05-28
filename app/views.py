@@ -118,11 +118,9 @@ class ShowPoliticianPage(View):
                 politician_id, registered_id, get_votes_from_senator)
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
-            # FIXME: Remover isso, é pq nao pode (ainda) o id do deputado.
-            registered_id = self.politician_data.parliamentary_name
             propositions = self._fetch_propositions(
                 politician_id, registered_id, get_props_from_deputie)
-            # votes = self._fetch_deputies_votes(registered_id)
+            votes = self._fetch_deputies_votes(registered_id)
         elif self.politician_data.position == 'state-deputy':
             self.position = 'Deputado Estadual'
 
@@ -211,8 +209,6 @@ app.add_url_rule('/politician/<int:politician_id>',
                  view_func=ShowPoliticianPage.as_view('show_politician_page'))
 
 # INDIVIDUAL POLITICIAN PAGE API
-
-
 class PoliticianPageAPI(MethodView):
     PROP_DF_COLUMNS = ['id', 'siglum', 'number',
                        'description', 'year', 'status', 'url']

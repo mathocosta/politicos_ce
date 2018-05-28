@@ -38,14 +38,14 @@ def get_individual_proposition(id):
     }
 
 
-def get_data_from_deputie(name, year):
+def get_data_from_deputie(id, year):
     print('Obtendo as proposições do deputado...')
 
     # Antiga API
     # r = requests.get("http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor={0}&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=".format(name))
 
     payload = {
-        'autor': name,
+        'idAutor': id,
         'ano': year,
         'siglaTipo': ['PEC', 'PL', 'RCP', 'REM'],
         'itens': 100,
@@ -54,7 +54,7 @@ def get_data_from_deputie(name, year):
     }
     r = requests.get("https://dadosabertos.camara.leg.br/api/v2/proposicoes",
                      params=payload, headers=HEAD_OPTIONS)
-
+    print(r.url)
     soup = BeautifulSoup(r.content, 'xml')
 
     # propositions = soup.find_all('proposicao')
