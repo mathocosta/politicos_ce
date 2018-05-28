@@ -1469,6 +1469,20 @@ input.tabs:checked + label + div {
     margin-top: 7%;
   }
 
+  input.tabs + label{
+    padding: 15px 1.75% 0 1.75%;
+  }
+  .labels{
+    text-align: center;
+
+  }
+  .choice{
+    display: none;
+  }
+   .choice_detailed {
+    width: auto;
+   }
+
 }
 
 @media (max-width: 580px){
@@ -1502,7 +1516,7 @@ input.tabs:checked + label + div {
   }
   .choice_detailed {
     font-size: 12px;
-    width: 70px;
+    
   }
   input.tabs + label {
     height: 65px;

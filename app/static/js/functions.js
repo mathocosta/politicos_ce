@@ -592,6 +592,29 @@ function resetChoiceIconsColors(){
 	$("#label_secret img").attr("src", "/static/res/icons/color_secret_icon.svg");	
 }
 
+
+
+function loadGraphs(){
+    if(!graphsLoaded){
+	   //carregar os gráficos
+
+	   $(".box_prop").animate({opacity: 1},500);
+
+       	var windowWidth = $(window).width();
+
+        if(windowWidth <= 410){
+       		showDonutChart(windowWidth / 1.8, windowWidth / 1.8);
+       		showBarChart(windowWidth,200);
+        }else{
+        	showDonutChart(210,210);
+        	showBarChart(370,230);
+        }	
+
+       graphsLoaded = true;
+
+	}
+}
+
 function responsiveChanges(){
 
 	var windowWidth = $(window).width();
@@ -623,19 +646,19 @@ function responsiveChanges(){
 			lines: 4
 		});
 
-		$(".choice_detailed_yes").text("Propostas concordadas");
-		$(".choice_detailed_no").text("Propostas discordadas");
-		$(".choice_detailed_abstain").text("Propostas não votadas");
-		$(".choice_detailed_secret").text("Sem detalhes divulgados");
+		$(".choice_detailed_yes").html("Propostas <br> concordadas");
+		$(".choice_detailed_no").html("Propostas <br> discordadas");
+		$(".choice_detailed_abstain").html("Propostas <br> não votadas");
+		$(".choice_detailed_secret").html("Sem detalhes <br> divulgados");
   	}else{
   		$(".prop_desc").trunk8({
 			lines: 3
 		});
 
-		$(".choice_detailed_yes").text("Propostas que o político concordou");
-		$(".choice_detailed_no").text("Propostas que o político foi contra");
-		$(".choice_detailed_abstain").text("Propostas que o político não votou");
-		$(".choice_detailed_secret").text("Votações sem detalhes divulgados");
+		$(".choice_detailed_yes").html("Propostas que o político concordou");
+		$(".choice_detailed_no").html("Propostas que o político foi contra");
+		$(".choice_detailed_abstain").html("Propostas que o político não votou");
+		$(".choice_detailed_secret").html("Votações sem detalhes divulgados");
   	}
 
 
