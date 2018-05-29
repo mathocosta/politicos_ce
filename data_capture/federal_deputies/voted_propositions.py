@@ -43,7 +43,6 @@ def get_prop_polls(number, type, year):
 
 
 def get_prop_data(prop_id):
-    print("Obtendo dados da proposição {}".format(prop_id))
     params = {'IdProp': prop_id}
     r = requests.get(
         'http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID',
@@ -88,8 +87,8 @@ def fetch_all_voted_from_year(year, type):
         if prop_id not in processed_ids:
             processed_ids.append(prop_id)
 
-            number, year = extract_type_number(p.nomeProposicao.text)
-            polls_list = get_prop_polls(number, type, year)
+            number, prop_year = extract_type_number(p.nomeProposicao.text)
+            polls_list = get_prop_polls(number, type, prop_year)
             prop_data = get_prop_data(prop_id)
 
             votation_data.append({
@@ -149,10 +148,12 @@ def get_votes_from_deputy(id, df):
         row_df = pd.DataFrame([row], columns=columns)
 
         for p in polls:
-            filter_obj = filter(lambda dep: dep['registered_id'] == id, p)
-            row_df['vote'] = list(filter_obj)[0]['vote']
-            deputy_votes_df = pd.concat(
-                [deputy_votes_df, row_df], ignore_index=True)
+            filter_list = list(
+                filter(lambda dep: dep['registered_id'] == id, p))
+            if len(filter_list) > 0:
+                row_df['vote'] = filter_list[0]['vote']
+                deputy_votes_df = pd.concat(
+                    [deputy_votes_df, row_df], ignore_index=True)
 
     return deputy_votes_df
 
