@@ -54,7 +54,7 @@ def get_data_from_deputie(id, year):
     }
     r = requests.get("https://dadosabertos.camara.leg.br/api/v2/proposicoes",
                      params=payload, headers=HEAD_OPTIONS)
-    print(r.url)
+
     soup = BeautifulSoup(r.content, 'xml')
 
     # propositions = soup.find_all('proposicao')
