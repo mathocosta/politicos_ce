@@ -168,17 +168,18 @@
                     <div class="content_voted_inner content_voted_yes_inner">
                         <div class="project_voted project_voted_yes">
 
-                            <div class="project_prop_inner voted_yes">
-                                {% for v in votes['yes'][:5] %}
-                                    <div class="especific_project_prop">
-                                        <div class="prop_status">{{ v.result }}</div>
-                                        <h3 class="prop_type_n">
-                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
-                                        </h3>
-                                        <div class="prop_desc">{{ v.description }}</div>
-                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                                    </div>
-                                {% endfor %}
+                            <div class="project_prop_inner voted_inner voted_yes">
+                                    {% for v in votes['yes'][:5] %}
+                                        <div class="especific_project_prop">
+                                            <!-- v.result -->
+                                            <div class="prop_status">{{ v.result }} </div>
+                                            <h3 class="prop_type_n">
+                                                <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                            </h3>
+                                            <div class="prop_desc">{{ v.description }}</div>
+                                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                        </div>
+                                    {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -195,22 +196,22 @@
                     </div>
                 </label>
                 <div class= "content_no">
+                    <div class="btns_container btns_container_2 ">
+                        <button class="btn_n_p btn_prev" id="btn_voted_no_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
+                        <button class="btn_n_p btn_next" id="btn_voted_no_next"> <img src="/static/res/icons/next_icon.svg"> </button>
+                    </div>
                     <div class="project_voted project_voted_no">
-                        <div class="project_prop_inner voted_no">
-                            <div class="btns_container btns_container_2 ">
-                                <button class="btn_n_p btn_prev" id="btn_voted_no_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
-                                <button class="btn_n_p btn_next" id="btn_voted_no_next"> <img src="/static/res/icons/next_icon.svg"> </button>
-                            </div>
-                            {% for v in votes['no'][:5] %}
-                                <div class="especific_project_prop">
-                                    <div class="prop_status">{{ v.result }}</div>
-                                    <h3 class="prop_type_n">
-                                        <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
-                                    </h3>
-                                    <div class="prop_desc">{{ v.description }}</div>
-                                    <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                                </div>
-                            {% endfor %}
+                        <div class="project_prop_inner voted_inner voted_no">
+                                {% for v in votes['no'][:5] %}
+                                    <div class="especific_project_prop">
+                                        <div class="prop_status">{{ v.result }}</div>
+                                        <h3 class="prop_type_n">
+                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                        </h3>
+                                        <div class="prop_desc">{{ v.description }}</div>
+                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                    </div>
+                                {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -225,23 +226,22 @@
                     </div>
                 </label>
                 <div class= "content_abstain">
+                    <div class="btns_container btns_container_2">
+                        <button class="btn_n_p btn_prev" id="btn_voted_abstain_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
+                        <button class="btn_n_p btn_next" id="btn_voted_abstain_next"> <img src="/static/res/icons/next_icon.svg"> </button>
+                    </div>
                     <div class="project_voted project_voted_abstain">
-                        <div class="project_prop_inner voted_abstain">
-                            <div class="btns_container btns_container_2">
-                                <button class="btn_n_p btn_prev" id="btn_voted_abstain_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
-                                <button class="btn_n_p btn_next" id="btn_voted_abstain_next"> <img src="/static/res/icons/next_icon.svg"> </button>
-                            </div>
-                            {% for v in votes['abstention'][:5] %}
-                                <div class="especific_project_prop">
-                                    <div class="prop_status">{{ v.result }}</div>
-                                    <h3 class="prop_type_n">
-                                        <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
-                                    </h3>
-                                    <div class="prop_desc">{{ v.description }}</div>
-                                    <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                                </div>
-                            {% endfor %}
-
+                        <div class="project_prop_inner voted_inner voted_abstain">                          
+                                {% for v in votes['abstention'][:5] %}
+                                    <div class="especific_project_prop">
+                                        <div class="prop_status">{{ v.result }}</div>
+                                        <h3 class="prop_type_n">
+                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                        </h3>
+                                        <div class="prop_desc">{{ v.description }}</div>
+                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                    </div>
+                                {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -258,34 +258,36 @@
 
                 </label>
                 <div class= "content_secret">
+                    <div class="btns_container btns_container_2">
+                        <button class="btn_n_p btn_prev" id="btn_voted_secret_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
+                        <button class="btn_n_p btn_next" id="btn_voted_secret_next"> <img src="/static/res/icons/next_icon.svg"> </button>
+                    </div>
                     <div class="project_voted project_voted_secret">
 
-                        <div class="project_prop_inner voted_secret">
-                            <div class="btns_container btns_container_2">
-                                <button class="btn_n_p btn_prev" id="btn_voted_secret_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
-                                <button class="btn_n_p btn_next" id="btn_voted_secret_next"> <img src="/static/res/icons/next_icon.svg"> </button>
-                            </div>
-                            {% for v in votes['abstention'][:5] %}
-                                <div class="especific_project_prop">
-                                    <div class="prop_status">{{ v.result }}</div>
-                                    <h3 class="prop_type_n">
-                                        <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
-                                    </h3>
-                                    <div class="prop_desc">{{ v.description }}</div>
-                                    <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                                </div>
-                            {% endfor %}
+                        <div class="project_prop_inner voted_inner voted_secret">                         
+                                {% for v in votes['abstention'][:5] %}
+                                    <div class="especific_project_prop">
+                                        <div class="prop_status">{{ v.result }}</div>
+                                        <h3 class="prop_type_n">
+                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                        </h3>
+                                        <div class="prop_desc">{{ v.description }}</div>
+                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                    </div>
+                                {% endfor %}
                         </div>
                     </div>
                 </div>
                 <select class="select_year select_year_project_voted" class="display_ib">
                     <option value="" disabled selected>Anos disponíveis</option>
-                    <!-- <option>2018</option>
+                    <option selected="selected">2018</option>
                     <option>2017</option>
-                    <option>2016</option> -->
+                    <option>2016</option>
+                    <option>2015</option>  
                 </select>
 
                 <div id="line"></div>
+                <div id="loading_polls" class="full_width">Carregando votações...</div>
                 <div id="holder"></div>
 
 

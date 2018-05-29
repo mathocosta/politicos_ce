@@ -1119,6 +1119,15 @@ input.tabs:checked + label + div {
   margin-bottom: 50px;
   background: transparent;
 }
+#loading_polls {
+    display: none;
+    width: 880px;
+    height: 220px;
+    z-index: 99999;
+    background: #fff;
+    position: absolute;
+    top: 170px;
+}
 #party_trend{
   position: relative;
   background-color: #fff;
@@ -1291,9 +1300,10 @@ input.tabs:checked + label + div {
     width: 750px;
   }
 
-  .project_prop_title{
+  .project_prop_title, .btns_container{
     margin-top: 30px;
   }
+
 }
 
 

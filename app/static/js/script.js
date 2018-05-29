@@ -40,6 +40,9 @@ $( window ).on('load', function() {
 	    }
 	});
 	
+	$(".select_year_project_voted").val("2018");
+	loadFilteredPolls($(".select_year_project_voted").val());
+	filterPropsByYear();
 
 	definePageProps();
 	showHistoryChart();
@@ -88,7 +91,7 @@ $( window ).on('load', function() {
 		
 
 
-	//filterPropsByYear();
+	
 	
 });
 

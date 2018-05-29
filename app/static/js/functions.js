@@ -388,7 +388,6 @@ function definePageProps(){
 			count[4]++;
 		}
 	});
-
 	for (var i = 0; i < pages.length; i++) {
 		pages[i] = Math.ceil(count[i]/3);
 	}
@@ -523,13 +522,14 @@ function showPoliticanDetails(){
 
 function autoAjustWidthInnerProps(container){
 	var count = 2;
-
+	var width;
 	$("."+container + " .especific_project_prop").each(function(){	
+		width = parseInt($(this).width()) + 50;
 		$(this).attr("id", container+"_"+(count - 2));
 		count++;
 	});
-
-	$("."+container).width(387*count);
+	
+	$("."+container).width(width*count);
 
 	return $(container).width();
 }
@@ -657,18 +657,18 @@ function responsiveChanges(){
 
   	if(windowWidth <= 682){
 
-		$(".prop_desc").trunk8({
-			lines: 4
-		});
+		// $(".prop_desc").dotdotdot({
+		// 	height: 55
+		// });
 
 		$(".choice_detailed_yes").html("Propostas <br> concordadas");
 		$(".choice_detailed_no").html("Propostas <br> discordadas");
 		$(".choice_detailed_abstain").html("Propostas <br> não votadas");
 		$(".choice_detailed_secret").html("Sem detalhes <br> divulgados");
   	}else{
-  		$(".prop_desc").trunk8({
-			lines: 3
-		});
+  //  		$(".prop_desc").dotdotdot({
+		// 	height: 55
+		// });
 
 		$(".choice_detailed_yes").html("Propostas que o político concordou");
 		$(".choice_detailed_no").html("Propostas que o político foi contra");
@@ -700,6 +700,12 @@ function responsiveChanges(){
 	}
 
 
+	autoAjustWidthInnerProps("prop");
+	autoAjustWidthInnerProps("voted_yes");
+	autoAjustWidthInnerProps("voted_no");
+	autoAjustWidthInnerProps("voted_abstain");
+	autoAjustWidthInnerProps("voted_secret");
+
 	actualPage = [0,0,0,0,0];
 	slidePropsAdaptResponsive(0,"prop");
 	slidePropsAdaptResponsive(1,"voted_yes");
@@ -709,50 +715,104 @@ function responsiveChanges(){
 
 
 	ajustPartyTrendGraphWidth();
-
 }
 
 
 function filterPropsByYear(){
-	var all_years_available = [];
-	var count_year = 0;
-	$(".voted_year").each(function(){	
-
-		 if( $.inArray( $(this).text() , all_years_available ) == -1 ){			
-		 	all_years_available[count_year++] = ($(this).text());
-		 	console.log(count_year);
-		 }
-		
-	});
 	
-	all_years_available = all_years_available.sort().reverse();
-
-	for (var i = 0; i <= all_years_available.length -1; i++) {
-		if(i == 0){
-			$('.select_year_project_voted').append('<option selected="selected">' + all_years_available[i] + '</option>');
-		}else{
-			$('.select_year_project_voted').append('<option>' + all_years_available[i] + '</option>');
-		}		
-	}
-
-
 	$(document).on('change', 'select', function() {
 		var year_selected = $(this).val();
-	
-		$(".voted_year").each(function(){
-
-			if($(this).text() == year_selected){
-				$(this).parent().css("display","inline-table");
-			}else{
-				$(this).parent().css("display","none");
-			}
-		});
-		definePageProps();
-		responsiveChanges();
+		loadFilteredPolls(year_selected);	
 	});
 }
 
 
-function showPropsByYearOnLoad(){
+function loadFilteredPolls(yearSel){
+		var politician_id = window.location.pathname.split("/").pop();
+		$("#loading_polls").css("display","block");
+		$("#loading_polls").text("Carregando votações de " + yearSel);
+		$.ajax({
+	      type:'GET',
+	      url:'/politician/api',
+	      async: true,
+	      data: {id : politician_id, graph : 3, year: yearSel},
 
+	      dataType:'json',
+
+	      success: function(data) {
+	      	$("#loading_polls").css("display","none");
+	      	var lenAll =  data.length;
+	      	var lenYes = 0;
+	      	$(".voted_inner").empty();
+
+	      	for (var i = 0; i < lenAll; i++) {
+
+	      		var vote_description = data[i].description;
+	      		if(vote_description.length > 115){
+
+	      			vote_description = vote_description.substring(0,110) + '...' ;
+	      		    //$('#result').text(txt.substring(0,150) + '.....');
+	      		}    
+
+	      		switch (data[i].vote){
+	      			case "Sim":	      					      				
+	      				$(".voted_yes").append(
+	      					'<div class="especific_project_prop"> \
+                            	<div class="prop_status">'+ data[i].result +'</div> \
+                            	<h3 class="prop_type_n"> \
+                                	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
+                            	</h3> \
+                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                        	</div>');
+	      		      				
+	      				break;
+	      			case "Não":
+	      				$(".voted_no").append(
+	      					'<div class="especific_project_prop"> \
+                            	<div class="prop_status">'+ data[i].result +'</div> \
+                            	<h3 class="prop_type_n"> \
+                                	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
+                            	</h3> \
+                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                        	</div>');
+	      				break;	
+	      			case "Obstrução":
+	      				$(".voted_abstain").append(
+	      					'<div class="especific_project_prop"> \
+                            	<div class="prop_status">'+ data[i].result +'</div> \
+                            	<h3 class="prop_type_n"> \
+                                	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
+                            	</h3> \
+                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                        	</div>');
+	      				break;
+	      			default:
+	      				$(".voted_secret").append(
+	      					'<div class="especific_project_prop"> \
+                            	<div class="prop_status">'+ data[i].result +'</div> \
+                            	<h3 class="prop_type_n"> \
+                                	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
+                            	</h3> \
+                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                        	</div>');
+	      				break;		
+	      		}
+
+	      	}
+	      	definePageProps();
+	      	responsiveChanges();
+	      	
+	      	
+
+	      },
+	      error: function(request, status, error) {
+	      	$("#loading_polls").css("display","none");
+	        console.log(request , status , error);
+	      }
+	   });
+	
 }
