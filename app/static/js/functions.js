@@ -358,26 +358,41 @@ function showHistoryChart(){
 	var pages = [0,0,0,0,0];
 	var actualPage = [0,0,0,0,0];
 
+
+function definePageProps(){
+	count = [0,0,0,0,0];
+	pages = [0,0,0,0,0];
+	actualPage = [0,0,0,0,0];
 	$(".prop .especific_project_prop").each(function(){
+		if($(this).css("display") == "inline-table"){
 		count[0] ++;
+		}
 	});
 	$(".voted_yes .especific_project_prop").each(function(){
-		count[1]++;
+		if($(this).css("display") == "inline-table"){
+			count[1]++;
+		}
 	});
 	$(".voted_no .especific_project_prop").each(function(){
-		count[2]++;
+		if($(this).css("display") == "inline-table"){
+			count[2]++;
+		}
 	});
 	$(".voted_abstain .especific_project_prop").each(function(){
-		count[3]++;
+		if($(this).css("display") == "inline-table"){
+			count[3]++;
+		}
 	});
 	$(".voted_secret .especific_project_prop").each(function(){
-		count[4]++;
+		if($(this).css("display") == "inline-table"){
+			count[4]++;
+		}
 	});
 
 	for (var i = 0; i < pages.length; i++) {
 		pages[i] = Math.ceil(count[i]/3);
 	}
-	
+}	
 
 	
 function slideProps(i, container){
@@ -694,5 +709,50 @@ function responsiveChanges(){
 
 
 	ajustPartyTrendGraphWidth();
+
+}
+
+
+function filterPropsByYear(){
+	var all_years_available = [];
+	var count_year = 0;
+	$(".voted_year").each(function(){	
+
+		 if( $.inArray( $(this).text() , all_years_available ) == -1 ){			
+		 	all_years_available[count_year++] = ($(this).text());
+		 	console.log(count_year);
+		 }
+		
+	});
+	
+	all_years_available = all_years_available.sort().reverse();
+
+	for (var i = 0; i <= all_years_available.length -1; i++) {
+		if(i == 0){
+			$('.select_year_project_voted').append('<option selected="selected">' + all_years_available[i] + '</option>');
+		}else{
+			$('.select_year_project_voted').append('<option>' + all_years_available[i] + '</option>');
+		}		
+	}
+
+
+	$(document).on('change', 'select', function() {
+		var year_selected = $(this).val();
+	
+		$(".voted_year").each(function(){
+
+			if($(this).text() == year_selected){
+				$(this).parent().css("display","inline-table");
+			}else{
+				$(this).parent().css("display","none");
+			}
+		});
+		definePageProps();
+		responsiveChanges();
+	});
+}
+
+
+function showPropsByYearOnLoad(){
 
 }

@@ -279,9 +279,10 @@
                     </div>
                 </div>
                 <select class="select_year select_year_project_voted" class="display_ib">
-                    <option>2018</option>
+                    <option value="" disabled selected>Anos disponíveis</option>
+                    <!-- <option>2018</option>
                     <option>2017</option>
-                    <option>2016</option>
+                    <option>2016</option> -->
                 </select>
 
                 <div id="line"></div>
@@ -317,9 +318,4 @@
             <div id="footer" class="footer_especific_politic full_width"></div>
         </div>
     </div>
-
-    <!-- Pega o cargo atual do politico -->
-    <script type="text/javascript" defer> 
-        var politician_position = "{{position}}";
-    </script>
 {% endblock %}

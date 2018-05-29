@@ -26,14 +26,12 @@ $( window ).on('load', function() {
 
 	//Se a pagina for de um deputado estadual, não mostrar o título de Projetos Propostos;
 	//Também carrega os gráficos on load sem precisar do scroll;
-	try{
-		if( politician_position == "Deputado Estadual"){              
-	        $("#project_prop_head").css("display", "none");   
-	        loadGraphs();
-	    }
-    }catch{
-    	console.log("não é pagina de politico especifico");
-    } 
+	
+	if( $("#cargo").text() == "Deputado Estadual"){              
+        $("#project_prop_head").css("display", "none");   
+        loadGraphs();
+    }
+    
 
 	
 	$(window).scroll(function() {
@@ -42,6 +40,8 @@ $( window ).on('load', function() {
 	    }
 	});
 	
+
+	definePageProps();
 	showHistoryChart();
 	//----------------------------------------------*/
 
@@ -63,6 +63,7 @@ $( window ).on('load', function() {
 	
 	var path = window.location.pathname;
 	var page = path.split("/").pop();
+
 	if ( page == "know-more" ) {
     	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/c/c9/Senado_Federal_%28Brasil%29_-_atual.svg" , "#senator_structure");
     	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/5/5f/C%C3%A2mara_dos_Deputados_%28Brasil%29_-_atual.svg", "#federal_deputies_structure")
@@ -83,6 +84,11 @@ $( window ).on('load', function() {
 		responsiveChanges();
 
 	});
+
+		
+
+
+	//filterPropsByYear();
 	
 });
 
