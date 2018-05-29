@@ -212,6 +212,10 @@ app.add_url_rule('/politician/<int:politician_id>',
 class PoliticianPageAPI(MethodView):
     PROP_DF_COLUMNS = ['id', 'siglum', 'number',
                        'description', 'year', 'status', 'url']
+    POLLS_DF_COLUMNS = ['id', 'number', 'year', 'siglum', 'secret_poll',
+                        'result', 'description', 'url', 'number_of_polls', 'polls']
+    VOTES_DF_COLUMNS = ['id', 'number', 'year', 'siglum',
+                        'secret_poll', 'result', 'description', 'url', 'vote']
 
     def get(self):
         politician_id = request.args.get('id', None)
@@ -226,8 +230,11 @@ class PoliticianPageAPI(MethodView):
 
         if int(graph) == 1:
             return self._props_status_number(year)
-        else:
+        elif int(graph) == 2:
             return self._props_types_number(year)
+        else:
+            df = self._fetch_polls(year)
+            return jsonify(df.to_dict('records'))
 
     def _props_status_number(self, year):
         position = self.politician_data.position
@@ -290,6 +297,65 @@ class PoliticianPageAPI(MethodView):
         filtered_propositions = df[df.year == year]
 
         return filtered_propositions
+
+    def _fetch_polls(self, year):
+        politician_position = self.politician_data.position
+        registered_id = self.politician_data.registered_id
+
+        polls_dataset_key = 'deputies_votes_dataset'
+        polls_dataset = c.get(polls_dataset_key)
+
+        votes_key = "{}-votes".format(self.politician_data.id)
+        saved_votes = c.get(votes_key)
+
+        filtered_df = None
+        df = None
+
+        if saved_votes is None:
+            if politician_position == 'senator':
+                df = get_props_from_senator(registered_id, year)
+                update_cache_value(votes_key, df)
+                filtered_df = df
+            elif politician_position == 'federal-deputy':
+                polls_df = pd.DataFrame(
+                    polls_dataset, columns=self.POLLS_DF_COLUMNS)
+
+                if polls_dataset is None:
+                    polls_df = get_voting_data(year)
+                elif year not in polls_df.year.tolist():
+                    polls_df = pd.concat(polls_df, get_voting_data(year))
+
+                update_cache_value(polls_dataset_key, polls_df)
+
+                df = get_votes_from_deputy(registered_id, polls_df)
+                update_cache_value(votes_key, df)
+
+                filtered_df = df[df.year == year]
+        else:
+            df = pd.DataFrame(saved_votes,
+                              columns=self.VOTES_DF_COLUMNS)
+            years = df.year.tolist()
+            if year not in years:
+                if politician_position == 'senator':
+                    # FIXME: Tem algum erro nessa operação
+                    df = pd.concat(
+                        [df, get_props_from_senator(registered_id, year)])
+                    update_cache_value(votes_key, df)
+                elif politician_position == 'federal-deputy':
+                    polls_df = pd.DataFrame(
+                        polls_dataset, columns=self.POLLS_DF_COLUMNS)
+                    if year not in polls_df.year.tolist():
+                        polls_df = pd.concat(
+                            [polls_df, get_voting_data(year)])
+                        update_cache_value(polls_dataset_key, polls_df)
+
+                    df = pd.concat(
+                        [df, get_votes_from_deputy(registered_id, polls_df)])
+                    update_cache_value(votes_key, df)
+
+            filtered_df = df[df.year == year]
+
+        return filtered_df
 
 
 politician_page_api = PoliticianPageAPI.as_view('politician_page_api')
