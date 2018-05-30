@@ -31,6 +31,8 @@ def update_cache_value(key, df):
     c.set(key, saved, timeout=CACHE_TIMEOUT)
 
 # INDEX PAGE
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -88,7 +90,7 @@ class ShowPoliticianPage(View):
         self.politician_data = Politician.query.get_or_404(politician_id)
         self.position = ""
 
-        self.propositions, self.votes = self.fetch_external_data()
+        self.propositions, self.votes, self.candidacies = self.fetch_external_data()
 
         return render_template("politician.html",
                                politician_data=self.politician_data,
@@ -102,6 +104,7 @@ class ShowPoliticianPage(View):
         propositions = list()
         votes = dict.fromkeys(
             ['yes', 'no', 'abstention', 'secret'], list())
+        candidacies = list()
 
         if self.politician_data.position == 'senator':
             self.position = 'Senador'
@@ -109,15 +112,21 @@ class ShowPoliticianPage(View):
                 politician_id, registered_id, fs.get_props_from_senator)
             votes = self._fetch_votes(
                 politician_id, registered_id, fs.get_votes_from_senator)
+            candidacies = fs.fetch_candidacies_data(
+                self.politician_data.civil_name)
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
             propositions = self._fetch_propositions(
                 politician_id, registered_id, fd.get_props_from_deputy)
             votes = self._fetch_deputies_votes(registered_id)
+            candidacies = fd.fetch_candidacies_data(
+                self.politician_data.civil_name)
         elif self.politician_data.position == 'state-deputy':
             self.position = 'Deputado Estadual'
+            candidacies = sd.get_candidacies_data(
+                self.politician_data.civil_name)
 
-        return propositions, votes
+        return propositions, votes, candidacies
 
     def _fetch_propositions(self, politician_id, registered_id, callback):
         propositions_key = "{}-propositions".format(politician_id)
@@ -202,6 +211,8 @@ app.add_url_rule('/politician/<int:politician_id>',
                  view_func=ShowPoliticianPage.as_view('show_politician_page'))
 
 # INDIVIDUAL POLITICIAN PAGE API
+
+
 class PoliticianPageAPI(MethodView):
     PROP_DF_COLUMNS = ['id', 'siglum', 'number',
                        'description', 'year', 'status', 'url']
