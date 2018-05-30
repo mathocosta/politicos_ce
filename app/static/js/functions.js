@@ -241,8 +241,6 @@ function showBarChart(w, h){
 
 
 	bars = svg.selectAll(".bar").data(data).enter();
-
-	
 	var countIdBars = 0;
 	var rectY = function(d) { return y0(d.qtd); };
 	var rectH = function(d,i,j) { return height - y0(d.qtd); };
@@ -329,9 +327,46 @@ function showHistoryChart(){
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
+
+	// filters go in defs element
+	var defs = svg.append("defs");
+
+	// create filter with id #drop-shadow
+	// height=130% so that the shadow is not clipped
+	var filter = defs.append("filter")
+	    .attr("id", "drop-shadow")
+	    .attr("width", "1000%")
+	    .attr("height", "1000%");
+	       
+    filter.append("feDropShadow")
+    	.attr("dx", 1)
+    	.attr("dy", 1)
+    	.attr("stdDeviation", 1)
+    	.attr("flood-color", "#000")
+    	.attr("flood-opacity", 0.15);
+
+
 	var offices = ["Presidente","Senador", "Dep. Federal", "Governador", "Dep. Estadual", "Prefeito", "Vereador"];	          
-	var years = ["2006","2008","2010","2012","2014","2016","2018"]
+	var years = ["2006","2008","2010","2012","2014","2016","2018"];
 	
+
+	var data = [{ year: "2006", qtd: -1},
+			    {year: "2008", qtd: 2},
+		        { year: "2010", qtd: 1},
+		        { year: "2012", qtd: -1},
+		        { year: "2014", qtd: 1},
+		        { year: "2016", qtd: -1},
+		         {year: "2018", qtd: 1}];
+
+    var data_filter = [];
+
+
+
+    data.forEach(function(d){
+    	if(d.qtd != -1){
+    		data_filter.push(d);
+    	}
+    });
 
 	x.domain(years);
 	y.domain(offices);
@@ -351,6 +386,63 @@ function showHistoryChart(){
 	.attr("x2", width );
 	d3.selectAll(".graph_history .y .tick text")
 		.attr("x", - 5);
+
+
+	bars = svg.selectAll(".bar").data(years).enter();
+
+	var countIdBars = 0;
+	//var rectY = function(d) { return y(d.qtd); };
+	//var rectH = function(d,i,j) { return height - y(d.qtd); };
+	var i = 0;
+	var j = 0;
+	bars.append("circle")
+		 .attr('cx', function(){ 
+
+		 	var posX = -400;
+		 	data_filter.forEach(function(d){
+
+		 		if(d.year == years[i]){
+
+		 			posX = x(years[i]) + width/16; 
+
+		 		}
+		 	});	
+
+		 	i++;
+		 	return posX;
+		 })
+		     .attr('cy', function(){ 
+
+		     	var posY = 0 ;
+		     	data_filter.forEach(function(d){
+		     		if(d.year == years[j]){
+		     			posY = d.qtd;
+		     			console.log(d.qtd);
+		     		}
+		     	});
+		     	
+		     	j++;
+		     	return  y(offices[posY]) + width/28 ;
+
+
+		     })
+		     .attr('r','11px')
+		     .style('fill', '#b0f28c')
+		     .attr("filter", "url(#drop-shadow)");
+     //  .attr("class", "circles")
+     //  .attr("x", function(d) { return x(d.year) + 5; })
+     //  .attr("width", x.rangeBand()/1.2)
+     //  //.attr("y", rectY)
+     //  .attr("rx", 2)
+     //  .attr("ry", 2)
+     //  .attr("height", 0)
+     //  .attr("y",  height)
+     //  	.transition()
+     //  	.ease("sin")
+     //  	.duration(800)
+     //  		.attr("y", 50)
+		  	// .attr("height", 50);
+		  	
 	  
 }
 
@@ -720,7 +812,7 @@ function responsiveChanges(){
 
 function filterPropsByYear(){
 	
-	$(document).on('change', 'select', function() {
+	$(".select_year_project_voted").on('change', function() {
 		var year_selected = $(this).val();
 		loadFilteredPolls(year_selected);	
 	});
