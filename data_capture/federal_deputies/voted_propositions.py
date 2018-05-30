@@ -42,6 +42,16 @@ def get_prop_polls(number, type, year):
     return processed_polls
 
 
+def make_excerpt(text):
+    excerpt = text
+
+    if (len(text) > 110):
+        excerpt = text[:110]
+        excerpt += '...'
+
+    return excerpt
+
+
 def get_prop_data(prop_id):
     params = {'IdProp': prop_id}
     r = requests.get(
@@ -50,7 +60,7 @@ def get_prop_data(prop_id):
     soup = BeautifulSoup(r.content, 'xml')
 
     return {
-        'description': soup.Ementa.text,
+        'description': make_excerpt(soup.Ementa.text),
         'url': soup.LinkInteiroTeor.text
     }
 
