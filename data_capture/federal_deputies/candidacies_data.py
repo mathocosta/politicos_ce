@@ -2,7 +2,8 @@
 """Captação do histórico de candidaturas dos deputados federais"""
 import requests
 
-from data_capture.helpers import candidacy_parser, get_dataset, save_dataset
+from data_capture.helpers import (candidacy_parser, fix_name, get_dataset,
+                                  save_dataset)
 
 
 def fetch_candidacies_data():
@@ -23,3 +24,14 @@ def fetch_candidacies_data():
         save_dataset(json_data['objects'], 'federal-deputies')
 
     return candidacy_parser(get_dataset('federal-deputies'))
+
+
+def candidacies_data_from_deputy(name):
+    """Obtém os dados de candidaturas por nome"""
+    dataset = fetch_candidacies_data()
+
+    for p in dataset:
+        if p['politician_name'] == fix_name(name):
+            return p
+
+    return None

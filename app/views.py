@@ -112,18 +112,18 @@ class ShowPoliticianPage(View):
                 politician_id, registered_id, fs.get_props_from_senator)
             votes = self._fetch_votes(
                 politician_id, registered_id, fs.get_votes_from_senator)
-            candidacies = fs.fetch_candidacies_data(
+            candidacies = fs.candidacies_data_from_senator(
                 self.politician_data.civil_name)
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
             propositions = self._fetch_propositions(
                 politician_id, registered_id, fd.get_props_from_deputy)
             votes = self._fetch_deputies_votes(registered_id)
-            candidacies = fd.fetch_candidacies_data(
+            candidacies = fd.candidacies_data_from_deputy(
                 self.politician_data.civil_name)
         elif self.politician_data.position == 'state-deputy':
             self.position = 'Deputado Estadual'
-            candidacies = sd.get_candidacies_data(
+            candidacies = sd.candidacies_data_from_deputy(
                 self.politician_data.civil_name)
 
         return propositions, votes, candidacies

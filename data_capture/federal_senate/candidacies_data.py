@@ -5,7 +5,7 @@ import requests
 from data_capture.helpers import candidacy_parser, get_dataset, save_dataset
 
 
-def fetch_candidacies_data(name):
+def candidacies_data_from_senator(name):
     """Obtém os dados de candidaturas por senador"""
     payload = {'name__in': name}
     r = requests.get(

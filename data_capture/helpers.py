@@ -63,3 +63,22 @@ def get_dataset(name):
         json_data = json.load(file)
 
         return json_data
+
+def fix_name(name):
+    """Ajeita os nomes dos políticos
+
+    Na API das candidaturas, por algum motivo, os nomes estão sem o acento
+    agudo. Essa função retira ele dos nomes, para que funcione a captação.
+
+    Args:
+        name (str): Nome original
+
+    Returns:
+        str: Nome sem acento agudo
+    """
+    accents = [('á', 'a'), ('é', 'e'), ('í', 'i'), ('ó', 'o'), ('ú', 'u')]
+
+    for e in accents:
+        name = name.replace(e[0], e[1])
+
+    return name
