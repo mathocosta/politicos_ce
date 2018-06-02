@@ -725,7 +725,9 @@ function loadGraphs(){
 function responsiveChanges(){
 
 	var windowWidth = $(window).width();
-
+	var windowHeight = $(window).height();
+	
+	$(".menu_container").height(windowHeight);
 
   	if(windowWidth <= 490){
   		$(".especific_project_prop").width($(this).width() - 37);

@@ -1,12 +1,45 @@
 @import "/static/res/fonts/fonts.css";
 
-
 /*GENERAL STYLE*/
 body{
   margin:0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+}
+.noScroll{
+  position: fixed;
+  overflow-y: scroll;
+}
+.menu_container{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #15B0BCE6;
+  z-index: 99;
+  opacity: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.menu_container_inner{
+    margin: auto;
+    width: 340px;
+    text-align: center;
+}
+.menu_container a{
+  margin: 10px 0;
+  font: 35px AsapMedium;
+  color:#fafafa;
+  display: block;
+  transition: color 0.3s;
+}
+.menu_container a:hover{
+  color: #FFDE7D;
+}
+.menu_show{
+
+  /*display: block;*/
 }
 #body_especific_politic{
   background-color: #fafafa;
@@ -105,8 +138,10 @@ button, select, input:focus{
   width: 1126px;
 }
 .hamburger_menu{
+  position: relative;
   display: inline-block;
   padding-top: 44px;
+  z-index: 999;
 }
 .hamburger{
 
@@ -275,7 +310,7 @@ button, select, input:focus{
   bottom: 10px;
 }
 .btn_explorar{
-  text-align: left;
+  text-align: center;
   margin-left: 15px;
 }
 /*END INFO 1 STYLE---------------------------*/
@@ -1048,6 +1083,9 @@ input.tabs:checked + label + div {
 .container_info h3{
   font:25px AsapRegular;
   margin: 0 0 25px 0;
+}
+.work_place h3{
+  margin-bottom: 10px;
 }
 .container_info h4{
   color: #00B8A9;

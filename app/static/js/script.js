@@ -3,17 +3,44 @@ var graphsLoaded = false;
 
 
 $( window ).on('load', function() {
+
+
+
+
+
     $(window).scrollLeft(0);
 
 	$("#content").css("display", "block");
-
     $("#line").width($("body").width() * 2);
     $("#line").css("left", - $("body").width() / 2);
     
+    $(".menu_container").css("display","none")
+    					.height($(window).height());
+
+    var menu_open = false;
+
 	$(".hamburger").on("click", function(){
+		var opacity = menu_open ? 0.0 : 1.0;
+
 		$(".hamburger").toggleClass("change");
+
+		$("body").toggleClass("noScroll");
+		//se a pagina for de um politico especifio não alternar classe para trocar a cor do menu hamburger
+		if(window.location.pathname.split("/")[1] != "politician"){
+			$(".bar1, .bar2, .bar3 ").toggleClass("bar_p_especific");
+		}
+		$(".menu_container").fadeTo("fast", opacity, function(){
+			if($(this).css("opacity") == 0){
+				$(this).css("display","none");				
+			}
+
+			menu_open = !menu_open;
+		});
+
+		
 	})
 	
+
 
 	$(window).scroll(function() {
 		if($(window).scrollTop() >= 0 && $(window).scrollLeft() != 0 ){
@@ -40,8 +67,12 @@ $( window ).on('load', function() {
 	    }
 	});
 	
-	$(".select_year_project_voted").val("2018");
-	loadFilteredPolls($(".select_year_project_voted").val());
+
+	if(window.location.pathname.split("/")[1] == "politician"){
+		$(".select_year_project_voted").val("2018");
+		loadFilteredPolls($(".select_year_project_voted").val());
+	}
+
 	filterPropsByYear();
 
 	definePageProps();
@@ -89,6 +120,7 @@ $( window ).on('load', function() {
 	});
 
 		
+	
 
 
 	
