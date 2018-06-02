@@ -30,9 +30,8 @@ def update_cache_value(key, df):
     saved = df.to_dict('records')
     c.set(key, saved, timeout=CACHE_TIMEOUT)
 
+
 # INDEX PAGE
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -211,8 +210,6 @@ app.add_url_rule('/politician/<int:politician_id>',
                  view_func=ShowPoliticianPage.as_view('show_politician_page'))
 
 # INDIVIDUAL POLITICIAN PAGE API
-
-
 class PoliticianPageAPI(MethodView):
     PROP_DF_COLUMNS = ['id', 'siglum', 'number',
                        'description', 'year', 'status', 'url']
@@ -341,9 +338,9 @@ class PoliticianPageAPI(MethodView):
             years = df.year.tolist()
             if year not in years:
                 if politician_position == 'senator':
-                    # FIXME: Tem algum erro nessa operação
                     df = pd.concat(
-                        [df, fs.get_props_from_senator(registered_id, year)])
+                        [df, fs.get_votes_from_senator(registered_id, year)],
+                        sort=True)
                     update_cache_value(votes_key, df)
                 elif politician_position == 'federal-deputy':
                     polls_df = pd.DataFrame(

@@ -52,6 +52,7 @@ def get_data_from_senator(id, year):
 
     for i in range(0, number_of_polls):
         votation_data = {
+            'id': polls[i].IdentificacaoMateria.CodigoMateria.text,
             'session_code': polls[i].CodigoSessao.text,
             'votation_title': polls[i].DescricaoVotacao.text,
             'secret_poll': polls[i].IndicadorVotacaoSecreta.text,
