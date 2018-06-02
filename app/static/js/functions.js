@@ -839,12 +839,12 @@ function loadFilteredPolls(yearSel){
 
 	      	for (var i = 0; i < lenAll; i++) {
 
-	      		var vote_description = data[i].description;
-	      		if(vote_description.length > 115){
+	      		// var vote_description = data[i].description;
+	      		// if(vote_description.length > 115){
 
-	      			vote_description = vote_description.substring(0,110) + '...' ;
-	      		    //$('#result').text(txt.substring(0,150) + '.....');
-	      		}    
+	      		// 	vote_description = vote_description.substring(0,110) + '...' ;
+	      		//     //$('#result').text(txt.substring(0,150) + '.....');
+	      		// }    
 
 	      		switch (data[i].vote){
 	      			case "Sim":	      					      				
@@ -854,7 +854,7 @@ function loadFilteredPolls(yearSel){
                             	<h3 class="prop_type_n"> \
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
-                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<div class="prop_desc">'+ data[i].description +'</div> \
                             	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      		      				
@@ -866,7 +866,7 @@ function loadFilteredPolls(yearSel){
                             	<h3 class="prop_type_n"> \
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
-                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<div class="prop_desc">'+ data[i].description +'</div> \
                             	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      				break;	
@@ -877,7 +877,7 @@ function loadFilteredPolls(yearSel){
                             	<h3 class="prop_type_n"> \
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
-                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<div class="prop_desc">'+ data[i].description +'</div> \
                             	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      				break;
@@ -888,7 +888,7 @@ function loadFilteredPolls(yearSel){
                             	<h3 class="prop_type_n"> \
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
-                            	<div class="prop_desc">'+ vote_description +'</div> \
+                            	<div class="prop_desc">'+ data[i].description +'</div> \
                             	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      				break;		

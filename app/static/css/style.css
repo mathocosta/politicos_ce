@@ -172,7 +172,7 @@ button, select, input:focus{
 #info1_part1{
   padding : 80px 0 0 245px;
 }
-#info1 img{
+#img_brasil{
   position: absolute;
   margin-top: -280px;
   margin-left: 540px;
@@ -244,33 +244,38 @@ button, select, input:focus{
   margin-top: 110px;
 }
 .explore_box{
+  position: relative;
   display: inline-table;
   background-color: #ffffff;
   width: 240px;
-  height: 220px;
+  height: 225px;
   margin: 0 40px;
   box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.15);
   border-radius: 2px;
   border-left: solid;
   border-width: 4px;
-  border-color: #F8F3D4;
-
-  font: 35px AsapSemiBold;
-  color: #333333;
+  border-color: #F8F3D4;  
   text-align: left;
-
+}
+.img_place_index{
+  width: 201px;
+  margin: 25px auto 0 auto;
+}
+.explore_box img{
+  width: 201px;
 }
 .explore_box h3{
+  text-align: left;
   margin: 0 0 0 15px;
-  height: 105px;
+  font: 35px AsapSemiBold;
+  color: #333333;
 }
-#img_senadores{
-  margin: auto;
-  width: 210px;
-  height: 61px;
-  background: url(/static/res/icons/senadores_img.png) no-repeat;
+.a_btn_explorar{
+  position: absolute;
+  bottom: 10px;
 }
 .btn_explorar{
+  text-align: left;
   margin-left: 15px;
 }
 /*END INFO 1 STYLE---------------------------*/
