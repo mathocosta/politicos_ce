@@ -45,7 +45,7 @@ body{
   background-color: #fafafa;
 }
 .full_width{
-  margin: 0 -9999px;
+  margin: 0 -9999px !important;
   padding: 0 9999px;
 
 }
@@ -201,7 +201,7 @@ button, select, input:focus{
 
 #info1{
   height: 668px;
-
+  padding-bottom: 60px;
   overflow: hidden;
 }
 #info1_part1{
@@ -292,14 +292,21 @@ button, select, input:focus{
   border-color: #F8F3D4;  
   text-align: left;
 }
+.balls{
+  position: absolute;
+  top:20px;
+  left: 22px;
+}
 .img_place_index{
   width: 201px;
   margin: 25px auto 0 auto;
 }
-.explore_box img{
+.place{
+  position: relative;
   width: 201px;
 }
 .explore_box h3{
+  position: relative;
   text-align: left;
   margin: 0 0 0 15px;
   font: 35px AsapSemiBold;
@@ -317,21 +324,32 @@ button, select, input:focus{
 
 
 /*INFO 2 STYLE*/
-
 #info2{
+  background: #fafafa;
+  padding-bottom: 50px;
+}
+
+#info2_inner{
   width: 1366px;
   height: 880px;
   margin: auto;
-  background: url(/static/res/icons/mapa_ceara.png) 23% 23% no-repeat;
+  background: url(/static/res/icons/mapa_ceara.png) 23% 16% no-repeat;
 }
 #info2_part1{
-  padding: 160px 0 0 500px;
+  position: relative;
+  padding: 124px 0 0 500px;
+}
+#info2_part1 img{
+  position: absolute;
+  top: 82px;
+  left: 503px;
 }
 #info2_part1 p{
   text-align: justify;
   width: 635px;
 }
 #title_info2{
+  position: relative;
   font-size: 42px ;
   margin: 0;
   width: 550px;
@@ -383,12 +401,9 @@ button, select, input:focus{
   width: 1366px;
   height: 364px;
   background-color: #FFDE7D;
-  margin-top: 50px;
   position: relative;
 }
-#info3 img{
-  margin-left: 190px;
-}
+
 #info3_part1{
   display: inline-block;
   padding: 30px 0 0 245px;
@@ -434,9 +449,21 @@ button, select, input:focus{
   position: absolute;
   bottom: 0;
 }
+.img_people_know_more{
+  width: 320px;
+}
 #top_content_1{
+  position: relative;
   display: inline-block;
   padding : 80px 0 55px 245px;
+}
+#top_content_1 img{
+  position: absolute;
+  top: 45px;
+  left: 250px;
+}
+#top_content_1 h1{
+  position: relative;
 }
 #top_content_1 p{
   font-size: 14px;
@@ -477,12 +504,27 @@ button, select, input:focus{
   display: inline-flex;
   width: 250px;
   height: 90px;
-  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.15);
+  box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.16);
   border-left: solid;
   border-width: 4px;
   border-color: #F8F3D4;
+  transition: box-shadow 0.3s
 }
+.politic_box:hover{
+  box-shadow: 0px 6px 6px 0px rgba(0,0,0,0.16);
+}
+.balls_container{
+  position: relative;
+  width: 0;
+}
+.balls_especific{
+  position: absolute;
+  top: -20px;
+
+}
+
 .photo_mask{
+  position: relative;
   float: left;
   display: inline-block;
   overflow: hidden;
@@ -494,18 +536,15 @@ button, select, input:focus{
   width: 90px;
   /*height: 90px;*/
 }
-.name_politic{
 
-  display: inline-block;
-  font-size: 18px;
-}
 
 .name_politic{
+  position: relative;
   display: inline-block;
   margin: 15px 0 0 18px;
   color: #333333;
   width: 140px;
-
+  font-size: 18px;
 }
 .p_siglum{
   position: absolute;
@@ -586,6 +625,7 @@ button, select, input:focus{
 }
 
 .photo_especific,#infos_basic,#title_content_1 h1, #details{
+  position: relative;
   display: inline-block;
 }
 
@@ -593,7 +633,7 @@ button, select, input:focus{
   /*vertical-align: middle;*/
 }
 #title_content_1 h1, #details{
-  margin: 15px 15px 0 15px;
+  margin: 15px 15px 0 20px;
 }
 #details{
   cursor: pointer;
@@ -635,7 +675,7 @@ button, select, input:focus{
 }
 .info_detail_inner h4{
   font-size: 12px;
-  margin: 10px 0 10px 0;
+  margin: 15px 0 3px 0;
   color: #424242;
 }
 
@@ -951,10 +991,12 @@ input.tabs {
   display: inline-block;
 }
 .choice{
+  position: relative;
   vertical-align: top;
 }
 
 input.tabs + label {
+  position: relative;
   line-height: 40px;
   float: left;
   font: 25px AsapMedium;
@@ -964,7 +1006,15 @@ input.tabs + label {
   width:190px;
   height: 80px;
   padding: 20px 0 0 30px;
-  box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.15);
+
+}
+.line_separator{
+  background: #b2b2b24d;
+  position: absolute;
+  width: 1px;
+  height: 80px;
+  top: 10px;
+  right: 0;
 }
 #label_yes{
   border-radius: 3px 0 0 0;
@@ -980,7 +1030,11 @@ input.tabs + label {
   width: 29.9% !important;
   padding-bottom: 30px !important;
 }
+.tab_know_more img{
+  position: absolute;
+}
 .choice_know_more{
+  margin: -1px 0 0 -2px;
   font: 35px AsapSemiBold;
 }
 .choice_detailed{
@@ -1180,6 +1234,8 @@ input.tabs:checked + label + div {
   width: 100%;
   height: 1000px;
   background-color: #fafafa;
+  position: relative;
+  z-index: -999;
 }
 
 
@@ -1295,6 +1351,32 @@ input.tabs:checked + label + div {
   left: -550px;
   background-color: #B0F28C;
 }
+#box_shadow_voted{
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.16);
+  z-index: -99;
+}
+#bkground_voted{
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  height: 300px;
+  background: #fafafa;
+  z-index: -999;
+}
+#box_shadow_know_more{
+  position: absolute;
+  width: 100%;
+  height: 130px;
+  box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.16);
+  z-index: -99;
+}
+.line_separator_know_more{
+  top: 20px !important;
+  height: 90px !important;
+}
 .line_know_more{
   top:130px !important;
   background-color: #00B8A9 !important;
@@ -1302,7 +1384,7 @@ input.tabs:checked + label + div {
 }
 .project_prop, .project_voted{
   overflow: hidden;
-  width: 1127px;
+  width: 1117px;
 }
 
 .select_year_project_voted{
@@ -1537,6 +1619,9 @@ input.tabs:checked + label + div {
     height: 80px;
     padding: 15px 0 0 3.5%;
   }
+  #box_shadow_voted{
+    height: 95px;
+  }
   .btns_container_2 {
       right: 9.5%;
   }
@@ -1691,10 +1776,15 @@ input.tabs:checked + label + div {
   input.tabs + label {
     height: 65px;
   }
-  #line {
+  #line, #bkground_voted {
       top: 80px;
   }
-
+  .line_separator{
+    height: 60px;
+  }
+  #box_shadow_voted{
+    height: 80px;
+  }
   #party_trend_description{
     margin: 0;
   }

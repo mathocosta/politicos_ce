@@ -489,11 +489,11 @@ function definePageProps(){
 function slideProps(i, container){
 
 	$("#btn_"+container+"_prev").prop("disabled",true)
-				  				.css("filter","opacity(30%)");
+				  				.css("filter","opacity(60%)");
 
 	if(pages[i] == 1){
 		$("#btn_"+container+"_next").prop("disabled",true)
-				  					.css("filter","opacity(30%)");
+				  					.css("filter","opacity(60%)");
 	}
 	$(".project_"+container).stop().animate({scrollLeft: 0 }, 500, 'swing');
 
@@ -504,11 +504,11 @@ function slideProps(i, container){
 
 function slidePropsAdaptResponsive(i, container){
 	$("#btn_"+container+"_prev").prop("disabled",true)
-				  				.css("filter","opacity(30%)");
+				  				.css("filter","opacity(60%)");
 				  				
 	if(pages[i] == 1 || pages[i] == 0){
 		$("#btn_"+container+"_next").prop("disabled",true)
-				  					.css("filter","opacity(30%)");
+				  					.css("filter","opacity(60%)");
 	}else{
 		$("#btn_"+container+"_next").prop("disabled",false)
 				  					.css("filter","opacity(100%)");
@@ -543,7 +543,7 @@ function buttonClicked(event){
 
 	if(actualPage[index] == limit){
 		btn1.prop("disabled",true);
-		btn1.css("filter","opacity(30%)");
+		btn1.css("filter","opacity(60%)");
 	}else{
 		btn1.prop("disabled",false);
 		btn1.css("filter","opacity(100%)");
@@ -581,7 +581,7 @@ function buttonClicked(event){
 
 		$(".project_"+type).stop().animate({
 
-			scrollLeft: $("#"+type+"_"+(actualPage[index]*multiplier)).position().left + leftPos - 10
+			scrollLeft: $("#"+type+"_"+(actualPage[index]*multiplier)).position().left + leftPos -5
 
 		}, 500, 'swing',function(){
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div  id= "content">
+<div  id= "content" class="content_especific full_width">
     <div class="header full_width" id="header_especific_politic">
         <div class="header_inner">
             <div class="hamburger_menu">
@@ -11,7 +11,7 @@
                     <div class="bar3 bar_p_especific"></div>
                 </div>
             </div>
-            <button class="btn noFill userBtn btn_p_especific"><span class="userIcon userIcon_p_especific"><span>Login</span></span></button>
+            <!-- <button class="btn noFill userBtn btn_p_especific"><span class="userIcon userIcon_p_especific"><span>Login</span></span></button> -->
         </div>
     </div>
     
@@ -19,6 +19,9 @@
         <div id="title_content_1">
 
             <div id="title_content_1_inner">
+                <div class="balls_container">
+                    <img class="balls_especific" src="/static/res/icons/bolinhas_yellow.svg">
+                </div>
                 <div class="photo_mask"><img class="photo_politic photo_especific" src="{{ politician_data.photo_url }}"></div>
                 <h1 id="name_politic_especific">{{ politician_data.parliamentary_name }}</h1>
                 <div id="details"><span> Mais detalhes </span>
@@ -158,6 +161,7 @@
                     <div class="choice_detailed choice_detailed_yes">
                         Propostas que o político concordou
                     </div>
+                    <div class="line_separator"></div>
                 </label>
 
                 <div class= "content_yes">
@@ -194,24 +198,27 @@
                     <div class="choice_detailed choice_detailed_no">
                         Propostas que o político foi contra
                     </div>
+                    <div class="line_separator"></div>
                 </label>
                 <div class= "content_no">
                     <div class="btns_container btns_container_2 ">
                         <button class="btn_n_p btn_prev" id="btn_voted_no_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
                         <button class="btn_n_p btn_next" id="btn_voted_no_next"> <img src="/static/res/icons/next_icon.svg"> </button>
                     </div>
-                    <div class="project_voted project_voted_no">
-                        <div class="project_prop_inner voted_inner voted_no">
-                                {% for v in votes['no'][:5] %}
-                                    <div class="especific_project_prop">
-                                        <div class="prop_status">{{ v.result }}</div>
-                                        <h3 class="prop_type_n">
-                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
-                                        </h3>
-                                        <div class="prop_desc">{{ v.description }}</div>
-                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                                    </div>
-                                {% endfor %}
+                    <div class="content_voted_inner content_voted_no_inner">
+                        <div class="project_voted project_voted_no">
+                            <div class="project_prop_inner voted_inner voted_no">
+                                    {% for v in votes['no'][:5] %}
+                                        <div class="especific_project_prop">
+                                            <div class="prop_status">{{ v.result }}</div>
+                                            <h3 class="prop_type_n">
+                                                <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                            </h3>
+                                            <div class="prop_desc">{{ v.description }}</div>
+                                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                        </div>
+                                    {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -224,24 +231,27 @@
                     <div class="choice_detailed choice_detailed_abstain">
                         Propostas que o político não votou
                     </div>
+                    <div class="line_separator"></div>
                 </label>
                 <div class= "content_abstain">
                     <div class="btns_container btns_container_2">
                         <button class="btn_n_p btn_prev" id="btn_voted_abstain_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
                         <button class="btn_n_p btn_next" id="btn_voted_abstain_next"> <img src="/static/res/icons/next_icon.svg"> </button>
                     </div>
-                    <div class="project_voted project_voted_abstain">
-                        <div class="project_prop_inner voted_inner voted_abstain">                          
-                                {% for v in votes['abstention'][:5] %}
-                                    <div class="especific_project_prop">
-                                        <div class="prop_status">{{ v.result }}</div>
-                                        <h3 class="prop_type_n">
-                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
-                                        </h3>
-                                        <div class="prop_desc">{{ v.description }}</div>
-                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                                    </div>
-                                {% endfor %}
+                    <div class="content_voted_inner content_voted_abstain_inner">
+                        <div class="project_voted project_voted_abstain">
+                            <div class="project_prop_inner voted_inner voted_abstain">                          
+                                    {% for v in votes['abstention'][:5] %}
+                                        <div class="especific_project_prop">
+                                            <div class="prop_status">{{ v.result }}</div>
+                                            <h3 class="prop_type_n">
+                                                <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                            </h3>
+                                            <div class="prop_desc">{{ v.description }}</div>
+                                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                        </div>
+                                    {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -262,19 +272,20 @@
                         <button class="btn_n_p btn_prev" id="btn_voted_secret_prev"> <img src="/static/res/icons/prev_icon.svg"> </button>
                         <button class="btn_n_p btn_next" id="btn_voted_secret_next"> <img src="/static/res/icons/next_icon.svg"> </button>
                     </div>
-                    <div class="project_voted project_voted_secret">
-
-                        <div class="project_prop_inner voted_inner voted_secret">                         
-                                {% for v in votes['abstention'][:5] %}
-                                    <div class="especific_project_prop">
-                                        <div class="prop_status">{{ v.result }}</div>
-                                        <h3 class="prop_type_n">
-                                            <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
-                                        </h3>
-                                        <div class="prop_desc">{{ v.description }}</div>
-                                        <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
-                                    </div>
-                                {% endfor %}
+                    <div class="content_voted_inner content_voted_secret_inner">
+                        <div class="project_voted project_voted_secret">
+                            <div class="project_prop_inner voted_inner voted_secret">                         
+                                    {% for v in votes['abstention'][:5] %}
+                                        <div class="especific_project_prop">
+                                            <div class="prop_status">{{ v.result }}</div>
+                                            <h3 class="prop_type_n">
+                                                <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
+                                            </h3>
+                                            <div class="prop_desc">{{ v.description }}</div>
+                                            <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
+                                        </div>
+                                    {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -285,7 +296,8 @@
                     <option>2016</option>
                     <option>2015</option>  
                 </select>
-
+                <div id="box_shadow_voted"></div>
+                <div id="bkground_voted" class="full_width"></div>
                 <div id="line"></div>
                 <div class="loading_polls loading_polls_bkground"></div>
                 <div class="loading_polls">
