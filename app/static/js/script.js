@@ -24,7 +24,13 @@ $( window ).on('load', function() {
 
 		$(".hamburger").toggleClass("change");
 
-		$("body").toggleClass("noScroll");
+
+		console.log($(window).height() , $("body").height() );
+
+		if($(window).height() <= $("body").height()){
+			$("body").toggleClass("noScroll");
+		}
+
 		//se a pagina for de um politico especifio não alternar classe para trocar a cor do menu hamburger
 		if(window.location.pathname.split("/")[1] != "politician"){
 			$(".bar1, .bar2, .bar3 ").toggleClass("bar_p_especific");
@@ -119,13 +125,21 @@ $( window ).on('load', function() {
 
 	});
 
-		
-	
+			
+	$(".politician_link").on("click",function(e){
+		showLoadingFeedback();
+
+	});
 
 
 	
-	
+	$(".btn_cancelar").on("click",function(e){
+		hideLoadingFeedback();
+	});
+
 });
+
+
 
 
 

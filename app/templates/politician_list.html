@@ -30,8 +30,10 @@
     <div id="middle_content_all_politics">
         <p>A lista está organizada em ordem alfabética</p>
         <div id="all_boxes">
+
             {% for p in politicians %}
-            <a href="/politician/{{ p.id }}">
+            <a class="politician_link" href="/politician/{{ p.id }}">
+                <!-- <div class="dsp_none p_id">p.id</div> -->
                 <div class="politic_box">
                     <div class="photo_mask">
                         <img class="photo_politic" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
@@ -44,6 +46,21 @@
             </a>
             {% endfor %}
         </div>
+    </div>
+    <div class="loading_politician_anim">
+
+        <div class="loading_polls loading_politician">
+            <div class="loading_polls_inner loading_politician_inner">
+                <h3>Carregando informações sobre o político</h3>
+                <div class="loading_anim">
+                    <span class="dot_loading"></span>
+                    <span class="dot_loading"></span>
+                    <span class="dot_loading"></span>
+                </div>
+                <button class="btn noFill btn_cancelar" >Cancelar</button>
+            </div>
+        </div>
+
     </div>
     <div id="footer" class="full_width"></div>
 </div>

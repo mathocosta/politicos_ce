@@ -823,8 +823,8 @@ function filterPropsByYear(){
 
 function loadFilteredPolls(yearSel){
 		var politician_id = window.location.pathname.split("/").pop();
-		$("#loading_polls").css("display","block");
-		$("#loading_polls").text("Carregando votações de " + yearSel);
+		$(".loading_polls").css("display","flex");
+		$(".loading_polls_inner h3").text("Carregando votações de " + yearSel);
 		$.ajax({
 	      type:'GET',
 	      url:'/politician/api',
@@ -834,19 +834,12 @@ function loadFilteredPolls(yearSel){
 	      dataType:'json',
 
 	      success: function(data) {
-	      	$("#loading_polls").css("display","none");
+	      	$(".loading_polls").css("display","none");
 	      	var lenAll =  data.length;
 	      	var lenYes = 0;
 	      	$(".voted_inner").empty();
 
 	      	for (var i = 0; i < lenAll; i++) {
-
-	      		// var vote_description = data[i].description;
-	      		// if(vote_description.length > 115){
-
-	      		// 	vote_description = vote_description.substring(0,110) + '...' ;
-	      		//     //$('#result').text(txt.substring(0,150) + '.....');
-	      		// }    
 
 	      		switch (data[i].vote){
 	      			case "Sim":	      					      				
@@ -910,3 +903,41 @@ function loadFilteredPolls(yearSel){
 	   });
 	
 }
+
+function toggleNoScroll(){
+	if($(window).height() <= $("body").height()){
+		$("body").height($(window).height());
+		$("body").toggleClass("noScroll");
+	}
+}
+
+function showLoadingFeedback(){
+
+	//$(window).bind('beforeunload', function(){});
+	toggleNoScroll();
+	$(".loading_politician_anim").css("display","flex")
+								 .css("opacity", 0)
+								 .fadeTo("fast", 1.0);
+	
+	
+	$(window).bind('unload', function(){
+		toggleNoScroll();
+		$(".loading_politician_anim").fadeTo("fast", 0, function(){
+			$(this).css("display","none");
+		});
+	});
+
+}
+
+function hideLoadingFeedback(){
+    window.stop();
+	toggleNoScroll();
+	$(".loading_politician_anim").fadeTo("fast", 0, function(){
+		$(this).css("display","none");
+
+	});
+	//$(window).unbind('beforeunload');	
+}
+
+
+
