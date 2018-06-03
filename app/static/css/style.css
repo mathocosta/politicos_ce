@@ -53,7 +53,7 @@ body{
   margin: auto;
   width: 1366px;
   height: auto;
-  display: none;
+  /*display: none;*/
 }
 #content_inner{
   margin: 0 auto;
@@ -465,7 +465,7 @@ button, select, input:focus{
 
 #btn_saiba_mais{
   float: right;
-  margin: 200px 125px 0 0;
+  margin: 180px 120px 0 0;
 }
 
 #all_boxes{

@@ -134,6 +134,7 @@ $( window ).on('load', function() {
 
 	
 	$(".btn_cancelar").on("click",function(e){
+		window.location.href = window.location.pathname;
 		hideLoadingFeedback();
 	});
 

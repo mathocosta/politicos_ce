@@ -913,7 +913,6 @@ function toggleNoScroll(){
 
 function showLoadingFeedback(){
 
-	//$(window).bind('beforeunload', function(){});
 	toggleNoScroll();
 	$(".loading_politician_anim").css("display","flex")
 								 .css("opacity", 0)
@@ -930,14 +929,15 @@ function showLoadingFeedback(){
 }
 
 function hideLoadingFeedback(){
-    window.stop();
-	toggleNoScroll();
+    
+	//toggleNoScroll();
 	$(".loading_politician_anim").fadeTo("fast", 0, function(){
 		$(this).css("display","none");
 
 	});
-	//$(window).unbind('beforeunload');	
+
 }
+
 
 
 
