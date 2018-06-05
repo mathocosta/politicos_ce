@@ -812,18 +812,27 @@ button, select, input:focus{
 
 .rect_hover{
   position: absolute;
-  padding: 2px 3px;
-  width: auto;
+  padding: 2px 3px; 
   height: 15px;
   background-color: #333;
   color:#fafafa;
-  top:50%;
-  left: 50%;
   display: none;
   pointer-events: none;
   opacity: 0.8;
   font: 13px AsapRegular;
   border-radius: 2px;
+  text-align: center;
+}
+#rect_hover_props{
+  width: auto;
+  top:50%;
+  left: 50%;
+}
+#rect_hover_type{
+  width: auto;
+  transform: translate(77%,100%);
+  /*top:50%;
+  left: 8.7%;*/
 }
 #legend_status_prop{
   position: relative;
@@ -927,6 +936,9 @@ button, select, input:focus{
 }
 .slices{
   stroke-width:3px;
+}
+.graph_prop_type_outer{
+  position: relative;
 }
 
 .graph_prop_type{
@@ -1257,7 +1269,7 @@ input.tabs:checked + label + div {
     width: 880px;
     height: 220px;
     z-index: 99999;
-    background: #fff;
+    background: #fafafa;
     position: absolute;
     top: 170px;
     align-items: center;

@@ -90,25 +90,22 @@ function showDonutChart(width, height){
 					 		}
 
 
-					 		$(".rect_hover").css("display","block")
+					 		$("#rect_hover_props").css("display","block")
 					 				  .css("transform", "translate("+arc.centroid(arcs[arcId])[0]+"px ,"+arc.centroid(arcs[arcId])[1]+"px )")
 					 				  .text(statusText + ": " + qtd);
 
 					 		
 					 		if(arcs[arcId].endAngle <= Math.PI){
-					 			$(".rect_hover").css("left","10%");
+					 			$("#rect_hover_props").css("left","10%");
 					 		}else{
-					 			$(".rect_hover").css("left","50%");
+					 			$("#rect_hover_props").css("left","50%");
 					 		}		  
 					 		
 					 	});
 
 					 	$(".slices").on("mouseleave",function(){
-					 		animateSlicesMouseEnterLeave($(this).attr("id"),radius, arc, false);
-
-					 		
-					 		$(".rect_hover").css("display","none");
-
+					 		animateSlicesMouseEnterLeave($(this).attr("id"),radius, arc, false);					 		
+					 		$("#rect_hover_props").css("display","none");
 					 	});
 
 					 }
@@ -206,8 +203,7 @@ function showBarChart(w, h){
 	var data = [{ year: "PEC", qtd: parseInt(qtd_pec)},
 	          { year: "PL", qtd: parseInt(qtd_pl)},
 	          { year: "RCP", qtd: parseInt(qtd_rcp)},
-	          { year: "REM", qtd: parseInt(qtd_rem)},
-	          { year: "222", qtd: parseInt(qtd_222)}];
+	          { year: "REM", qtd: parseInt(qtd_rem)}];
 
 
 	x.domain(data.map(function(d) { return d.year; }));
@@ -266,11 +262,52 @@ function showBarChart(w, h){
 		  		if(!--countIdBars){
 			  		$(".bars").on("mouseenter", function(){
 			  			animateBarMouseEnterLeave($(this).attr("id"), x ,height, y0, true);
+			  			var barId = d3.select(this).attr("id").replace("bar_","");
+
+			  			var qtd = 0;
+			  			var typeText = "";
+			  			switch(parseInt(barId)){
+			  				case 0:
+			  					qtd = data[0].qtd;
+			  					typeText = "PEC";
+			  					break;
+			  				case 1:
+			  					qtd = data[1].qtd;
+			  					typeText = "PL";
+			  					break;
+			  				case 2:
+			  					qtd = data[2].qtd;
+			  					typeText = "RCP";
+			  					break;
+			  				case 3:
+			  					qtd = data[3].qtd;
+			  					typeText = "REM";
+			  					break;			
+
+			  			}
+			  			var rectX = d3.select(this)[0][0].getBBox().x;
+			  			var rectY = d3.select(this)[0][0].getBBox().y;
+			  			var rectWidth = d3.select(this)[0][0].getBBox().width;
+			  			var rectHeight = d3.select(this)[0][0].getBBox().height;
+			  			var r = rectWidth - ($("#rect_hover_type").width() / 2);
+			  			console.log(r, rectWidth , $("#rect_hover_type").width() / 2);
+
+
+		  				$("#rect_hover_type").css("display","block")	
+		  					   .css("left", rectX)
+		  					   .css("top", rectY)
+		  					   .text(qtd)	  					  
+		  					   .css("transform", "translate("+ r +"px, 100%)");
+		  					  
+
+
 			  		});
 
 			  		$(".bars").on("mouseleave", function(){
 			  			animateBarMouseEnterLeave($(this).attr("id"), x, height, y0, false);
+			  			$("#rect_hover_type").css("display","none");
 			  		});
+
 		  		}
 		  	});
 	  
@@ -417,7 +454,6 @@ function showHistoryChart(){
 		     	data_filter.forEach(function(d){
 		     		if(d.year == years[j]){
 		     			posY = d.qtd;
-		     			console.log(d.qtd);
 		     		}
 		     	});
 		     	
@@ -775,20 +811,20 @@ function responsiveChanges(){
 
 	if(graphsLoaded){
 	  	if(windowWidth <= 410){
-	  		$(".p_donut_chart_outer").empty().append("<div class='propositions_donut_chart'> </div>");
+	  		$(".p_donut_chart_outer").empty().append("<div class='propositions_donut_chart'> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
 	  		showDonutChart(windowWidth/1.8,windowWidth/1.8);
 
-	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div>");
+	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");
 
 	   		showBarChart(windowWidth,200);
 	  	} 
 
 	  	if(windowWidth > 410){
 	  		$(".p_donut_chart_outer").empty();
-	  		$(".p_donut_chart_outer").append("<div class='propositions_donut_chart'> </div>");
+	  		$(".p_donut_chart_outer").append("<div class='propositions_donut_chart'> </div> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
 	  		showDonutChart(210,210);
 
-	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div>");	  		
+	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");	  		
 	  		showBarChart(370,230);
 	  	}
 	}
