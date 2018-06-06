@@ -5,9 +5,6 @@ var graphsLoaded = false;
 $( window ).on('load', function() {
 
 
-
-
-
     $(window).scrollLeft(0);
 
 	$("#content").css("display", "block");
@@ -24,8 +21,6 @@ $( window ).on('load', function() {
 
 		$(".hamburger").toggleClass("change");
 
-
-		console.log($(window).height() , $("body").height() );
 
 		if($(window).height() <= $("body").height()){
 			$("body").toggleClass("noScroll");
@@ -46,8 +41,7 @@ $( window ).on('load', function() {
 		
 	})
 	
-
-
+	//Ajuste para correção do scroll no mobile
 	$(window).scroll(function() {
 		if($(window).scrollTop() >= 0 && $(window).scrollLeft() != 0 ){
 			
@@ -65,15 +59,15 @@ $( window ).on('load', function() {
         loadGraphs();
     }
     
-
-	
+	//carrega os gráficos de acordo com um certo valor do scroll	
 	$(window).scroll(function() {
 	    if($(window).scrollTop() >= $(document).height() / 12) {
 	    	loadGraphs();
 	    }
 	});
-	
 
+	
+	//se for uma pagina de politico específico fazer o request das votação
 	if(window.location.pathname.split("/")[1] == "politician"){
 		$(".select_year_project_voted").val("2018");
 		loadFilteredPolls($(".select_year_project_voted").val());
@@ -116,28 +110,27 @@ $( window ).on('load', function() {
 	/*Responsive script*/
 	responsiveChanges();
 
-	var w = $(window).width();
-	$(window).resize(function(){
-		if ($(window).width()==w) return; 
-		w = $(window).width();
-		
-		responsiveChanges();
+	// var w = $(window).width();
+	// $(window).resize(function(){
+	// 	if ($(window).width()==w) return; 
+	// 	w = $(window).width();		
+	// 	responsiveChanges();
+	// });
+	//------------------------
 
-	});
-
-			
+	//feedback de loading para quando o usuário clicar em um político		
 	$(".politician_link").on("click",function(e){
 		showLoadingFeedback();
 
 	});
-
-
-	
 	$(".btn_cancelar").on("click",function(e){
-		window.location.href = window.location.pathname;
+		document.location.reload();
 		hideLoadingFeedback();
 	});
+	//----------------------------------------------------------------
 
+
+	ajustPropositionsStatus();
 });
 
 

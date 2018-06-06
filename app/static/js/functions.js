@@ -1,147 +1,268 @@
-function showDonutChart(width, height){
+var finishRequest = false;
 
-	var radius = Math.min(width, height) / 2.2;  
-	var color = d3.scale.ordinal()
-	    .range(["#B0F28C", "#8ECDED", "#F28C91", "#F4E58C"]);
-	var arc = d3.svg.arc()
-	    .outerRadius(radius)
-	    .innerRadius(radius - (radius*0.5));
-
-	
-	var qtd_aproved = $("#aproved").text();
-	var qtd_published = $("#published").text();
-	var qtd_refused = $("#refused").text();
-	var qtd_processing = $("#processing").text();
-
-	var data = [{ status: "Aprovado", qtd: qtd_aproved},
-	            { status: "Publicado", qtd: qtd_published},
-	            { status: "Recusado", qtd: qtd_refused},
-	            { status: "Tramitando", qtd: qtd_processing}];
-
-	var pie = d3.layout.pie()
-	    .sort(null)
-	    .startAngle(0)
-    	.endAngle(2*Math.PI)
-	    .value(function(d) { 
-	      return d.qtd; 
-	    });
-    
-	var svg = d3.select(".propositions_donut_chart").append("svg")
-	    .attr("width", width)
-	    .attr("height", height)
-
-	  .append("g")
-	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-
-	  var g = svg.selectAll(".arc")
-
-	      .data(pie(data))
-	      .enter().append("g")
-	      .attr("class", "arc");
-
-	    var n = 0;
-	      g.append("path")
-		      .style("fill", function(d) { return color(d.data.status); })
-		      .transition()
-			      .ease("sin")
-				  .duration(800)
-				  .attrTween("d", function(b){
-				  	var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-  					return function(t) { 
-  						return arc(i(t)); 
-  					};
-				  })
-				.each(function(){
-					n++;
-				})
-				.each("end", function(){
-					 if(!--n){
-				
-					 	$(".slices").on("mouseenter",function(){
-
-					 		animateSlicesMouseEnterLeave($(this).attr("id"),radius, arc, true);
-
-					 		var centers = [];
-
-					 		var arcs = pie(data); 
-					 		var arcId = d3.select(this.parentNode).attr("id").replace("arc_","");
-
-					 		var qtd = 0;
-					 		var statusText = "";
-					 		switch(parseInt(arcId)){
-					 			case 0:
-					 				qtd = parseInt($("#aproved").text());
-					 				statusText = "Aprovado";
-					 				break;
-					 			case 1:
-					 				qtd = parseInt($("#published").text());
-					 				statusText = "Publicado";
-					 				break;
-					 			case 2:
-					 				qtd = parseInt($("#refused").text());
-					 				statusText = "Recusado";
-					 				break;
-					 			case 3:
-					 				qtd = parseInt($("#processing").text());
-					 				statusText = "Tramitando";
-					 				break;		
-
-					 		}
-
-
-					 		$("#rect_hover_props").css("display","block")
-					 				  .css("transform", "translate("+arc.centroid(arcs[arcId])[0]+"px ,"+arc.centroid(arcs[arcId])[1]+"px )")
-					 				  .text(statusText + ": " + qtd);
-
-					 		
-					 		if(arcs[arcId].endAngle <= Math.PI){
-					 			$("#rect_hover_props").css("left","10%");
-					 		}else{
-					 			$("#rect_hover_props").css("left","50%");
-					 		}		  
-					 		
-					 	});
-
-					 	$(".slices").on("mouseleave",function(){
-					 		animateSlicesMouseEnterLeave($(this).attr("id"),radius, arc, false);					 		
-					 		$("#rect_hover_props").css("display","none");
-					 	});
-
-					 }
-				}) ;
-
-
-	  svg.append("text")
-		  .attr("x", 0)
-		  .attr("y", 0)
-		  .attr("dy", "-0.3em")
-		  .style("text-anchor", "middle")
-		  .append('svg:tspan')
-		  .style("font","13px AsapRegular")
-		  .style("fill","#424242")
-		  .attr('x', 0)
-		  .text($("#show_total_props").text())
-		  .append('svg:tspan')
-		  .attr('x', 0)
-		  .attr('dy', 15)
-		  .text("proposições")
-	var g = svg.selectAll(".arc path").attr("class", "slices");
-
-
-
-	var countArcId = 0;
-	var countSliceId = 0;
-
-	$(".arc").each(function(){
-		$(this).attr("id","arc_"+countArcId);
-		countArcId ++;
+function filterStatusByYear(width,height){
+	$(".select_year_prop_status").on('change', function() {
+		var year_selected = $(this).val();
+		var politician_id = window.location.pathname.split("/").pop();
+		showDonutChart(width, height,year_selected,politician_id);
 	});
+}
 
-	$(".slices").each(function(){
-		$(this).attr("id","slice_"+countSliceId);
-		countSliceId ++;
-	});
+function showDonutChart(width, height,yearSel,p_id){
+
+
+		$(".select_year_prop_status").prop("disabled",true).css("opacity", 0.6);
+		
+		$(".p_donut_chart_outer").empty()
+								 .append("<div class='propositions_donut_chart'> <svg width='"+width+"' height='"+height+"'></svg> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
+		// var year_selected = $(this).val();
+		// var politician_id = window.location.pathname.split("/").pop();
+		var year_selected = yearSel;
+		var politician_id = p_id;
+		$.ajax({
+	      type:'GET',
+	      url:'/politician/api',
+	      async: true,
+	      data: {id : politician_id, graph : 1, year: year_selected},
+
+	      dataType:'json',
+
+	      success: function(d) {
+
+	      	console.log("success");
+	      	$(".propositions_donut_chart").empty();
+	      	$(".select_year_prop_status").prop("disabled",false).css("opacity", 1);
+			var radius = Math.min(width, height) / 2.2;  
+			var color = d3.scale.ordinal()
+			    .range(["#B0F28C", "#8ECDED", "#F28C91", "#F4E58C","#B2B2B2"]);
+			var arc = d3.svg.arc()
+			    .outerRadius(radius)
+			    .innerRadius(radius - (radius*0.5));
+
+			
+			// var qtd_aproved = $("#aproved").text();
+			// var qtd_published = $("#published").text();
+			// var qtd_refused = $("#refused").text();
+			// var qtd_processing = $("#processing").text();
+
+
+			var qtd_aproved = 0;
+			var qtd_published = 0;
+			var qtd_refused = 0;
+			var qtd_processing = 0;
+			var no_propositions
+			//var statusSimple;
+			Object.keys(d).forEach(function(dt){
+				var status = dt;
+				var statusSimple = status.replace(/ .*/,'');
+
+
+
+				if( $("#cargo").text() == "Deputado Federal"){ 
+
+					if(statusSimple == "Aguardando"){
+		   	   			qtd_aproved = d[dt];
+					}
+					else if(statusSimple == "Arquivada" || statusSimple == "Devolvida" || statusSimple == "Perdeu" || statusSimple == "Retirado" || statusSimple == "Vetado"){
+		   				qtd_refused = d[dt];
+					}
+					else if(statusSimple == "Enviada"){
+						qtd_published = d[dt];	      
+					}
+					else{
+						qtd_processing = d[dt];	    
+					}
+
+				}else if( $("#cargo").text() == "Senador"){ 
+
+					color = d3.scale.ordinal().range(["#F4E58C", "#F28C91", "#B2B2B2"]);
+
+					$("#legend_status_prop_inner").empty().append("<div class='circle_status' id='circle_processing'></div><span>Tramitando</span> \
+                                								   <div class='circle_status' id='circle_refused'></div><span>Não tramitando</span>");
+
+					if(statusSimple == "Sim"){
+		   	   			qtd_aproved = d[dt];
+					}
+					else if(statusSimple == "Não"){
+		   	   			qtd_refused = d[dt];
+					}
+
+				}
+
+
+
+
+			});
+
+			var total_propositions = qtd_aproved + qtd_refused + qtd_published + qtd_processing;
+
+			if(total_propositions == 0){
+				no_propositions = 1;
+			}else{
+				no_propositions = 0;
+			}
+			
+			console.log("Ap: ", qtd_aproved, "Pub: ", qtd_published,"Tram: ", qtd_processing, "Ref: ", qtd_refused);
+
+			var data = [{ status: "Aprovado", qtd: qtd_aproved},
+			            { status: "Publicado", qtd: qtd_published},
+			            { status: "Recusado", qtd: qtd_refused},
+			            { status: "Tramitando", qtd: qtd_processing},
+			            { status: "Sem proposições", qtd: no_propositions}];
+
+			if( $("#cargo").text() == "Senador"){  
+				data = [{ status: "Tramitando", qtd: qtd_aproved},
+			            { status: "Não Tramitando", qtd: qtd_refused},			           
+			            { status: "Sem proposições", qtd: no_propositions}];
+
+			}			            
+			var pie = d3.layout.pie()
+			    .sort(null)
+			    .startAngle(0)
+		    	.endAngle(2*Math.PI)
+			    .value(function(d) { 
+			      return d.qtd; 
+			    });
+		    
+			var svg = d3.select(".propositions_donut_chart").append("svg")
+			    .attr("width", width)
+			    .attr("height", height)
+
+			  .append("g")
+			    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+			  var g = svg.selectAll(".arc")
+
+			      .data(pie(data))
+			      .enter().append("g")
+			      .attr("class", "arc");
+
+			    var n = 0;
+			      g.append("path")
+				      .style("fill", function(d) { return color(d.data.status); })
+				      .transition()
+					      .ease("sin")
+						  .duration(800)
+						  .attrTween("d", function(b){
+						  	var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+		  					return function(t) { 
+		  						return arc(i(t)); 
+		  					};
+						  })
+						.each(function(){
+							n++;
+						})
+						.each("end", function(){
+							 if(!--n){
+						
+							 	$(".slices").on("mouseenter",function(){
+
+							 		animateSlicesMouseEnterLeave($(this).attr("id"),radius, arc, true);
+
+							 		var centers = [];
+
+							 		var arcs = pie(data); 
+							 		var arcId = d3.select(this.parentNode).attr("id").replace("arc_","");
+
+							 		var qtd = 0;
+							 		var statusText = "";
+							 		if( $("#cargo").text() == "Deputado Federal"){ 
+								 		switch(parseInt(arcId)){
+								 			case 0:
+								 				qtd = qtd_aproved;
+								 				statusText = "Aprovado";
+								 				break;
+								 			case 1:
+								 				qtd = qtd_published;
+								 				statusText = "Publicado";
+								 				break;
+								 			case 2:
+								 				qtd = qtd_refused;
+								 				statusText = "Recusado";
+								 				break;
+								 			case 3:
+								 				qtd = qtd_processing;
+								 				statusText = "Tramitando";
+								 				break;		
+								 			case 4:
+								 				qtd = qtd_processing;
+								 				statusText = "Total";
+								 				break;		
+								 		}
+							 		}else if( $("#cargo").text() == "Senador"){
+							 			switch(parseInt(arcId)){
+							 				case 0:
+							 					qtd = qtd_aproved;
+							 					statusText = "Tramitando";
+							 					break;
+							 				case 1:
+							 					qtd = qtd_refused;
+							 					statusText = "Não tramitando";
+							 					break;
+							 			}
+							 		}
+
+							 		$("#rect_hover_props").css("display","block")
+							 				  .css("transform", "translate("+arc.centroid(arcs[arcId])[0]+"px ,"+arc.centroid(arcs[arcId])[1]+"px )")
+							 				  .text(statusText + ": " + qtd);
+
+							 		
+							 		if(arcs[arcId].endAngle <= Math.PI){
+							 			$("#rect_hover_props").css("left","10%");
+							 		}else{
+							 			$("#rect_hover_props").css("left","50%");
+							 		}		  
+							 		
+							 	});
+
+							 	$(".slices").on("mouseleave",function(){
+							 		animateSlicesMouseEnterLeave($(this).attr("id"),radius, arc, false);					 		
+							 		$("#rect_hover_props").css("display","none");
+							 	});
+
+							 }
+						}) ;
+
+
+			  svg.append("text")
+				  .attr("x", 0)
+				  .attr("y", 0)
+				  .attr("dy", "-0.3em")
+				  .style("text-anchor", "middle")
+				  .append('svg:tspan')
+				  .style("font","13px AsapRegular")
+				  .style("fill","#424242")
+				  .attr('x', 0)
+				  .text(total_propositions)
+				  .append('svg:tspan')
+				  .attr('x', 0)
+				  .attr('dy', 15)
+				  .text("proposições")
+			var g = svg.selectAll(".arc path").attr("class", "slices");
+
+
+
+			var countArcId = 0;
+			var countSliceId = 0;
+
+			$(".arc").each(function(){
+				$(this).attr("id","arc_"+countArcId);
+				countArcId ++;
+			});
+
+			$(".slices").each(function(){
+				$(this).attr("id","slice_"+countSliceId);
+				countSliceId ++;
+			});
+
+
+		},
+	    error: function(request, status, error) {
+	    	console.log(request , status , error);
+	    }
+
+	   });
 
 }
 
@@ -161,156 +282,215 @@ function animateSlicesMouseEnterLeave(id,radius,arc,isEntering){
 	  .attr("d", arc)
 }
 
-function showBarChart(w, h){
+function filterTypeByYear(width,height){
+	$(".select_year_prop_type").on('change', function() {
+		var year_selected = $(this).val();
+		var politician_id = window.location.pathname.split("/").pop();
+		showBarChart(width, height,year_selected,politician_id);
+	});
+}
 
-	var margin = {top: 50, right: 30, bottom: 30, left: 30},
-	    width = w - margin.left - margin.right ,
-	    height = h - margin.top - margin.bottom;
-	    	//370,230
-	var x = d3.scale.ordinal()
-	    .rangeRoundBands([0, width], .1);
+function showBarChart(w, h, year_selected,politician_id){
 
-	var y0 = d3.scale.linear().domain([300, 1100]).range([height, 0]),
-	y1 = d3.scale.linear().domain([20, 80]).range([height, 0]);
-
-	var xAxis = d3.svg.axis()
-	    .scale(x)
-	    .orient("bottom");
-
-	// create left yAxis
-	var yAxisLeft = d3.svg.axis().scale(y0).ticks(4).orient("left");
-	// create right yAxis
-	var yAxisRight = d3.svg.axis().scale(y1).ticks(6).orient("right");
-
-	var svg = d3.select(".graph_prop_type").append("svg")
-	    .attr("width", width + margin.left + margin.right)
-	    .attr("height", height + margin.top + margin.bottom)
-	  .append("g")
-	    .attr("class", "graph")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	$(".select_year_prop_type").prop("disabled",true).css("opacity", 0.6);
+	$(".graph_prop_type_outer").empty()
+								.append("<div class='graph_prop_type'> <svg width='"+w+"' height='"+h+"'></svg> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");
 
 
-	var qtd_pec = $("#qtd_pec").text();
+	$.ajax({
+		type:'GET',
+		url:'/politician/api',
+		async: true,
+		data: {id : politician_id, graph : 2, year: year_selected},
 
-	var qtd_pl = $("#qtd_pl").text();
+		dataType:'json',
 
-	var qtd_rcp = $("#qtd_rcp").text();
+		success: function(d) {
+			$(".graph_prop_type").empty();
+			$(".select_year_prop_type").prop("disabled",false).css("opacity", 1);
 
-	var qtd_rem = $("#qtd_rem").text();
+			var margin = {top: 50, right: 30, bottom: 30, left: 30},
+			    width = w - margin.left - margin.right ,
+			    height = h - margin.top - margin.bottom;
+			    	//370,230
+			var x = d3.scale.ordinal()
+			    .rangeRoundBands([0, width], .1);
 
-	var qtd_222 = $("#qtd_222").text();    
+			var y0 = d3.scale.linear().domain([300, 1100]).range([height, 0]),
+			y1 = d3.scale.linear().domain([20, 80]).range([height, 0]);
 
-	var data = [{ year: "PEC", qtd: parseInt(qtd_pec)},
-	          { year: "PL", qtd: parseInt(qtd_pl)},
-	          { year: "RCP", qtd: parseInt(qtd_rcp)},
-	          { year: "REM", qtd: parseInt(qtd_rem)}];
+			var xAxis = d3.svg.axis()
+			    .scale(x)
+			    .orient("bottom");
 
+			// create left yAxis
+			var yAxisLeft = d3.svg.axis().scale(y0).ticks(4).orient("left");
+			// create right yAxis
+			var yAxisRight = d3.svg.axis().scale(y1).ticks(6).orient("right");
 
-	x.domain(data.map(function(d) { return d.year; }));
-	y0.domain([0, d3.max(data, function(d) { return d.qtd + d.qtd*0.2; })]);
-
-
-	svg.append("g")
-	  .attr("class", "x axis")
-	  .attr("transform", "translate(0," + height + ")")
-	  .call(xAxis);
-
-	svg.append("g")
-	  .attr("class", "y axis axisLeft")
-	  .attr("transform", "translate(0,0)")
-	  .call(yAxisLeft)
-	.append("text")
-	  .attr("x", 50)
-	  .attr("y", 6)
-	  .attr("dy", "-1em")
-	  .style("text-anchor", "end")
-	  .style("text-anchor", "end")
-	  .text("Total: "+ $("#show_total_props").text())
-	  .style("font","18px AsapMedium")
-	  .style("fill","#B58CEA");
-
-	d3.selectAll(".graph .y .tick line")
-	.attr("x2", width );
-	d3.selectAll(".graph .y .tick text")
-	.attr("x", -4);
+			var svg = d3.select(".graph_prop_type").append("svg")
+			    .attr("width", width + margin.left + margin.right)
+			    .attr("height", height + margin.top + margin.bottom)
+			  .append("g")
+			    .attr("class", "graph")
+			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
+			// var qtd_pec = $("#qtd_pec").text();
+			// var qtd_pl = $("#qtd_pl").text();
+			// var qtd_rcp = $("#qtd_rcp").text();
+			// var qtd_rem = $("#qtd_rem").text();
+			// var qtd_222 = $("#qtd_222").text();
 
-	bars = svg.selectAll(".bar").data(data).enter();
-	var countIdBars = 0;
-	var rectY = function(d) { return y0(d.qtd); };
-	var rectH = function(d,i,j) { return height - y0(d.qtd); };
-	bars.append("rect")
-      .attr("class", "bars")
-      .attr("x", function(d) { return x(d.year) + 5; })
-      .attr("width", x.rangeBand()/1.2)
-      //.attr("y", rectY)
-      .attr("rx", 2)
-      .attr("ry", 2)
-      .attr("height", 0)
-      .attr("y",  height)
-      	.transition()
-      	.ease("sin")
-      	.duration(800)
-      		.attr("y", rectY)
-		  	.attr("height", rectH)
-		  	.each(function(){
-		  		d3.select(this).attr("id","bar_"+countIdBars)
-		  		countIdBars ++;
-		 	 })
-		  	.each("end", function(){
-		  		if(!--countIdBars){
-			  		$(".bars").on("mouseenter", function(){
-			  			animateBarMouseEnterLeave($(this).attr("id"), x ,height, y0, true);
-			  			var barId = d3.select(this).attr("id").replace("bar_","");
+			var qtd_pec = 0;
+			var qtd_pl = 0;
+			var qtd_rcp = 0;
+			var qtd_rem = 0;
 
-			  			var qtd = 0;
-			  			var typeText = "";
-			  			switch(parseInt(barId)){
-			  				case 0:
-			  					qtd = data[0].qtd;
-			  					typeText = "PEC";
-			  					break;
-			  				case 1:
-			  					qtd = data[1].qtd;
-			  					typeText = "PL";
-			  					break;
-			  				case 2:
-			  					qtd = data[2].qtd;
-			  					typeText = "RCP";
-			  					break;
-			  				case 3:
-			  					qtd = data[3].qtd;
-			  					typeText = "REM";
-			  					break;			
+			Object.keys(d).forEach(function(dt){
+				console.log(dt);
+				// var status = dt;
+				// var statusSimple = status.replace(/ .*/,'');
 
-			  			}
-			  			var rectX = d3.select(this)[0][0].getBBox().x;
-			  			var rectY = d3.select(this)[0][0].getBBox().y;
-			  			var rectWidth = d3.select(this)[0][0].getBBox().width;
-			  			var rectHeight = d3.select(this)[0][0].getBBox().height;
-			  			var r = rectWidth - ($("#rect_hover_type").width() / 2);
-			  			console.log(r, rectWidth , $("#rect_hover_type").width() / 2);
+				if(dt == "PEC"){
+	   	   			qtd_pec = d[dt];
+				}
+				else if(dt == "PL"){
+	   	   			qtd_pl = d[dt];
+				}
+				else if(dt == "RCP"){
+	   	   			qtd_rcp = d[dt];
+				}
+				else if(dt == "RCP"){
+	   	   			qtd_rem = d[dt];
+				}
+			});
+
+			var total_propositions = qtd_pec + qtd_pl + qtd_rcp + qtd_rem;
 
 
-		  				$("#rect_hover_type").css("display","block")	
-		  					   .css("left", rectX)
-		  					   .css("top", rectY)
-		  					   .text(qtd)	  					  
-		  					   .css("transform", "translate("+ r +"px, 100%)");
-		  					  
+
+			var data = [{ year: "PEC", qtd: qtd_pec},
+			          { year: "PL", qtd: qtd_pl},
+			          { year: "RCP", qtd: qtd_rcp},
+			          { year: "REM", qtd: qtd_rem}];
 
 
-			  		});
+			x.domain(data.map(function(d) { return d.year; }));
 
-			  		$(".bars").on("mouseleave", function(){
-			  			animateBarMouseEnterLeave($(this).attr("id"), x, height, y0, false);
-			  			$("#rect_hover_type").css("display","none");
-			  		});
+			if(total_propositions > 0){
+				y0.domain([0, d3.max(data, function(d) { return d.qtd + d.qtd*0.2; })]);
+			}else{
+				y0.domain([0, 5]);
+			}
 
-		  		}
-		  	});
-	  
+			svg.append("g")
+			  .attr("class", "x axis")
+			  .attr("transform", "translate(0," + height + ")")
+			  .call(xAxis);
+
+			svg.append("g")
+			  .attr("class", "y axis axisLeft")
+			  .attr("transform", "translate(0,0)")
+			  .call(yAxisLeft)
+			.append("text")
+			  .attr("x", 50)
+			  .attr("y", 6)
+			  .attr("dy", "-1em")
+			  .style("text-anchor", "end")
+			  .style("text-anchor", "end")
+			  .text("Total: " + total_propositions)
+			  .style("font","18px AsapMedium")
+			  .style("fill","#B58CEA");
+
+			d3.selectAll(".graph .y .tick line")
+			.attr("x2", width );
+			d3.selectAll(".graph .y .tick text")
+			.attr("x", -4);
+
+
+
+			bars = svg.selectAll(".bar").data(data).enter();
+			var countIdBars = 0;
+			var rectY = function(d) { return y0(d.qtd); };
+			var rectH = function(d,i,j) { return height - y0(d.qtd); };
+			bars.append("rect")
+		      .attr("class", "bars")
+		      .attr("x", function(d) { return x(d.year) + 5; })
+		      .attr("width", x.rangeBand()/1.2)
+		      //.attr("y", rectY)
+		      .attr("rx", 2)
+		      .attr("ry", 2)
+		      .attr("height", 0)
+		      .attr("y",  height)
+		      	.transition()
+		      	.ease("sin")
+		      	.duration(800)
+		      		.attr("y", rectY)
+				  	.attr("height", rectH)
+				  	.each(function(){
+				  		d3.select(this).attr("id","bar_"+countIdBars)
+				  		countIdBars ++;
+				 	 })
+				  	.each("end", function(){
+				  		if(!--countIdBars){
+					  		$(".bars").on("mouseenter", function(){
+					  			animateBarMouseEnterLeave($(this).attr("id"), x ,height, y0, true);
+					  			var barId = d3.select(this).attr("id").replace("bar_","");
+
+					  			var qtd = 0;
+					  			var typeText = "";
+
+					  			
+						  			switch(parseInt(barId)){
+						  				case 0:
+						  					qtd = data[0].qtd;
+						  					typeText = "PEC";
+						  					break;
+						  				case 1:
+						  					qtd = data[1].qtd;
+						  					typeText = "PL";
+						  					break;
+						  				case 2:
+						  					qtd = data[2].qtd;
+						  					typeText = "RCP";
+						  					break;
+						  				case 3:
+						  					qtd = data[3].qtd;
+						  					typeText = "REM";
+						  					break;			
+						  			}
+
+					  			
+					  			var rectX = d3.select(this)[0][0].getBBox().x;
+					  			var rectY = d3.select(this)[0][0].getBBox().y;
+					  			var rectWidth = d3.select(this)[0][0].getBBox().width;
+					  			var rectHeight = d3.select(this)[0][0].getBBox().height;
+					  			var r = rectWidth - ($("#rect_hover_type").width() / 2);
+
+				  				$("#rect_hover_type").css("display","block")	
+				  					   .css("left", rectX)
+				  					   .css("top", rectY)
+				  					   .text(qtd)	  					  
+				  					   .css("transform", "translate("+ r +"px, 100%)");
+				  					  
+
+
+					  		});
+
+					  		$(".bars").on("mouseleave", function(){
+					  			animateBarMouseEnterLeave($(this).attr("id"), x, height, y0, false);
+					  			$("#rect_hover_type").css("display","none");
+					  		});
+
+				  		}
+				  	});
+	},
+	error: function(request, status, error) {
+		console.log(request , status , error);
+	}
+
+	});
 }
 	
 
@@ -336,6 +516,61 @@ function animateBarMouseEnterLeave(id, x, height, y0, isEntering){
 		.attr("transform", "translate("+tw +"," + th + ")")
 		.attr("width", w)
 		.attr("height", h );
+}
+
+function ajustPropositionsStatus(){
+
+	$(".prop_status").each(function(){
+		var status = $(this).text();
+
+		var statusSimple = status.replace(/ .*/,'');
+
+		$(this).text(statusSimple);
+
+
+		if( $("#cargo").text() == "Deputado Federal"){ 
+
+		if(statusSimple == "Aguardando"){
+			$(this).css("color","#48E237")
+				   .css("border-color","#48E237")
+				   .text("Aprovado");
+  	   
+		}
+		else if(statusSimple == "Arquivada" || statusSimple == "Devolvida" || statusSimple == "Perdeu" || statusSimple == "Retirado" || statusSimple == "Vetado"){
+			$(this).css("color","#F28C91")
+				   .css("border-color","#F28C91")
+				   .text("Recusado");
+		   
+		}
+		else if(statusSimple == "Enviada"){
+			$(this).css("color","#8ECDED")
+				   .css("border-color","#8ECDED")
+				   .text("Publicado");
+	   
+		}
+		else{
+			$(this).css("color","#F4E58C")
+				   .css("border-color","#F4E58C")
+				   .text("Tramitando");
+	   
+		}
+
+		}else if( $("#cargo").text() == "Senador"){ 
+
+			if(statusSimple == "Sim"){
+				$(this).css("color","#F4E58C")
+					   .css("border-color","#F4E58C")
+					   .text("Tramitando");  	   
+			}else if(statusSimple == "Não"){
+				$(this).css("color","#F28C91")
+				   	   .css("border-color","#F28C91")
+					   .text("Não tramitando");  	   
+			}
+		}
+
+
+
+	});
 }
 
 function showHistoryChart(){
@@ -745,12 +980,25 @@ function loadGraphs(){
 
        	var windowWidth = $(window).width();
 
+       	var year_selected = 2018;
+		var politician_id = window.location.pathname.split("/").pop();
+
+		$(".select_year_prop_status").val("2018");
+		$(".select_year_prop_type").val("2018");
+
         if(windowWidth <= 410){
-       		showDonutChart(windowWidth / 1.8, windowWidth / 1.8);
-       		showBarChart(windowWidth,200);
+
+        	filterStatusByYear(windowWidth / 1.8,windowWidth / 1.8);
+       		showDonutChart(windowWidth / 1.8, windowWidth / 1.8, year_selected, politician_id);
+
+       		filterTypeByYear(windowWidth,200);
+       		showBarChart(windowWidth,200, year_selected, politician_id);
         }else{
-        	showDonutChart(210,210);
-        	showBarChart(370,230);
+        	filterStatusByYear(210,210);
+        	showDonutChart(210,210, year_selected, politician_id);
+
+        	filterTypeByYear(370,230);
+        	showBarChart(370,230, year_selected, politician_id);
         }	
 
        graphsLoaded = true;
@@ -809,25 +1057,32 @@ function responsiveChanges(){
 
 
 
-	if(graphsLoaded){
-	  	if(windowWidth <= 410){
-	  		$(".p_donut_chart_outer").empty().append("<div class='propositions_donut_chart'> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
-	  		showDonutChart(windowWidth/1.8,windowWidth/1.8);
+	// if(graphsLoaded){
 
-	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");
+	// 	var year_selected = 2018;
+	// 	var politician_id = window.location.pathname.split("/").pop();
 
-	   		showBarChart(windowWidth,200);
-	  	} 
+	//   	if(windowWidth <= 410){
 
-	  	if(windowWidth > 410){
-	  		$(".p_donut_chart_outer").empty();
-	  		$(".p_donut_chart_outer").append("<div class='propositions_donut_chart'> </div> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
-	  		showDonutChart(210,210);
+	//   		$(".p_donut_chart_outer").empty().append("<div class='propositions_donut_chart'> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
+	//   		filterStatusByYear(windowWidth/1.8, windowWidth/1.8);
+	//   		showDonutChart(windowWidth/1.8,windowWidth/1.8, year_selected, politician_id);
 
-	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");	  		
-	  		showBarChart(370,230);
-	  	}
-	}
+	//   		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");
+
+	//    		showBarChart(windowWidth,200);
+	//   	} 
+
+	//   	if(windowWidth > 410){
+	//   		$(".p_donut_chart_outer").empty();
+	//   		$(".p_donut_chart_outer").append("<div class='propositions_donut_chart'> </div> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
+	//   		filterStatusByYear(210, 210);
+	//   		showDonutChart(210,210, year_selected, politician_id);
+
+	//   		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");	  		
+	//   		showBarChart(370,230);
+	//   	}
+	// }
 
 
 	autoAjustWidthInnerProps("prop");
@@ -886,7 +1141,7 @@ function loadFilteredPolls(yearSel){
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
                             	<div class="prop_desc">'+ data[i].description +'</div> \
-                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                            	<a target="_blank" href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      		      				
 	      				break;
@@ -898,7 +1153,7 @@ function loadFilteredPolls(yearSel){
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
                             	<div class="prop_desc">'+ data[i].description +'</div> \
-                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                            	<a target="_blank" href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      				break;	
 	      			case "Obstrução":
@@ -909,7 +1164,7 @@ function loadFilteredPolls(yearSel){
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
                             	<div class="prop_desc">'+ data[i].description +'</div> \
-                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                            	<a target="_blank" href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      				break;
 	      			default:
@@ -920,7 +1175,7 @@ function loadFilteredPolls(yearSel){
                                 	<span class="prop_type">'+ data[i].siglum +'</span> n° <span class="prop_n">'+ data[i].number +'</span> \
                             	</h3> \
                             	<div class="prop_desc">'+ data[i].description +'</div> \
-                            	<a href='+ data[i].url +' class="prop_details">mais detalhes</a> \
+                            	<a target="_blank" href='+ data[i].url +' class="prop_details">mais detalhes</a> \
                         	</div>');
 	      				break;		
 	      		}
@@ -933,7 +1188,7 @@ function loadFilteredPolls(yearSel){
 
 	      },
 	      error: function(request, status, error) {
-	      	$("#loading_polls").css("display","none");
+	      	$(".loading_polls").css("display","none");
 	        console.log(request , status , error);
 	      }
 	   });
@@ -941,10 +1196,17 @@ function loadFilteredPolls(yearSel){
 }
 
 function toggleNoScroll(){
-	if($(window).height() <= $("body").height()){
-		$("body").height($(window).height());
-		$("body").toggleClass("noScroll");
-	}
+	// if($(window).height() <= $("body").height()){
+	// 	$("body").height($(window).height());
+	// 	$("body").toggleClass("noScroll");
+	// }
+
+	var pos = $(window).scrollTop();
+	$(window).scroll(function() {
+		$(window).scrollTop(pos);
+	});
+	
+
 }
 
 function showLoadingFeedback(){

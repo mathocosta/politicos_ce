@@ -53,7 +53,7 @@ body{
   margin: auto;
   width: 1366px;
   height: auto;
-  /*display: none;*/
+  display: none;
 }
 #content_inner{
   margin: 0 auto;
@@ -556,7 +556,7 @@ button, select, input:focus{
 }
 .loading_politician_anim{
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -791,7 +791,7 @@ button, select, input:focus{
 .prop_status{
 
   font: 14px AsapRegular;
-  width : 87px;
+  width : auto;
   height: 22px;
   border-radius: 20px;
   background-color: transparent;
@@ -800,7 +800,7 @@ button, select, input:focus{
   border-color: #48E237;
   border-style: solid;
   text-align: center;
-  padding-top: 2px;
+  padding: 2px 5px 0 5px;
   float: right;
   margin-right: 25px;
 }
@@ -812,7 +812,7 @@ button, select, input:focus{
 
 .rect_hover{
   position: absolute;
-  padding: 2px 3px; 
+  padding: 3px 5px; 
   height: 15px;
   background-color: #333;
   color:#fafafa;
@@ -822,6 +822,7 @@ button, select, input:focus{
   font: 13px AsapRegular;
   border-radius: 2px;
   text-align: center;
+  white-space: nowrap;
 }
 #rect_hover_props{
   width: auto;
@@ -922,6 +923,7 @@ button, select, input:focus{
   margin-top: 10px;
   /*opacity: 0;*/
 }
+
 .project_voted{
   padding-left: 5px;
 }

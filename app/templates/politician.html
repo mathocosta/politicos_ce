@@ -81,7 +81,7 @@
                             <span class="prop_type">{{ p.siglum }}</span> n° <span class="prop_n">{{ p.number }}</span>
                         </h3>
                         <div class="prop_desc">{{ p.description }}</div>
-                        <a href="{{ p.url }}" class="prop_details">mais detalhes</a>
+                        <a target="_blank" href="{{ p.url }}" class="prop_details">mais detalhes</a>
                     </div>
                     {% endfor %}
                 </div>
@@ -93,9 +93,11 @@
                 <div class="box_prop" >
                     <h2 class="display_ib">Status das proposições</h2>
                     <select class="select_year select_year_prop_status" class="display_ib">
-                        <option>2018</option>
+                        <option value="" disabled selected>Anos disponíveis</option>
+                        <option selected="selected" >2018</option>
                         <option>2017</option>
                         <option>2016</option>
+                        <option>2015</option>
                     </select>
 
                     <!-- Colocar as quantidades de cada um-->
@@ -128,9 +130,11 @@
                 <div class="box_prop box_prop_2" >
                     <h2 class="display_ib">Tipo de proposição</h2>
                     <select class="select_year select_year_prop_type" class="display_ib">
-                        <option>2018</option>
+                        <option value="" disabled selected>Anos disponíveis</option>
+                        <option selected="selected" >2018</option>
                         <option>2017</option>
                         <option>2016</option>
+                        <option>2015</option>
                     </select>
                     <!-- Gráfico dos TIPOS de proposições -->
                     <div class="graph_prop_type_outer">
@@ -330,7 +334,8 @@
         <!-- <div id="candidature_history_graph"></div> -->
         <div id="history_candidature_contaner" class="full_width">
             <div id="history_graph_container">
-                <h2>Histórico de candidaturas</h2>
+                <h2>Histórico de candidaturas </h2>
+                <h2 style="color:#FF434C; font-size: 25px">( Em desenvolvimento *)</h2>
                 <div class="graph_history_candidature">
                             
                 </div>
