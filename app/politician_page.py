@@ -40,15 +40,12 @@ class ShowPoliticianPage(View):
             self.position = 'Senador'
             propositions = self._fetch_propositions(
                 politician_id, registered_id, fs.get_props_from_senator)
-            votes = self._fetch_votes(
-                politician_id, registered_id, fs.get_votes_from_senator)
             candidacies = fs.candidacies_data_from_senator(
                 self.politician_data.civil_name)
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
             propositions = self._fetch_propositions(
                 politician_id, registered_id, fd.get_props_from_deputy)
-            votes = self._fetch_deputies_votes(registered_id)
             candidacies = fd.candidacies_data_from_deputy(
                 self.politician_data.civil_name)
         elif self.politician_data.position == 'state-deputy':
@@ -70,71 +67,6 @@ class ShowPoliticianPage(View):
             propositions = df.to_dict('records')
 
         return propositions
-
-    # NOTE: Isso está separado por enquanto, pois ainda não pensei numa
-    # forma de juntar os métodos, ou fazer de uma forma mais geral. No mais,
-    # abaixo tem o método para as votações dos dep. federais, e depois o que
-    # é para os senadores.
-    def _fetch_deputies_votes(self, registered_id):
-        polls_dataset_key = 'deputies_votes_dataset'
-        polls_dataset = cache.get(polls_dataset_key)
-
-        polls_dataset_df = pd.DataFrame(polls_dataset)
-
-        if polls_dataset is None:
-            polls_dataset_df = fd.get_voting_data(datetime.datetime.now().year)
-            update_cache_value(polls_dataset_key, polls_dataset_df)
-
-        votes_key = "{}-votes".format(self.politician_data.id)
-        votes = cache.get(votes_key)
-        votes_df = pd.DataFrame(votes)
-
-        if votes is None:
-            votes_df = fd.get_votes_from_deputy(
-                registered_id, polls_dataset_df)
-            update_cache_value(votes_key, votes_df)
-
-        if not votes_df.empty:
-            filtered_votes = self._votes_filter(votes_df)
-        else:
-            filtered_votes = dict.fromkeys(
-                ['yes', 'no', 'abstention', 'secret'], list())
-
-        return filtered_votes
-
-    def _fetch_votes(self, politician_id, registered_id, callback):
-        votes_key = "{}-votes".format(politician_id)
-        votes = cache.get(votes_key)
-
-        if votes is None:
-            df = callback(registered_id, datetime.datetime.now().year)
-            votes = df.to_dict('records')
-            cache.set(votes_key, votes, timeout=86400)
-
-        if len(votes) > 1:
-            filtered_votes = self._votes_filter(pd.DataFrame(votes))
-        else:
-            filtered_votes = dict.fromkeys(
-                ['yes', 'no', 'abstention', 'secret'], list())
-
-        return filtered_votes
-
-    def _votes_filter(self, df):
-        is_secret = df.secret_poll == 'Sim'
-        is_yes = df.vote == 'Sim'
-        is_no = df.vote == 'Não'
-
-        filtered_votes = dict()
-        filtered_votes['secret'] = df.loc[is_secret].to_dict('records')
-        filtered_votes['yes'] = df.loc[is_yes].to_dict('records')
-        filtered_votes['no'] = df.loc[is_no].to_dict('records')
-        # FIXME: Ver outra forma de fazer essa verificação
-        filtered_votes['abstention'] = df.loc[(df.secret_poll == 'Não')
-                                              & (df.vote != 'Sim')
-                                              & (df.vote != 'Não')
-                                              ].to_dict('records')
-
-        return filtered_votes
 
 
 politician_page_view = ShowPoliticianPage.as_view('show_politician_page')
