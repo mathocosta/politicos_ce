@@ -44,6 +44,7 @@ class ShowPoliticianPage(View):
                 self.politician_data.civil_name)
         elif self.politician_data.position == 'federal-deputy':
             self.position = 'Deputado Federal'
+            registered_id = self.politician_data.parliamentary_name
             propositions = self._fetch_propositions(
                 politician_id, registered_id, fd.get_props_from_deputy)
             candidacies = fd.candidacies_data_from_deputy(

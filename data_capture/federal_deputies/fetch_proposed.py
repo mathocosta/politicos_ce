@@ -9,8 +9,6 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-HEAD_OPTIONS = {'accept': 'application/xml'}
-
 
 def make_excerpt(text):
     excerpt = text
@@ -22,73 +20,70 @@ def make_excerpt(text):
     return excerpt
 
 
-def get_individual_proposition(id):
-    # Antiga API
-    # r = requests.get("http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID?IdProp={}".format(id))
-
+def url_from_proposition(id):
+    payload = {'IdProp': id}
     r = requests.get(
-        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/{}".format(id),
-        headers=HEAD_OPTIONS)
+        "http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID",
+        params=payload)
+
     soup = BeautifulSoup(r.content, 'xml')
 
-    # return soup.proposicao.LinkInteiroTeor.text
-    return {
-        "url": soup.dados.urlInteiroTeor.text,
-        "status": soup.dados.statusProposicao.descricaoSituacao.text
-    }
+    return soup.proposicao.LinkInteiroTeor.text
 
 
-def get_data_from_deputie(id, year):
-    print('Obtendo as proposições do deputado...')
-
-    # Antiga API
-    # r = requests.get("http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor={0}&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=".format(name))
+def get_props_by_type(name, year, prop_type):
+    print("Obtendo as proposições de {0} do deputado...".format(year))
 
     payload = {
-        'idAutor': id,
+        'sigla': prop_type,
+        'numero': '',
         'ano': year,
-        'siglaTipo': ['PEC', 'PL', 'RCP', 'REM'],
-        'itens': 100,
-        'ordem': 'ASC',
-        'ordenarPor': 'id'
+        'datApresentacaoIni': '',
+        'datApresentacaoFim': '',
+        'parteNomeAutor': name,
+        'idTipoAutor': '',
+        'siglaPartidoAutor': '',
+        'siglaUFAutor': '',
+        'generoAutor': '',
+        'codEstado': '',
+        'codOrgaoEstado': '',
+        'emTramitacao': ''
     }
-    r = requests.get("https://dadosabertos.camara.leg.br/api/v2/proposicoes",
-                     params=payload, headers=HEAD_OPTIONS)
+
+    r = requests.get("http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes",
+                     params=payload)
 
     soup = BeautifulSoup(r.content, 'xml')
 
-    # propositions = soup.find_all('proposicao')
-    propositions = soup.find_all('proposicao_')
+    propositions = soup.find_all('proposicao')
 
     number_of_propositions = len(propositions) - 1
 
     result = list()
 
     for i in range(0, number_of_propositions):
-        prop = get_individual_proposition(propositions[i].id.text)
-        description = make_excerpt(propositions[i].ementa.text)
+        url = url_from_proposition(propositions[i].id.text)
+        description = make_excerpt(propositions[i].txtEmenta.text)
 
         result.append({
             'id': propositions[i].id.text,
-            'siglum': propositions[i].siglaTipo.text,
+            'siglum': propositions[i].tipoProposicao.sigla.text,
             'number': propositions[i].numero.text,
-            'description': description,
             'year': propositions[i].ano.text,
-            'status': prop['status'],
-            'url': prop['url']
+            'description': description,
+            'status': propositions[i].situacao.descricao.text,
+            'url': url
         })
-        # result.append({
-        #     'proposition_code': propositions[i].id.text,
-        #     'proposition_name': propositions[i].nome.text,
-        #     'type': propositions[i].tipoProposicao.sigla.text,
-        #     'proposition_number': propositions[i].numero.text,
-        #     'year': propositions[i].ano.text,
-        #     'proposition_date': propositions[i].datApresentacao.text,
-        #     'title': propositions[i].txtExplicacaoEmenta.text,
-        #     'description': propositions[i].txtEmenta.text,
-        #     'ongoing': propositions[i].situacao.descricao.text,
-        #     'url': url
-        # })
+
+    return result
+
+
+def get_data_from_deputie(name, year):
+    result = list()
+    result.extend(get_props_by_type(name, year, 'pec'))
+    result.extend(get_props_by_type(name, year, 'pl'))
+    result.extend(get_props_by_type(name, year, 'rcp'))
+    result.extend(get_props_by_type(name, year, 'rem'))
 
     columns = ['id', 'siglum', 'number',
                'description', 'year', 'status', 'url']
@@ -98,7 +93,7 @@ def get_data_from_deputie(id, year):
 
 
 def main():
-    print(get_data_from_deputie("vitor valim"))
+    print(get_data_from_deputie("vitor valim", 2017))
 
 
 if __name__ == '__main__':

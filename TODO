@@ -14,7 +14,7 @@ Captação dos Dados:
     ☐ Reescrever o `seed.py`
     1. Os imports tão meio esquisitos e o fica meio bagunçado
     2. Colocar para salvar os ids também
-    ☐ Ajeitar os nomes das chaves do dicionário das proposições
+    ✔ Ajeitar os nomes das chaves do dicionário das proposições @done(18-06-07 20:40)
     Eu não achei os nomes intuitivos, em alguns o title é maior que o description, e o nome não é o nome da proposição e sim o tipo dela de forma escrita.
     ✔ Colocar um filtro nas proposições @done(18-05-27 22:38)
     É preciso colocar um filtro para pegar somente as proposições dos tipos que são desejados.
