@@ -363,12 +363,13 @@ button, select, input:focus{
 }
 #info_boxes_outer{
   width: 100%;
+  background: #fafafa;
 }
 #info_boxes{
   width: 880px;
   margin: 0 auto;
   text-align: center;
-  margin-top: 105px;
+  padding-top: 105px;
 }
 .info_box{
   font-size: 42px !important;
