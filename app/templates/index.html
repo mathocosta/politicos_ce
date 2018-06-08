@@ -17,23 +17,26 @@
   <div id ="info1">
 
     <div id="info1_part1">
+      <div id="info1_part1_inner">
         <h1 id= "title_info1">O que nossos políticos estão fazendo?</h1>
         <h4>Acompanhe o trabalho dos seus eleitos do legislativo numa plataforma transparente e livre de influências</h4>
 
 
-        <div id= "search_bar">
-            <form method="GET" action="search">
-                <select id="select_item" name="position_field">
-                 <option value="senator">Senador</option>
-                 <option value="federal-deputy">Deputado Federal</option>
-                 <option value="state-deputy">Deputado Estadual</option>
-             </select>
+          <div id= "search_bar">
+              <form method="GET" action="search">
+                  <select id="select_item" name="position_field">
+                   <option value="senator">Senador</option>
+                   <option value="federal-deputy">Deputado Federal</option>
+                   <option value="state-deputy">Deputado Estadual</option>
+               </select>
 
-             <input id= "search_input" type="text" name="name_field" placeholder="Nome">
-             <input type="submit" value="Buscar" class="btn fill" id= "search_submit">
-         </form>
+               <input id= "search_input" type="text" name="name_field" placeholder="Nome">
+               <input type="submit" value="Buscar" class="btn fill" id= "search_submit">
+           </form>
+          </div>
+
+       <img id="img_brasil" src="/static/res/icons/brasil2.png">
      </div>
-     <img id="img_brasil" src="/static/res/icons/brasil2.png">
  </div>
  <div id = "boxes">
     <div id= "explore_box1" class="explore_box">
@@ -71,20 +74,24 @@
          a conduta dos cidadãos e das organizações públicas e privadas. No Brasil, o Poder Legislativo é composto pela Câmara dos Deputados (que representa os cidadãos)
           e pelo Senado Federal (que representa os Estados e o Distrito Federal), formando o Congresso Nacional, que se localiza em Brasília.</p>
     </div>
-    <div id = "info_boxes">
-        <div class= "info_box">
-            <h2>Transparente e livre de influências</h2>
-            <p>Esta plataforma foi contruida para ﬁns acadêmicos por alunos da Universidade Federal do Ceará Ceará, portando, se caracteriza totalmente apartidária.</p>
-            <div id="img_transparency"></div>
-        </div>
-        <div class= "info_box">
-            <h2>Mantida com dados oficiais do governo</h2>
-            <p>Todas as informações foram extraídas da base de dados dos governos federal e estadual, foram usados os bancos: </p>
-            <div id="img_bd"></div>
-        </div>
-    </div>
+    
   </div>  
 </div>
+<div id="info_boxes_outer">
+  <div id = "info_boxes">
+      <div class= "info_box">
+          <h2>Transparente e livre de influências</h2>
+          <p>Esta plataforma foi contruida para ﬁns acadêmicos por alunos da Universidade Federal do Ceará, portando, se caracteriza totalmente apartidária.</p>
+          <div id="img_transparency"></div>
+      </div>
+      <div class= "info_box info_box2">
+          <h2>Mantida com dados oficiais do governo</h2>
+          <p>Todas as informações foram extraídas da base de dados dos governos federal e estadual, foram usados os bancos: </p>
+          <div id="img_bd"></div>
+      </div>
+  </div>
+</div>
+
 
 <div id="info3" class="full_width">
     <div id="info3_part1" >

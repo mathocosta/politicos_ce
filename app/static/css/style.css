@@ -200,18 +200,23 @@ button, select, input:focus{
 /*INFO 1 STYLE ------------------------------*/
 
 #info1{
-  height: 668px;
+/*  height: 668px;*/
   padding-bottom: 60px;
   overflow: hidden;
 }
 #info1_part1{
-  padding : 80px 0 0 245px;
+  padding : 80px 0 0 0;
+}
+#info1_part1_inner{
+  width: 880px;
+  margin: 0 auto;
 }
 #img_brasil{
   position: absolute;
-  margin-top: -280px;
   margin-left: 540px;
+  top: 135px;
   z-index: -999;
+
 }
 #title_info1{
   color: #333333;
@@ -223,6 +228,7 @@ button, select, input:focus{
 }
 
 /*search style*/
+
 #select_item{
   -webkit-appearance: none;  /* Remove estilo padrão do Chrome */
   -moz-appearance: none; /* Remove estilo padrão do FireFox */
@@ -259,6 +265,7 @@ button, select, input:focus{
   height: 40px;
   border-radius:20px;
   box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.15);
+  background-color: #ffffff;
 }
 #search_input{
   -moz-box-sizing: border-box;
@@ -326,23 +333,23 @@ button, select, input:focus{
 /*INFO 2 STYLE*/
 #info2{
   background: #fafafa;
-  padding-bottom: 50px;
+  padding: 50px 0 0 50px;
 }
 
 #info2_inner{
-  width: 1366px;
-  height: 880px;
+  width: 880px;
+  height: 380px;
   margin: auto;
-  background: url(/static/res/icons/mapa_ceara.png) 23% 16% no-repeat;
+  background: url(/static/res/icons/mapa_ceara.png) 0% 16% no-repeat;
 }
 #info2_part1{
   position: relative;
-  padding: 124px 0 0 500px;
+  padding: 40px 0 0 255px;
 }
 #info2_part1 img{
   position: absolute;
-  top: 82px;
-  left: 503px;
+  top: 30px;
+  left: 258px;
 }
 #info2_part1 p{
   text-align: justify;
@@ -354,18 +361,25 @@ button, select, input:focus{
   margin: 0;
   width: 550px;
 }
+#info_boxes_outer{
+  width: 100%;
+}
 #info_boxes{
+  width: 880px;
+  margin: 0 auto;
   text-align: center;
   margin-top: 105px;
 }
 .info_box{
   font-size: 42px !important;
-  width: 420px;
+  width: 386px;
   height: 400px;
   display: inline-table;
-  margin: 0 30px;
+  margin: 0;
 }
-
+.info_box2{
+  float:right;
+}
 .info_box h2{
   margin: 0;
   text-align: left;
@@ -804,7 +818,9 @@ button, select, input:focus{
   float: right;
   margin-right: 25px;
 }
-
+#container_graph_legend{
+  position: relative;
+}
 .p_donut_chart_outer, #legend_status_prop{
   display: inline-block;
   position: relative;
@@ -886,6 +902,7 @@ button, select, input:focus{
   display: inline-table;
 }
 .box_prop_2{
+  position: relative;
   float: right;
 }
 .box_prop h2{
@@ -1266,6 +1283,27 @@ input.tabs:checked + label + div {
   width: 1140px !important;
   background: #fff;
 }
+.loading_status {
+  width: 240px !important;
+  top: 0 !important;
+  background: #fff !important;
+  padding-top: 20px;
+}
+.loading_status h3{
+  color: #333333;
+  text-align: center;
+  margin: 0 0 15px 0 !important;
+}
+.loading_type {
+  width: 400px !important;
+  top: 90px !important;
+  background: #fff !important;
+}
+.loading_type h3{
+  color: #333333;
+  text-align: center;
+  margin: 0 0 15px 0 !important;
+}
 .loading_polls {
     /*display: none;*/
     width: 880px;
@@ -1484,6 +1522,12 @@ input.tabs:checked + label + div {
 }
 
 @media (max-width: 1360px) {
+  /*Pg inicial*/
+  #img_brasil{
+    right: -290px;
+  }
+
+
   .project_prop, .project_voted{
     width: 750px;
   }
@@ -1513,7 +1557,37 @@ input.tabs:checked + label + div {
 }
 
 @media (max-width: 1050px) {
+  /*PG inicial*/
+  #info1_part1_inner{
+    width: 780px;
+  }
+  .explore_box{
+    width: 23%;
+    height: 23.5vw;
+    margin: 0 3%;
+  }
+  .img_place_index{
+    width: 90%;
+  }
+  .place{
+    width: 100%;
+  }
+  #info2_inner{
+    width: 100%;
+    margin-left: 55px;
+  }
 
+  #info2_part1{
+    width: 60%;
+    padding-left: 25.0%;
+  }
+  #title_info2,#info2_part1 p{
+    width: auto;
+  }
+ 
+
+
+  /*----*/
   .header_inner{
     width: 840px;
   }
@@ -1561,6 +1635,35 @@ input.tabs:checked + label + div {
 
 
 @media (max-width: 880px) {
+  /*PG inicial*/
+  #info1_part1_inner{
+    width: 100%;
+    padding-left: 55px;
+  }
+  #title_info1{
+    width: 550px;
+  }
+  #info1 h4{
+    width: 470px;
+  }
+  .explore_box {
+    height: 200px;
+  }
+  .explore_box h3{
+    font-size: 25px;
+    margin: 0 0 0 4%;
+  }
+  #info2_inner {
+    margin-left: 3.5%;
+    padding-left: 2.5%;
+  }
+  #info2_part1{
+    padding-left: 0;
+    width: 88%;
+  }
+  #title_info2 {
+    font-size: 35px;
+  }
 
   h1{
   font-size: 52px;
@@ -1579,14 +1682,14 @@ input.tabs:checked + label + div {
   }
   #title_content_1{
     width: 100%;
-    /*padding: 0 0 30px 70px;*/
-    /*padding: 3.6% 0 4.4% 10%;*/
   }
   #title_content_1_inner{
     position: relative;
     padding-left: 55px;
   }
 
+
+  /*------*/
   #info_detail{
     width: 520px;
   }
@@ -1755,6 +1858,41 @@ input.tabs:checked + label + div {
 }
 
 @media (max-width: 580px){
+  /*PG inicial*/
+  #info1_part1_inner {
+    padding: 0;
+  }
+  #search_submit{
+    width: 32.5px;
+  }
+  #img_brasil {
+    width: 150%;
+    right: -50%;
+  }
+  #info1_part1_inner{
+    width: 92%;
+  }
+  #search_bar,#title_info1,#info1 h4{
+    width: 100%;
+  }
+  #select_item,#search_input{
+    width: 120px;
+  }
+
+  .explore_box {
+
+    height: 40vw;
+    width: 80%;
+    margin-top: 5%;
+
+  }
+  .img_place_index {
+    margin:  0 auto;
+  }
+  #title_info2{
+    font-size: 27px;
+  }
+
   h1{
     font-size: 35px;
   }
@@ -1771,6 +1909,7 @@ input.tabs:checked + label + div {
   .btns_container_2{
     bottom: 358px;
   }
+
 
 
   .box_prop{
@@ -1810,6 +1949,12 @@ input.tabs:checked + label + div {
 }
 
 @media (max-width: 440px){
+  /*PG Inicial*/
+  #select_item,#search_input{
+    width: 90px;
+    padding-left: 8px;
+  }
+
   #title_content{
     padding-bottom: 40px;
   }
@@ -1818,6 +1963,13 @@ input.tabs:checked + label + div {
     text-align: center;
     padding: 0;
     margin: 0;
+  }
+
+  .explore_box {
+
+    height: 50vw;
+
+
   }
 
   #details{

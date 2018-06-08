@@ -54,17 +54,20 @@ $( window ).on('load', function() {
 	//Se a pagina for de um deputado estadual, não mostrar o título de Projetos Propostos;
 	//Também carrega os gráficos on load sem precisar do scroll;
 	
-	if( $("#cargo").text() == "Deputado Estadual"){              
-        $("#project_prop_head").css("display", "none");   
-        loadGraphs();
-    }
+
+
+	// if( $("#cargo").text() == "Deputado Estadual"){              
+ //        $("#project_prop_head").css("display", "none");   
+ //        loadGraphs();
+ //    }
     
 	//carrega os gráficos de acordo com um certo valor do scroll	
-	$(window).scroll(function() {
-	    if($(window).scrollTop() >= $(document).height() / 12) {
-	    	loadGraphs();
-	    }
-	});
+	loadGraphs();
+	// $(window).scroll(function() {
+	//     if($(window).scrollTop() >= $(document).height() / 12) {
+	//     	loadGraphs();
+	//     }
+	// });
 
 	
 	//se for uma pagina de politico específico fazer o request das votação
@@ -112,9 +115,9 @@ $( window ).on('load', function() {
 
 	// var w = $(window).width();
 	// $(window).resize(function(){
-	// 	if ($(window).width()==w) return; 
-	// 	w = $(window).width();		
-	// 	responsiveChanges();
+	// 	 if ($(window).width()==w) return; 
+	// 	 w = $(window).width();		
+	// 	 responsiveChanges();
 	// });
 	//------------------------
 

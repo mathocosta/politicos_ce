@@ -2,6 +2,7 @@ var finishRequest = false;
 
 function filterStatusByYear(width,height){
 	$(".select_year_prop_status").on('change', function() {
+		$(".loading_status").css("display","block");
 		var year_selected = $(this).val();
 		var politician_id = window.location.pathname.split("/").pop();
 		showDonutChart(width, height,year_selected,politician_id);
@@ -28,7 +29,7 @@ function showDonutChart(width, height,yearSel,p_id){
 	      dataType:'json',
 
 	      success: function(d) {
-
+	      	$(".loading_status").css("display","none");
 	      	console.log("success");
 	      	$(".propositions_donut_chart").empty();
 	      	$(".select_year_prop_status").prop("disabled",false).css("opacity", 1);
@@ -284,6 +285,7 @@ function animateSlicesMouseEnterLeave(id,radius,arc,isEntering){
 
 function filterTypeByYear(width,height){
 	$(".select_year_prop_type").on('change', function() {
+		$(".loading_type").css("display","block");
 		var year_selected = $(this).val();
 		var politician_id = window.location.pathname.split("/").pop();
 		showBarChart(width, height,year_selected,politician_id);
@@ -306,6 +308,7 @@ function showBarChart(w, h, year_selected,politician_id){
 		dataType:'json',
 
 		success: function(d) {
+			$(".loading_type").css("display","none");
 			$(".graph_prop_type").empty();
 			$(".select_year_prop_type").prop("disabled",false).css("opacity", 1);
 
@@ -1027,10 +1030,17 @@ function responsiveChanges(){
   		$(".especific_project_prop").width(300);
   		$(".prop_desc").width(270);
 
-  	}else{
+  	}
+  	else{
 
   		$(".especific_project_prop").width(335);
   		$(".prop_desc").width(300);
+  	}
+
+  	if(windowWidth <= 1050){
+  		$("#info2").removeClass('full_width');
+  	}else{
+  		$("#info2").attr('class','full_width');
   	}
 
   	if(windowWidth <= 682){
@@ -1114,8 +1124,9 @@ function filterPropsByYear(){
 
 function loadFilteredPolls(yearSel){
 		var politician_id = window.location.pathname.split("/").pop();
-		$(".loading_polls").css("display","flex");
-		$(".loading_polls_inner h3").text("Carregando votações de " + yearSel);
+		$(".loading_polls_bkground").css("display","flex");
+		$(".loading_polls_polls").css("display","flex");
+		$(".loading_polls_polls .loading_polls_inner h3").text("Carregando votações de " + yearSel);
 		$.ajax({
 	      type:'GET',
 	      url:'/politician/api',
@@ -1125,7 +1136,8 @@ function loadFilteredPolls(yearSel){
 	      dataType:'json',
 
 	      success: function(data) {
-	      	$(".loading_polls").css("display","none");
+	      	$(".loading_polls_polls").css("display","none");
+	      	$(".loading_polls_bkground").css("display","none");
 	      	var lenAll =  data.length;
 	      	var lenYes = 0;
 	      	$(".voted_inner").empty();
@@ -1235,7 +1247,3 @@ function hideLoadingFeedback(){
 	});
 
 }
-
-
-
-
