@@ -20,8 +20,9 @@ def index():
 # SEARCH RESULTS PAGE
 @app.route('/search')
 def show_search_results():
-    name_field_text = unidecode(request.args.get('name_field'))
-    politicians = Politician.query.whooshee_search(name_field_text).all()
+    name_field_text = request.args.get('name_field')
+    politicians = Politician.query.whooshee_search(
+        unidecode(name_field_text)).all()
 
     # Não tem como fazer a filtragem por padrão, portanto coloquei para
     # acontecer o filtro depois de obtidos os resultados da busca.
@@ -29,7 +30,17 @@ def show_search_results():
     if position is not None:
         politicians = [p for p in politicians if p.position == position]
 
-    title = 'Resultados da busca'
+    title = "Resultados da busca"
+
+    if position == 'federal-deputy':
+        title = "Resultados da busca nos dep. federais por \"{0}\"".format(
+            name_field_text)
+    elif position == 'senator':
+        title = "Resultados da busca nos senadores por \"{0}\"".format(
+            name_field_text)
+    elif position == 'state-deputy':
+        title = "Resultados da busca nos dep. estaduais por \"{0}\"".format(
+            name_field_text)
 
     return render_template(
         'politician_list.html', title=title, politicians=politicians)
