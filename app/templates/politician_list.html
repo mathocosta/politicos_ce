@@ -25,26 +25,29 @@
                 <button class="btn fill">Saiba mais</button>
             </a>
         </div>
-        
+
     </div>
     <div id="middle_content_all_politics">
         <p>A lista está organizada em ordem alfabética</p>
         <div id="all_boxes">
-
-            {% for p in politicians %}
-            <a class="politician_link" href="/politician/{{ p.id }}">
-                <!-- <div class="dsp_none p_id">p.id</div> -->
-                <div class="politic_box">
-                    <div class="photo_mask">
-                        <img class="photo_politic" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
+            {% if not politicians %}
+                <h2>Nenhum resultado encontrado</h2>
+            {% else %}
+                {% for p in politicians %}
+                <a class="politician_link" href="/politician/{{ p.id }}">
+                    <!-- <div class="dsp_none p_id">p.id</div> -->
+                    <div class="politic_box">
+                        <div class="photo_mask">
+                            <img class="photo_politic" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
+                        </div>
+                        <div>
+                            <h2 class="name_politic">{{ p.parliamentary_name }}</h2>
+                            <h4 class="p_siglum">{{ p.party_siglum }}</h4>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="name_politic">{{ p.parliamentary_name }}</h2>
-                        <h4 class="p_siglum">{{ p.party_siglum }}</h4>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
+                </a>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
     <div class="loading_politician_anim">
