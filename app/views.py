@@ -5,6 +5,7 @@ da entidade específica, que está modelada no `models.py`.
 """
 from flask import render_template, request
 from flask.views import MethodView, View
+from unidecode import unidecode
 
 from app import app
 from app.models import Politician
@@ -19,9 +20,8 @@ def index():
 # SEARCH RESULTS PAGE
 @app.route('/search')
 def show_search_results():
-    # FIXME: Não tem algo para verificar se o campo 'name' está vazio.
-    politicians = Politician.query.whooshee_search(
-        request.args.get('name_field')).all()
+    name_field_text = unidecode(request.args.get('name_field'))
+    politicians = Politician.query.whooshee_search(name_field_text).all()
 
     # Não tem como fazer a filtragem por padrão, portanto coloquei para
     # acontecer o filtro depois de obtidos os resultados da busca.

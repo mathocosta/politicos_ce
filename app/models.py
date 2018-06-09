@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """Arquivo com os modelos usados no banco de dados"""
 from app import db, whooshee
+from unidecode import unidecode
 
 
 @whooshee.register_model(
-    'civil_name', 'parliamentary_name', 'party_siglum', 'position')
+    'ascii_civil_name', 'ascii_parliamentary_name', 'party_siglum', 'position')
 class Politician(db.Model):
     """Entidade que representa e guarda os dados de um político"""
     __tablename__ = 'politicians'
@@ -12,9 +13,10 @@ class Politician(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     registered_id = db.Column('registered_id', db.Integer)
     civil_name = db.Column('civil_name', db.String(80))
+    ascii_civil_name = db.Column('ascii_civil_name', db.String(80))
     parliamentary_name = db.Column('parliamentary_name', db.String(80))
-    # party_id = db.Column('party_id', db.Integer, db.ForeignKey(
-    #     'political_parties.id'), nullable=False)
+    ascii_parliamentary_name = db.Column(
+        'ascii_parliamentary_name', db.String(80))
     party_siglum = db.Column('party_siglum', db.String(80))
     scholarity = db.Column('scholarity', db.String(80))
     hometown = db.Column('hometown', db.String(80))
@@ -25,7 +27,9 @@ class Politician(db.Model):
                  scholarity, hometown, party_siglum, position, photo_url):
         self.registered_id = registered_id
         self.civil_name = civil_name
+        self.ascii_civil_name = unidecode(civil_name)
         self.parliamentary_name = parliamentary_name
+        self.ascii_parliamentary_name = unidecode(parliamentary_name)
         self.scholarity = scholarity
         self.hometown = hometown
         self.party_siglum = party_siglum
