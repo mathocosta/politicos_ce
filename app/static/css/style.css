@@ -1118,7 +1118,7 @@ input.tabs:checked + label + div {
 
 }
 #propor_senadores, #julgar_senadores, #avaliar_senadores{
-  padding: 0 23px;
+  padding: 0 22px;
 }
 
 .func_inner p{

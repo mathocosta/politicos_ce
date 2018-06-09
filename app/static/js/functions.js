@@ -30,7 +30,7 @@ function showDonutChart(width, height,yearSel,p_id){
 
 	      success: function(d) {
 	      	$(".loading_status").css("display","none");
-	      	console.log("success");
+	      	//console.log("success");
 	      	$(".propositions_donut_chart").empty();
 	      	$(".select_year_prop_status").prop("disabled",false).css("opacity", 1);
 			var radius = Math.min(width, height) / 2.2;  
@@ -40,7 +40,6 @@ function showDonutChart(width, height,yearSel,p_id){
 			    .outerRadius(radius)
 			    .innerRadius(radius - (radius*0.5));
 
-			
 			// var qtd_aproved = $("#aproved").text();
 			// var qtd_published = $("#published").text();
 			// var qtd_refused = $("#refused").text();
@@ -53,25 +52,28 @@ function showDonutChart(width, height,yearSel,p_id){
 			var qtd_processing = 0;
 			var no_propositions
 			//var statusSimple;
+			console.log(d);
+			console.log(" ");
 			Object.keys(d).forEach(function(dt){
 				var status = dt;
 				var statusSimple = status.replace(/ .*/,'');
 
-
+	
+				//console.log(statusSimple, dt, d[dt]);
 
 				if( $("#cargo").text() == "Deputado Federal"){ 
 
 					if(statusSimple == "Aguardando"){
-		   	   			qtd_aproved = d[dt];
+		   	   			qtd_aproved += d[dt];
 					}
 					else if(statusSimple == "Arquivada" || statusSimple == "Devolvida" || statusSimple == "Perdeu" || statusSimple == "Retirado" || statusSimple == "Vetado"){
-		   				qtd_refused = d[dt];
+		   				qtd_refused += d[dt];
 					}
 					else if(statusSimple == "Enviada"){
-						qtd_published = d[dt];	      
+						qtd_published += d[dt];	      
 					}
 					else{
-						qtd_processing = d[dt];	    
+						qtd_processing += d[dt];	    
 					}
 
 				}else if( $("#cargo").text() == "Senador"){ 
@@ -82,10 +84,10 @@ function showDonutChart(width, height,yearSel,p_id){
                                 								   <div class='circle_status' id='circle_refused'></div><span>Não tramitando</span>");
 
 					if(statusSimple == "Sim"){
-		   	   			qtd_aproved = d[dt];
+		   	   			qtd_aproved += d[dt];
 					}
 					else if(statusSimple == "Não"){
-		   	   			qtd_refused = d[dt];
+		   	   			qtd_refused += d[dt];
 					}
 
 				}
@@ -96,6 +98,7 @@ function showDonutChart(width, height,yearSel,p_id){
 			});
 
 			var total_propositions = qtd_aproved + qtd_refused + qtd_published + qtd_processing;
+			console.log(total_propositions, qtd_aproved, qtd_refused, qtd_published, qtd_processing);
 
 			if(total_propositions == 0){
 				no_propositions = 1;
@@ -103,7 +106,7 @@ function showDonutChart(width, height,yearSel,p_id){
 				no_propositions = 0;
 			}
 			
-			console.log("Ap: ", qtd_aproved, "Pub: ", qtd_published,"Tram: ", qtd_processing, "Ref: ", qtd_refused);
+			//console.log("Ap: ", qtd_aproved, "Pub: ", qtd_published,"Tram: ", qtd_processing, "Ref: ", qtd_refused);
 
 			var data = [{ status: "Aprovado", qtd: qtd_aproved},
 			            { status: "Publicado", qtd: qtd_published},
