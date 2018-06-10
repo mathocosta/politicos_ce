@@ -1198,8 +1198,8 @@ function responsiveChanges(){
 
 	var windowWidth = $(window).width();
 	var windowHeight = $(window).height();
-	console.log(window.outerHeight);
-	$(".menu_container").height(window.outerHeight);
+	
+	$(".menu_container").css("height","100vh");	
 
   	if(windowWidth <= 490){
   		$(".especific_project_prop").width($(this).width() - 37);
