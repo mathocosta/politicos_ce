@@ -1097,6 +1097,10 @@ function getSVGStructure(url, id){
     $.get(svgUrl)
     .then(function(xmlDoc){
     	var svg = $(xmlDoc).find("svg");
+    	svg.attr("viewBox", "0, 0, 360, 185" );
+    	svg.removeAttr("width");
+    	svg.removeAttr("height");	
+    	
     	$(id).append(svg);
     });
 
@@ -1289,8 +1293,8 @@ function responsiveChanges(){
 
 
 	ajustPartyTrendGraphWidth();
-}
 
+}
 
 function filterPropsByYear(){
 	
@@ -1299,6 +1303,7 @@ function filterPropsByYear(){
 		loadFilteredPolls(year_selected);	
 	});
 }
+
 
 
 function loadFilteredPolls(yearSel){

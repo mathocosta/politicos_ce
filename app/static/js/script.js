@@ -113,12 +113,109 @@ $( window ).on('load', function() {
 	/*Responsive script*/
 	responsiveChanges();
 
-	// var w = $(window).width();
-	// $(window).resize(function(){
-	// 	 if ($(window).width()==w) return; 
-	// 	 w = $(window).width();		
-	// 	 responsiveChanges();
+	var w = $(window).width();
+	$(window).resize(function(){
+		 // if ($(window).width()==w) return; 
+		 // w = $(window).width();		
+		 //responsiveChanges();
+		 // var wSvg = w*0.05;
+		 
+	});
+
+	// $(window).bind('resize', function(e)
+	// {
+	//   if (window.RT) clearTimeout(window.RT);
+	//   window.RT = setTimeout(function()
+	//   {
+	//     document.location.reload(); /* false to get page from cache */
+	//   }, 100);
 	// });
+
+
+	if(w <= 800){
+		$(".holder_know_more").height($(".content_know_more_1").height() + 400);
+		
+	}else{
+		$(".holder_know_more").height($(".content_know_more_1").height() + 100);
+	}
+	
+
+	$(window).scroll(function() {
+		
+	    if($(window).scrollTop() >= offsetTop && w <= 880) {
+	    	$(".tab_know_more").css("position","fixed").css("top",0 );	
+	    	var hgh = $(".tab_know_more").height() + parseInt($(".tab_know_more").css("padding-top")) + parseInt($(".tab_know_more").css("padding-bottom"));
+
+	    	$("#box_shadow_know_more").css("position","fixed").css("top",0 ).css("left", 0).height(hgh);
+	    	$(".line_know_more").css("position","fixed").css("top", hgh );
+	    	$("#tab_know_more1").css("left", 0);
+
+	    	var l1 = $("#tab_know_more1").width() + parseInt($(".tab_know_more").css("padding-left") + 1);
+	    	
+	    	$("#tab_know_more2").css("left", l1);	
+	    	var l2 = parseInt($("#tab_know_more2").css("left")) * 2 + 1;
+	    	$("#tab_know_more3").css("left", l2);
+
+	    	
+
+	    }else {
+
+	    	$(".tab_know_more").css("position","relative").css("top", "" );
+	    	$("#box_shadow_know_more").css("position","absolute").css("top","" ).css("left", "").css("height","100%");
+	    	$(".line_know_more").css("position","absolute").css("top", "" );
+
+	    	$("#tab_know_more2").css("left", "");
+	    	$("#tab_know_more3").css("left", "");
+
+
+
+	    }
+	});
+
+
+	//console.log($(".holder_know_more").height(), $(".content_know_more_1").height() );
+	$(".tab_know_more").on("click",function(){
+		var selected = $(this).attr("id");
+		console.log(selected);
+
+		if(selected == "tab_know_more1"){
+			$(".content_know_more_1").css("display","block");
+			$(".content_know_more_1").fadeTo(0.3, 1);
+			$(".holder_know_more").height($(".content_know_more_1").height() + 200);
+
+		}else if(selected == "tab_know_more2"){
+			$(".content_know_more_1").fadeTo(0.3, 0,function(){
+				$(this).css("display","none");
+			});
+
+			$(".holder_know_more").height($(".content_know_more_2").height() + 220);
+		}else{
+			$(".content_know_more_1").fadeTo(0.3, 0,function(){
+				$(this).css("display","none");
+			});
+			$(".holder_know_more").height($(".content_know_more_3").height() + 220);	
+		}
+	});
+
+	var offsetTop = $("#tab_know_more1").offset().top;
+
+
+
+
+	// $(".tab_know_more").css("position","fixed").css("top",0 );	
+	// var hgh = $(".tab_know_more").height() + parseInt($(".tab_know_more").css("padding-top")) + parseInt($(".tab_know_more").css("padding-bottom"));
+	// console.log($(".tab_know_more").height());
+	// $("#box_shadow_know_more").css("position","fixed").css("top",0 ).css("left", 0).height(hgh);
+	// $(".line_know_more").css("position","fixed").css("top", hgh );
+	// $("#tab_know_more1").css("left", 0);
+
+	// var l1 = $("#tab_know_more1").width() + parseInt($(".tab_know_more").css("padding-left"));
+	// console.log(l1);
+	
+	// $("#tab_know_more2").css("left", l1);	
+	// var l2 = parseInt($("#tab_know_more2").css("left")) * 2;
+	// $("#tab_know_more3").css("left", l2);		
+
 	//------------------------
 
 	//feedback de loading para quando o usuário clicar em um político		

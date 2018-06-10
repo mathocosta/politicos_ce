@@ -476,6 +476,10 @@ button, select, input:focus{
 }
 .img_people_know_more{
   width: 320px;
+  top: auto !important;
+  left: auto !important;
+  right: -80px;
+  bottom: 0;
 }
 #top_content_1{
   width: 880px;
@@ -1075,6 +1079,7 @@ input.tabs + label {
 .tab_know_more{
   width: 29.9% !important;
   padding-bottom: 30px !important;
+  z-index: 99999;
 }
 .tab_know_more img{
   position: absolute;
@@ -1121,7 +1126,7 @@ input.tabs:checked + label + div {
 
 .func_outer{
   width: 100%;
-  height: 250px;
+  height: auto;
 }
 
 .func_inner{
@@ -1132,12 +1137,12 @@ input.tabs:checked + label + div {
 
 }
 #propor_senadores, #julgar_senadores, #avaliar_senadores{
-  padding: 0 22px;
+  padding: 0 19px;
 }
 
 .func_inner p{
   font-size: 14px;
-  width: 145px;
+  width: 150px;
   text-align: left;
 }
 .func_inner span{
@@ -1172,6 +1177,7 @@ input.tabs:checked + label + div {
   font-size: 14px;
 }
 .content_know_more{
+  height: auto !important;
   width: 100% !important;
   top: 150px !important;
 }
@@ -1189,6 +1195,10 @@ input.tabs:checked + label + div {
 
 #senator_structure{
   display: block;
+}
+#senator_structure svg{
+  /*width: 360px;
+  height: 185px;*/
 }
 
 .structure_graph_2{
@@ -1278,7 +1288,7 @@ input.tabs:checked + label + div {
 }
 .holder_know_more{
   width: 100%;
-  height: 1000px;
+  height: 950px;
   background-color: #fafafa;
   position: relative;
   z-index: -999;
@@ -1414,9 +1424,11 @@ input.tabs:checked + label + div {
   position: absolute;
   width: 2000px;
   height: 3px;
-  top: 100px;
   left: -550px;
   background-color: #B0F28C;
+}
+.line_specific{
+  top:100px;
 }
 #box_shadow_voted{
   position: absolute;
@@ -1436,18 +1448,20 @@ input.tabs:checked + label + div {
 #box_shadow_know_more{
   position: absolute;
   width: 100%;
-  height: 130px;
+  height: 100%;
   box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.16);
-  z-index: -99;
+  background: #fff;
+  z-index: 9999;
 }
 .line_separator_know_more{
   top: 20px !important;
   height: 90px !important;
 }
 .line_know_more{
-  top:130px !important;
+  top:130px;
   background-color: #00B8A9 !important;
   height: 7px !important;
+  z-index: 9999;
 }
 .project_prop, .project_voted{
   overflow: hidden;
@@ -1541,7 +1555,11 @@ input.tabs:checked + label + div {
   #img_brasil{
     right: -290px;
   }
-
+  /*PG know more*/
+  .content_know_more{
+    left: 0 !important;
+  }
+  /*------------*/
 
   .project_prop, .project_voted{
     width: 750px;
@@ -1608,7 +1626,7 @@ input.tabs:checked + label + div {
   #info3_inner{
     width: 750px;
   }
-  .img_people{
+  .img_people_index{
     width: 325px;
   }
 
@@ -1624,6 +1642,44 @@ input.tabs:checked + label + div {
     margin: 5px;
   }
   /*-----*/
+  /*PG know more*/
+  .top_content_1_know_more p{
+    width: 70% !important;
+  }
+  /*-----*/
+  /*PG know more*/
+  .img_people_know_more{
+    width: 35%;
+    right: -6%;
+  }
+  #middle_content{
+    width: 780px;
+  }
+  .container_tabs_know_more{
+    width: 100%;
+  }
+  .tab_know_more{
+    padding: 3% 0 4% 3% !important;
+  }
+  .func_outer1{
+    width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #propor_senadores{
+    padding: 0 130px !important;
+  }
+  #julgar_senadores{
+    padding: 0 !important;
+  }
+  #avaliar_senadores{
+    padding: 0 130px 0 0 !important;
+  }
+  .holder_know_more{
+    height: 1180px;
+  }
+
+  /*------*/
 
   .header_inner{
     width: 840px;
@@ -1690,6 +1746,9 @@ input.tabs:checked + label + div {
     font-size: 25px;
     margin: 0 0 0 4%;
   }
+  #info2{
+    padding: 50px 0 0 0;
+  }
   #info2_inner {
     margin-left: 3.5%;
     padding-left: 2.5%;
@@ -1701,6 +1760,7 @@ input.tabs:checked + label + div {
   #title_info2 {
     font-size: 35px;
   }
+
    #info_boxes{
     width: 90%;
     height: 800px;
@@ -1723,6 +1783,41 @@ input.tabs:checked + label + div {
   }
   #middle_content_all_politics {
     width: 535px;
+  }
+  /*------*/
+  /*PG know more*/
+  #middle_content,.container_tabs_know_more{
+    width: 100%;
+  }
+  .tab_know_more{
+    padding: 3% 0 3% 3% !important;
+  }
+  .line_know_more{
+    top: 100%;
+  }
+  .tab_know_more img{
+    display: none;
+  }
+  .line_separator_know_more {
+    top: 20% !important;
+    height: 70% !important;
+  }
+  .content_know_more{
+    width: 90% !important;
+    margin-left: 5%;
+  }
+
+  /*-----------*/
+  /*PG know more*/
+  .func_outer1{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .func_box{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
   }
   /**/
   h1{
@@ -1747,7 +1842,7 @@ input.tabs:checked + label + div {
     position: relative;
     padding-left: 55px;
   }
-  .img_people{
+  .img_people_index{
     width: 41%;
   }
   #info3_part1{
@@ -1813,7 +1908,7 @@ input.tabs:checked + label + div {
   .select_year_project_voted {
       margin-left: 55px;
   }
-  #line{
+  .line_specific{
     top: 95px;
   }
 
@@ -1826,7 +1921,43 @@ input.tabs:checked + label + div {
     width: 100%;
   }
 }
+@media (max-width: 800px) {
+  .func_inner1{
+    padding: 0 !important;
+  }
+  .func_outer1{
+    width: 440px;
+  }
+  #propor_senadores,#avaliar_senadores{
+    padding: 0 0 0 40px !important; 
+  }
+  .func_box{
+    width: 75%;
+  }
+  #fiscalizar_deputados{
+    padding: 0 0 0 40px;
+  }
+  .content_data_inner{
+    width: 360px;
+    margin: 0 auto;
+  }
+  .structure_graph_2{
+    float: none;
+    margin-top: 50px;
+  }
+  .work_place_cabinet_container{
+    height: 440px;
+  }
+  .work_place_cabinet_container_inner{
+    width: 360px;
+    margin: 0 auto;
+  }
+  .cabinet{
+    float: none;
+    margin-top: 25px;
+  }
 
+}
 
 
 @media (max-width: 700px){
@@ -1915,7 +2046,7 @@ input.tabs:checked + label + div {
     text-align: center;
 
   }
-  .choice{
+  .choice_specific{
     display: none;
   }
    .choice_detailed {
@@ -1962,7 +2093,7 @@ input.tabs:checked + label + div {
   #info3{
     height: 490px;
   }
-  .img_people{
+  .img_people_index{
     width: 80%;
     right: 10%;
   }
@@ -1983,6 +2114,23 @@ input.tabs:checked + label + div {
     width: 100%;
   }
  /*-----*/
+ /*PG know more*/
+ .top_content_1_know_more{
+    padding-bottom: 47% !important;
+ }
+  .img_people_know_more{
+    width: 80%;
+    right: 10%;
+  }
+  .top_content_1_know_more p{
+    width: 100% !important;
+  }
+ /*-------*/
+ /*PG know more*/
+ .choice_know_more{
+  font-size: 27px;
+ }
+ /**/
   h1{
     font-size: 35px;
   }
@@ -1999,8 +2147,6 @@ input.tabs:checked + label + div {
   .btns_container_2{
     bottom: 358px;
   }
-
-
 
   .box_prop{
     margin-bottom: 0;
@@ -2019,7 +2165,7 @@ input.tabs:checked + label + div {
   input.tabs + label {
     height: 65px;
   }
-  #line, #bkground_voted {
+  #line_specific, #bkground_voted {
       top: 80px;
   }
   .line_separator{
@@ -2052,6 +2198,30 @@ input.tabs:checked + label + div {
     margin: 0;
   }
   /*-----*/
+  /*PG know more*/
+  .func_outer1{
+    width: 90%;
+  }
+  .func_inner{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 225px;
+  }
+
+  .func_inner p{
+    width: 100%;
+  }
+  .func_box{
+    width: 90%;
+  }
+  #propor_senadores,#avaliar_senadores,#fiscalizar_deputados{
+    padding: 0 !important;
+  }
+  #propor_deputados p{
+    width: 100%;
+  }
+  /*------*/
 }
 @media (max-width: 440px){
   /*PG Inicial*/
@@ -2079,6 +2249,14 @@ input.tabs:checked + label + div {
   }
 
   /*-----*/
+  /*PG know more*/
+  .choice_know_more{
+    font-size: 19px;
+  }
+  .tab_know_more{
+    height: 40px !important;
+  }
+  /*------------*/
   #details{
     width: 100%;
     left: 0;
@@ -2126,7 +2304,22 @@ input.tabs:checked + label + div {
   #info2_inner{
     height: 480px;
   }
+  /*---------------*/
 
+  /*PG know more*/
+  .content_data_inner{
+    width: 95%;
+  }
+  .structure,.structure_content,.structure_graph_1,.structure_graph_2{
+    width: 100%;
+  }
+  .work_place_cabinet_container{
+    width: 95%;
+  }
+  .work_place_cabinet_container_inner, .work_place, .cabinet{
+    width: 100%;
+  }
+  /*----------*/
 
   .display_ib{
     width: 100%;
@@ -2148,6 +2341,7 @@ input.tabs:checked + label + div {
   #legend_status_prop_inner span{
     font-size: 12px;
   }
+
 
 }
 
