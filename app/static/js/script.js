@@ -1,6 +1,33 @@
+$.ajaxQ = (function(){
+  var id = 0, Q = {};
+
+  $(document).ajaxSend(function(e, jqx){
+    jqx._id = ++id;
+    Q[jqx._id] = jqx;
+  });
+  $(document).ajaxComplete(function(e, jqx){
+    delete Q[jqx._id];
+  });
+
+  return {
+    abortAll: function(){
+      var r = [];
+      $.each(Q, function(i, jqx){
+        r.push(jqx._id);
+        jqx.abort();
+      });
+      return r;
+    }
+  };
+
+})();
+
+
+
 
 var graphsLoaded = false;
-
+var graphsLoadedResponsive = true;
+var isFixed = false;
 
 $( window ).on('load', function() {
 
@@ -50,26 +77,9 @@ $( window ).on('load', function() {
 	});
 
 
-
-	//Se a pagina for de um deputado estadual, não mostrar o título de Projetos Propostos;
-	//Também carrega os gráficos on load sem precisar do scroll;
-	
-
-
-	// if( $("#cargo").text() == "Deputado Estadual"){              
- //        $("#project_prop_head").css("display", "none");   
- //        loadGraphs();
- //    }
-    
-	//carrega os gráficos de acordo com um certo valor do scroll	
 	loadGraphs();
-	// $(window).scroll(function() {
-	//     if($(window).scrollTop() >= $(document).height() / 12) {
-	//     	loadGraphs();
-	//     }
-	// });
 
-	
+
 	//se for uma pagina de politico específico fazer o request das votação
 	if(window.location.pathname.split("/")[1] == "politician"){
 		$(".select_year_project_voted").val("2018");
@@ -115,106 +125,32 @@ $( window ).on('load', function() {
 
 	var w = $(window).width();
 	$(window).resize(function(){
-		 // if ($(window).width()==w) return; 
-		 // w = $(window).width();		
-		 //responsiveChanges();
-		 // var wSvg = w*0.05;
+		if ($(window).width()==w) return; 
+
+
+		$.ajaxQ.abortAll();
+		  w = $(window).width();	
+		 isFixed = false;
+		 responsiveChanges();
+		 responsiveReload();
+		 
 		 
 	});
 
-	// $(window).bind('resize', function(e)
-	// {
-	//   if (window.RT) clearTimeout(window.RT);
-	//   window.RT = setTimeout(function()
-	//   {
-	//     document.location.reload(); /* false to get page from cache */
-	//   }, 100);
-	// });
-
-
-	if(w <= 800){
-		$(".holder_know_more").height($(".content_know_more_1").height() + 400);
-		
-	}else{
-		$(".holder_know_more").height($(".content_know_more_1").height() + 100);
-	}
-	
-
-	$(window).scroll(function() {
-		
-	    if($(window).scrollTop() >= offsetTop && w <= 880) {
-	    	$(".tab_know_more").css("position","fixed").css("top",0 );	
-	    	var hgh = $(".tab_know_more").height() + parseInt($(".tab_know_more").css("padding-top")) + parseInt($(".tab_know_more").css("padding-bottom"));
-
-	    	$("#box_shadow_know_more").css("position","fixed").css("top",0 ).css("left", 0).height(hgh);
-	    	$(".line_know_more").css("position","fixed").css("top", hgh );
-	    	$("#tab_know_more1").css("left", 0);
-
-	    	var l1 = $("#tab_know_more1").width() + parseInt($(".tab_know_more").css("padding-left") + 1);
-	    	
-	    	$("#tab_know_more2").css("left", l1);	
-	    	var l2 = parseInt($("#tab_know_more2").css("left")) * 2 + 1;
-	    	$("#tab_know_more3").css("left", l2);
-
-	    	
-
-	    }else {
-
-	    	$(".tab_know_more").css("position","relative").css("top", "" );
-	    	$("#box_shadow_know_more").css("position","absolute").css("top","" ).css("left", "").css("height","100%");
-	    	$(".line_know_more").css("position","absolute").css("top", "" );
-
-	    	$("#tab_know_more2").css("left", "");
-	    	$("#tab_know_more3").css("left", "");
-
-
-
-	    }
-	});
-
-
-	//console.log($(".holder_know_more").height(), $(".content_know_more_1").height() );
-	$(".tab_know_more").on("click",function(){
+	//correção para a altura da página saiba mais	
+	$(".tab_know_more").on("click", function(){
 		var selected = $(this).attr("id");
-		console.log(selected);
+			console.log(selected);
 
-		if(selected == "tab_know_more1"){
-			$(".content_know_more_1").css("display","block");
-			$(".content_know_more_1").fadeTo(0.3, 1);
-			$(".holder_know_more").height($(".content_know_more_1").height() + 200);
-
-		}else if(selected == "tab_know_more2"){
-			$(".content_know_more_1").fadeTo(0.3, 0,function(){
-				$(this).css("display","none");
-			});
-
-			$(".holder_know_more").height($(".content_know_more_2").height() + 220);
-		}else{
-			$(".content_know_more_1").fadeTo(0.3, 0,function(){
-				$(this).css("display","none");
-			});
-			$(".holder_know_more").height($(".content_know_more_3").height() + 220);	
-		}
+			if(selected != "tab_know_more1"){
+				setTimeout(function(){ 
+					$('.content_know_more_1').css("display","none");
+				}, 300);
+				
+			}else{
+				$('.content_know_more_1').css("display","block");	
+			}
 	});
-
-	var offsetTop = $("#tab_know_more1").offset().top;
-
-
-
-
-	// $(".tab_know_more").css("position","fixed").css("top",0 );	
-	// var hgh = $(".tab_know_more").height() + parseInt($(".tab_know_more").css("padding-top")) + parseInt($(".tab_know_more").css("padding-bottom"));
-	// console.log($(".tab_know_more").height());
-	// $("#box_shadow_know_more").css("position","fixed").css("top",0 ).css("left", 0).height(hgh);
-	// $(".line_know_more").css("position","fixed").css("top", hgh );
-	// $("#tab_know_more1").css("left", 0);
-
-	// var l1 = $("#tab_know_more1").width() + parseInt($(".tab_know_more").css("padding-left"));
-	// console.log(l1);
-	
-	// $("#tab_know_more2").css("left", l1);	
-	// var l2 = parseInt($("#tab_know_more2").css("left")) * 2;
-	// $("#tab_know_more3").css("left", l2);		
 
 	//------------------------
 
@@ -231,6 +167,7 @@ $( window ).on('load', function() {
 
 
 	ajustPropositionsStatus();
+
 });
 
 

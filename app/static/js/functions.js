@@ -1,6 +1,9 @@
 var finishRequest = false;
 
 function filterStatusByYear(width,height){
+
+
+	$(".select_year_prop_status").off();
 	$(".select_year_prop_status").on('change', function() {
 		$(".loading_status").css("display","block");
 		var year_selected = $(this).val();
@@ -11,7 +14,7 @@ function filterStatusByYear(width,height){
 
 function showDonutChart(width, height,yearSel,p_id){
 
-
+		console.log("graficos carregados");
 		$(".select_year_prop_status").prop("disabled",true).css("opacity", 0.6);
 		
 		$(".p_donut_chart_outer").empty()
@@ -39,7 +42,7 @@ function showDonutChart(width, height,yearSel,p_id){
 			        	d18 = d;
 			        },
 			        error: function(request, status, error) {
-			        	console.log(request , status , error);
+			        	//console.log(request , status , error);
 			        }
 
 			    }),
@@ -56,7 +59,7 @@ function showDonutChart(width, height,yearSel,p_id){
 		  	      	d17 = d2;
 		  	      },
 		  	      error: function(request, status, error) {
-		  	      	console.log(request , status , error);
+		  	      	//console.log(request , status , error);
 		  	      }
 
 		  	  	}),
@@ -73,7 +76,7 @@ function showDonutChart(width, height,yearSel,p_id){
 	  		      	d16 = d3;
 	  		      },
 	  		      error: function(request, status, error) {
-	  		      	console.log(request , status , error);
+	  		      	//console.log(request , status , error);
 	  		      }
 
 	  		  	}),
@@ -90,7 +93,7 @@ function showDonutChart(width, height,yearSel,p_id){
   			      	d15 = d4;
   			      },
   			      error: function(request, status, error) {
-  			      	console.log(request , status , error);
+  			      	//console.log(request , status , error);
   			      }
 
   			  	})
@@ -116,8 +119,8 @@ function showDonutChart(width, height,yearSel,p_id){
 	      	drawDonutChart(d, width,height);
 		},
 	    error: function(request, status, error) {
-	    	console.log(request , status , error);
-	    	$(".loading_status").css("display","none");
+	    	//console.log(request , status , error);
+
 	    }
 
 	   });
@@ -386,6 +389,7 @@ function animateSlicesMouseEnterLeave(id,radius,arc,isEntering){
 }
 
 function filterTypeByYear(width,height){
+	$(".select_year_prop_type").off();
 	$(".select_year_prop_type").on('change', function() {
 		$(".loading_type").css("display","block");
 		var year_selected = $(this).val();
@@ -420,7 +424,7 @@ function showBarChart(w, h, year_selected,politician_id){
 		        	d18 = d;
 		        },
 		        error: function(request, status, error) {
-		        	console.log(request , status , error);
+		        	//console.log(request , status , error);
 		        }
 
 		    }),
@@ -437,7 +441,7 @@ function showBarChart(w, h, year_selected,politician_id){
 	  	      	d17 = d2;
 	  	      },
 	  	      error: function(request, status, error) {
-	  	      	console.log(request , status , error);
+	  	      	//console.log(request , status , error);
 	  	      }
 
 	  	  	}),
@@ -454,7 +458,7 @@ function showBarChart(w, h, year_selected,politician_id){
   		      	d16 = d3;
   		      },
   		      error: function(request, status, error) {
-  		      	console.log(request , status , error);
+  		      	//console.log(request , status , error);
   		      }
 
   		  	}),
@@ -471,7 +475,7 @@ function showBarChart(w, h, year_selected,politician_id){
 			      	d15 = d4;
 			      },
 			      error: function(request, status, error) {
-			      	console.log(request , status , error);
+			      	//console.log(request , status , error);
 			      }
 
 			  	})
@@ -480,7 +484,6 @@ function showBarChart(w, h, year_selected,politician_id){
 
 			var dAll = [d18, d17, d16, d15];
 			var flattenObj = flattenObject(dAll);
-			console.log(flattenObj);
 			drawBarChart(flattenObj,w,h);
 		});
 	
@@ -502,7 +505,7 @@ function showBarChart(w, h, year_selected,politician_id){
 				
 			},
 			error: function(request, status, error) {
-				console.log(request , status , error);
+				//console.log(request , status , error);
 				$(".loading_type").css("display","none");
 			}
 
@@ -548,11 +551,10 @@ function drawBarChart(d,w,h){
 	var qtd_rem = 0;
 
 	Object.keys(d).forEach(function(dt){
-		console.log(dt);
 		 var status = dt;
 		 status = status.replace(/[0-9]/g,'');
 		 status = status.replace('.','');
-		 console.log(status);
+
 		if(status == "PEC"){
 	   			qtd_pec += d[dt];
 		}
@@ -722,7 +724,6 @@ function ajustPropositionsStatus(){
 		var statusSimple = status.replace(/ .*/,'');
 
 		$(this).text(statusSimple);
-
 
 		if( $("#cargo").text() == "Deputado Federal"){ 
 
@@ -1159,6 +1160,7 @@ function resetChoiceIconsColors(){
 
 
 function loadGraphs(){
+	
     if(!graphsLoaded){
 	   //carregar os gráficos
 
@@ -1248,34 +1250,8 @@ function responsiveChanges(){
   	}
 
 
+  	
 
-
-	// if(graphsLoaded){
-
-	// 	var year_selected = 2018;
-	// 	var politician_id = window.location.pathname.split("/").pop();
-
-	//   	if(windowWidth <= 410){
-
-	//   		$(".p_donut_chart_outer").empty().append("<div class='propositions_donut_chart'> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
-	//   		filterStatusByYear(windowWidth/1.8, windowWidth/1.8);
-	//   		showDonutChart(windowWidth/1.8,windowWidth/1.8, year_selected, politician_id);
-
-	//   		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");
-
-	//    		showBarChart(windowWidth,200);
-	//   	} 
-
-	//   	if(windowWidth > 410){
-	//   		$(".p_donut_chart_outer").empty();
-	//   		$(".p_donut_chart_outer").append("<div class='propositions_donut_chart'> </div> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
-	//   		filterStatusByYear(210, 210);
-	//   		showDonutChart(210,210, year_selected, politician_id);
-
-	//   		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");	  		
-	//   		showBarChart(370,230);
-	//   	}
-	// }
 
 
 	autoAjustWidthInnerProps("prop");
@@ -1294,6 +1270,91 @@ function responsiveChanges(){
 
 	ajustPartyTrendGraphWidth();
 
+
+	var page = window.location.pathname.split("/").pop();
+	if ( page == "know-more" ) {
+		var offsetTop = $("#middle_content").offset().top;
+		console.log(offsetTop);
+
+		redefineTabFixed(offsetTop,windowWidth);
+		$(window).off('scroll');
+		$(window).on('scroll',function() {
+		    redefineTabFixed(offsetTop,windowWidth);
+		});		
+	}
+
+}
+
+function redefineTabFixed(offsetTop,windowWidth){
+		
+	if($(window).scrollTop() >= offsetTop && windowWidth <= 880 && !isFixed ) {
+		//console.log("ATIVOU", $(window).scrollTop());
+		$(".tab_know_more").css("position","fixed").css("top",0 );	
+		var hgh = $(".tab_know_more").height() + parseInt($(".tab_know_more").css("padding-top")) + parseInt($(".tab_know_more").css("padding-bottom"));
+
+		$(".box_shadow_know_more1").css("position","fixed").css("top",0 ).css("left", 0).height(hgh);
+		$(".line_know_more").css("position","fixed").css("top", hgh );
+		$("#tab_know_more1").css("left", 0);
+
+		var l1 = $("#tab_know_more1").width() + parseInt($(".tab_know_more").css("padding-left") + 1);
+		
+		$("#tab_know_more2").css("left", l1);	
+		var l2 = parseInt($("#tab_know_more2").css("left")) * 2 + 1;
+		$("#tab_know_more3").css("left", l2);
+
+		isFixed = true;
+
+	}else if($(window).scrollTop() < offsetTop  || windowWidth > 880){
+
+
+		$(".tab_know_more").css("position","relative").css("top", "" );
+		$(".box_shadow_know_more1").css("position","absolute").css("top","" ).css("left", "").css("height","100%");
+		$(".line_know_more").css("position","absolute").css("top", "" );
+
+		$("#tab_know_more2").css("left", "");
+		$("#tab_know_more3").css("left", "");
+
+		isFixed = false;	
+
+	}
+}
+
+function responsiveReload(){
+	var windowWidth = $(window).width();
+  	graphsLoadedResponsive = false;
+
+	if(!graphsLoadedResponsive){
+		$(".loading_status").css("display","block");
+		$(".loading_type").css("display","block");
+
+		var year_selected = "Todos";
+		var politician_id = window.location.pathname.split("/").pop();
+
+	  	if(windowWidth <= 410){
+
+	  		$(".p_donut_chart_outer").empty().append("<div class='propositions_donut_chart'> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
+	  		filterStatusByYear(windowWidth/1.8, windowWidth/1.8);
+	  		showDonutChart(windowWidth/1.8,windowWidth/1.8, year_selected, politician_id);
+
+	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");
+
+	  		filterTypeByYear(windowWidth,200);
+       		showBarChart(windowWidth,200, year_selected, politician_id);
+	  	} 
+
+	  	if(windowWidth > 410){
+	  		$(".p_donut_chart_outer").empty();
+	  		$(".p_donut_chart_outer").append("<div class='propositions_donut_chart'> </div> </div> <div id='rect_hover_props' class='rect_hover'>10</div>");
+	  		filterStatusByYear(210, 210);
+	  		showDonutChart(210,210, year_selected, politician_id);
+
+	  		$(".graph_prop_type_outer").empty().append("<div class='graph_prop_type'> </div> <div id='rect_hover_type' class='rect_hover'>10</div>");	  		
+	  		filterTypeByYear(370,230);
+	  		showBarChart(370,230, year_selected, politician_id);
+	  	}
+
+	  	graphsLoadedResponsive = true;
+	}
 }
 
 function filterPropsByYear(){
@@ -1385,7 +1446,7 @@ function loadFilteredPolls(yearSel){
 	      },
 	      error: function(request, status, error) {
 	      	$(".loading_polls").css("display","none");
-	        console.log(request , status , error);
+	        //console.log(request , status , error);
 	      }
 	   });
 	
