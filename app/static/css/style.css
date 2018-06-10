@@ -8,6 +8,8 @@ body{
   overflow-x: hidden;
 }
 .noScroll{
+  top:0;
+  left: 0;
   position: fixed;
   overflow-y: scroll;
 }
@@ -1680,6 +1682,9 @@ input.tabs:checked + label + div {
   }
   .holder_know_more{
     height: 1180px;
+  } 
+  .box_shadow_know_more{
+    width: 98.7%;
   }
 
   /*------*/
@@ -1797,6 +1802,12 @@ input.tabs:checked + label + div {
   }
   .line_know_more{
     top: 100%;
+  }
+  .box_shadow_know_more{
+    width: 100%;
+  }
+  .tab_know_more{
+    width: 30.33% !important;
   }
   .tab_know_more img{
     display: none;
@@ -1964,6 +1975,7 @@ input.tabs:checked + label + div {
       font-size: 20px;
   }
   .tab_know_more{
+    width: 31.33% !important;
     padding: 2% 0 2% 2% !important;
     height: 40px !important;
   }
@@ -2370,6 +2382,10 @@ input.tabs:checked + label + div {
 }
 
 @media (max-width: 359px){
+  .menu_container a{
+    font-size: 27px;
+  }
+
 
   #info3{
     height: 440px;

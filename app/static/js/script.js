@@ -38,8 +38,8 @@ $( window ).on('load', function() {
     $("#line").width($("body").width() * 2);
     $("#line").css("left", - $("body").width() / 2);
     
-    $(".menu_container").css("display","none")
-    					.height($(window).height());
+    $(".menu_container").css("display","none");
+
 
     var menu_open = false;
 
@@ -48,11 +48,52 @@ $( window ).on('load', function() {
 
 		$(".hamburger").toggleClass("change");
 
+		
 
 		if($(window).height() <= $("body").height()){
 			$("body").toggleClass("noScroll");
 		}
+		$(".menu_container").css("height","100vh");	
+		//$(window).scrollTop(0);
 
+
+		/*testando*/
+		// (function( win ){
+		// 	console.log("ééééé");
+		// 	var doc = win.document;
+			
+		// 	// If there's a hash, or addEventListener is undefined, stop here
+		// 	if( !location.hash && win.addEventListener ){
+				
+		// 		//scroll to 1
+		// 		window.scrollTo( 0, 1 );
+		// 		var scrollTop = 1,
+		// 			getScrollTop = function(){
+		// 				return win.pageYOffset || doc.compatMode === "CSS1Compat" && doc.documentElement.scrollTop || doc.body.scrollTop || 0;
+		// 			},
+				
+		// 			//reset to 0 on bodyready, if needed
+		// 			bodycheck = setInterval(function(){
+		// 				if( doc.body ){
+		// 					clearInterval( bodycheck );
+		// 					scrollTop = getScrollTop();
+		// 					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+		// 				}	
+		// 			}, 15 );
+				
+		// 		win.addEventListener( "load", function(){
+		// 			setTimeout(function(){
+		// 				//at load, if user hasn't scrolled more than 20 or so...
+		// 				if( getScrollTop() < 20 ){
+		// 					//reset to hide addr bar at onload
+		// 					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+		// 				}
+		// 			}, 0);
+		// 		} );
+		// 	}
+		// })( this );
+
+		/*------*/
 		//se a pagina for de um politico especifio não alternar classe para trocar a cor do menu hamburger
 		if(window.location.pathname.split("/")[1] != "politician"){
 			$(".bar1, .bar2, .bar3 ").toggleClass("bar_p_especific");
@@ -70,8 +111,9 @@ $( window ).on('load', function() {
 	
 	//Ajuste para correção do scroll no mobile
 	$(window).scroll(function() {
+
 		if($(window).scrollTop() >= 0 && $(window).scrollLeft() != 0 ){
-			
+			console.log("é doido");
 			$(window).scrollLeft(0);
 		}
 	});
@@ -139,6 +181,8 @@ $( window ).on('load', function() {
 
 	//correção para a altura da página saiba mais	
 	$(".tab_know_more").on("click", function(){
+		$(window).scrollLeft(0);
+
 		var selected = $(this).attr("id");
 			console.log(selected);
 

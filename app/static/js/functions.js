@@ -1198,8 +1198,8 @@ function responsiveChanges(){
 
 	var windowWidth = $(window).width();
 	var windowHeight = $(window).height();
-	
-	$(".menu_container").height(windowHeight);
+	console.log(window.outerHeight);
+	$(".menu_container").height(window.outerHeight);
 
   	if(windowWidth <= 490){
   		$(".especific_project_prop").width($(this).width() - 37);
@@ -1273,22 +1273,21 @@ function responsiveChanges(){
 
 	var page = window.location.pathname.split("/").pop();
 	if ( page == "know-more" ) {
+
 		var offsetTop = $("#middle_content").offset().top;
-		console.log(offsetTop);
+		$.when().then( { offT : offsetTop, w: windowWidth  }, redefineTabFixed);
 
-		redefineTabFixed(offsetTop,windowWidth);
-		$(window).off('scroll');
-		$(window).on('scroll',function() {
-		    redefineTabFixed(offsetTop,windowWidth);
-		});		
+		$(window).off('scroll', redefineTabFixed);
+
+		$(window).on('scroll',{ offT : offsetTop, w: windowWidth  }, redefineTabFixed);	
 	}
-
+	
 }
 
-function redefineTabFixed(offsetTop,windowWidth){
+function redefineTabFixed(event){
 		
-	if($(window).scrollTop() >= offsetTop && windowWidth <= 880 && !isFixed ) {
-		//console.log("ATIVOU", $(window).scrollTop());
+	if($(window).scrollTop() >= event.data.offT && event.data.w <= 880 && !isFixed ) {
+
 		$(".tab_know_more").css("position","fixed").css("top",0 );	
 		var hgh = $(".tab_know_more").height() + parseInt($(".tab_know_more").css("padding-top")) + parseInt($(".tab_know_more").css("padding-bottom"));
 
@@ -1304,7 +1303,7 @@ function redefineTabFixed(offsetTop,windowWidth){
 
 		isFixed = true;
 
-	}else if($(window).scrollTop() < offsetTop  || windowWidth > 880){
+	}else if($(window).scrollTop() < event.data.offT  || event.data.w > 880){
 
 
 		$(".tab_know_more").css("position","relative").css("top", "" );
