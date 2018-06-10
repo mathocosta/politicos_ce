@@ -70,3 +70,13 @@ def show_politician_list(position):
 
     return render_template(
         'politician_list.html', title=title, politicians=politicians)
+
+
+#SERVICE WORKER AND MANIFEST
+@app.route('/manifest.json', methods=['GET'])
+def manifest():
+    return app.send_static_file('manifest.json')  
+
+@app.route('/sw.js', methods=['GET'])
+def sw():
+    return app.send_static_file('sw.js')    

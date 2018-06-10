@@ -1,3 +1,21 @@
+
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js')
+  .then(function(){
+    console.log('SW Registered');
+  })
+  // $.get('/sw.js')
+  //     .done(function() { 
+  //         console.log("EXISTE"); 
+  //     }).fail(function() { 
+  //         console.log("NÃO EXISTE"); 
+  //     })
+}
+
+
+
+
 $.ajaxQ = (function(){
   var id = 0, Q = {};
 
@@ -119,8 +137,9 @@ $( window ).on('load', function() {
 	});
 
 
-	loadGraphs();
-
+	if(window.location.pathname.split("/")[1] == "politician"){
+		loadGraphs();
+	}
 
 	//se for uma pagina de politico específico fazer o request das votação
 	if(window.location.pathname.split("/")[1] == "politician"){

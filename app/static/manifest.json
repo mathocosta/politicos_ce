@@ -1,0 +1,31 @@
+{
+	"name": "Politicos CE",
+	"short_name": "Politicos CE",
+	"start_url": "../",
+	"display": "standalone",
+	"orientation": "portrait",
+	"background_color": "#284ba0",
+	"theme_color": "#6fbe44",
+	"icons": [
+		{
+			"src": "/static/res/icons/app-icon-96x96.png",
+			"sizes": "96x96",
+			"type": "image/png"
+		},
+		{
+			"src": "/static/res/icons/app-icon-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		},
+		{
+			"src": "/static/res/icons/app-icon-256x256.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "/static/res/icons/app-icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}

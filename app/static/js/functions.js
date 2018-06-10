@@ -120,6 +120,7 @@ function showDonutChart(width, height,yearSel,p_id){
 		},
 	    error: function(request, status, error) {
 	    	//console.log(request , status , error);
+	    	$(".loading_status").css("display","none");
 
 	    }
 
