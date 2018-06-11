@@ -32,7 +32,7 @@ function showDonutChart(width, height,yearSel,p_id){
 			$.when(
 			  	$.ajax({
 			        type:'GET',
-			        url:'/politician/api',
+			        url:'/politician/api/',
 			        async: true,
 			        data: {id : politician_id, graph : 1, year: 2018},
 
@@ -49,7 +49,7 @@ function showDonutChart(width, height,yearSel,p_id){
 
 		  		$.ajax({
 		  	      type:'GET',
-		  	      url:'/politician/api',
+		  	      url:'/politician/api/',
 		  	      async: true,
 		  	      data: {id : politician_id, graph : 1, year: 2017},
 
@@ -66,7 +66,7 @@ function showDonutChart(width, height,yearSel,p_id){
 
 	  			$.ajax({
 	  		      type:'GET',
-	  		      url:'/politician/api',
+	  		      url:'/politician/api/',
 	  		      async: true,
 	  		      data: {id : politician_id, graph : 1, year: 2016},
 
@@ -83,7 +83,7 @@ function showDonutChart(width, height,yearSel,p_id){
 
   				$.ajax({
   			      type:'GET',
-  			      url:'/politician/api',
+  			      url:'/politician/api/',
   			      async: true,
   			      data: {id : politician_id, graph : 1, year: 2015},
 
@@ -109,7 +109,7 @@ function showDonutChart(width, height,yearSel,p_id){
 
 		$.ajax({
 	      type:'GET',
-	      url:'/politician/api',
+	      url:'/politician/api/',
 	      async: true,
 	      data: {id : politician_id, graph : 1, year: year_selected},
 
@@ -415,7 +415,7 @@ function showBarChart(w, h, year_selected,politician_id){
 
 		  	$.ajax({
 		        type:'GET',
-		        url:'/politician/api',
+		        url:'/politician/api/',
 		        async: true,
 		        data: {id : politician_id, graph : 2, year: 2018},
 
@@ -432,7 +432,7 @@ function showBarChart(w, h, year_selected,politician_id){
 
 	  		$.ajax({
 	  	      type:'GET',
-	  	      url:'/politician/api',
+	  	      url:'/politician/api/',
 	  	      async: true,
 	  	      data: {id : politician_id, graph : 2, year: 2017},
 
@@ -449,7 +449,7 @@ function showBarChart(w, h, year_selected,politician_id){
 
   			$.ajax({
   		      type:'GET',
-  		      url:'/politician/api',
+  		      url:'/politician/api/',
   		      async: true,
   		      data: {id : politician_id, graph : 2, year: 2016},
 
@@ -466,7 +466,7 @@ function showBarChart(w, h, year_selected,politician_id){
 
 				$.ajax({
 			      type:'GET',
-			      url:'/politician/api',
+			      url:'/politician/api/',
 			      async: true,
 			      data: {id : politician_id, graph : 2, year: 2015},
 
@@ -492,7 +492,7 @@ function showBarChart(w, h, year_selected,politician_id){
 
 		$.ajax({
 			type:'GET',
-			url:'/politician/api',
+			url:'/politician/api/',
 			async: true,
 			data: {id : politician_id, graph : 2, year: year_selected},
 
@@ -1374,7 +1374,7 @@ function loadFilteredPolls(yearSel){
 		$(".loading_polls_polls .loading_polls_inner h3").text("Carregando votações de " + yearSel);
 		$.ajax({
 	      type:'GET',
-	      url:'/politician/api',
+	      url:'/politician/api/',
 	      async: true,
 	      data: {id : politician_id, graph : 3, year: yearSel},
 

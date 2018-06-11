@@ -17,7 +17,7 @@ def get_data_from_deputie(id):
 
     soup = BeautifulSoup(r.content, 'xml')
     dados = soup.dados
-
+    
     return {
         'registered_id': dados.id.text,
         'civil_name': dados.nomeCivil.text.title(),

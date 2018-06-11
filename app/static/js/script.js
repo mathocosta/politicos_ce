@@ -13,6 +13,30 @@ if('serviceWorker' in navigator){
   //     })
 }
 
+try{
+	$('.politic_box').each(function(){
+		var loc = $(this).find('.politic_img_src').text()
+		if (loc.indexOf('http://')==0){
+		    loc = loc.replace('http://','https://');
+		    $(this).find('.photo_politic').attr("src", loc);
+		}
+	});
+}catch(error){
+	console.log("erro");
+}
+
+try{
+	var loc = $('.politic_img_src_especific').text();
+	if (loc.indexOf('http://')==0){
+		    loc = loc.replace('http://','https://');
+		    $(".photo_especific").attr("src", loc);
+		}
+}catch(error){
+	console.log("erro");
+}
+
+
+
 
 
 

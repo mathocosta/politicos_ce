@@ -34,11 +34,13 @@
                 <h2>Nenhum resultado encontrado</h2>
             {% else %}
                 {% for p in politicians %}
+                
                 <a class="politician_link" href="/politician/{{ p.id }}">
                     <!-- <div class="dsp_none p_id">p.id</div> -->
                     <div class="politic_box">
                         <div class="photo_mask">
-                            <img class="photo_politic" src="{{ p.photo_url }}" alt="Imagem de {{ p.parliamentary_name }}">
+                            <div class="dsp_none politic_img_src">{{ p.photo_url }}</div>
+                            <img class="photo_politic" src="" alt="Imagem de {{ p.parliamentary_name }}">
                         </div>
                         <div>
                             <h2 class="name_politic">{{ p.parliamentary_name }}</h2>
