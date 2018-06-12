@@ -12,6 +12,9 @@
                 </div>
             </div>
             <!-- <button class="btn noFill userBtn btn_p_especific"><span class="userIcon userIcon_p_especific"><span>Login</span></span></button> -->
+            <div class="logo_container">
+              <a href="/"><img class="logo_img" src="/static/res/icons/app-logo.png"></a>
+            </div>
         </div>
     </div>
     
@@ -22,6 +25,7 @@
                 <div class="balls_container">
                     <img class="balls_especific" src="/static/res/icons/bolinhas_yellow.svg">
                 </div>
+                    
                 <div class="dsp_none politic_img_src_especific">{{ politician_data.photo_url }}</div>
                 <div class="photo_mask photo_mask_especific"><img class="photo_politic photo_especific" src=""></div>
                 <h1 id="name_politic_especific">{{ politician_data.parliamentary_name }}</h1>
@@ -345,7 +349,7 @@
 
             </div>
         </div>
-        <div id="party_trend" class="full_width">
+        <!-- <div id="party_trend" class="full_width">
             <div  id="party_trend_inner">
                 <h2>Tendencia partidária</h2>
                 <h3 id="party_trend_description">Quantas votações o candidato seguiu a indicação da sua legenda.</h3>
@@ -354,62 +358,31 @@
             <div id="party_trend_graph_outer">
                 <div id="party_trend_graph_inner"></div>
             </div>
-        </div>
+        </div> -->
 
         <!-- <div id="candidature_history_graph"></div> -->
-        <div id="history_candidature_contaner" class="full_width">
-            <div id="history_graph_container">
-                <h2>Histórico de candidaturas </h2>
-                <h2 style="color:#FF434C; font-size: 25px">( Em desenvolvimento *)</h2>
-                <div class="graph_history_candidature">
-                            
-                </div>
-            </div>
+        <div id="candidacies" class="dsp_none">{{ candidacies }}</div>
+
+        <div id="history_candidature_container" class="full_width">
+            <div id="history_candidature_container_inner">
+                    <div id="history_graph_container">                  
+                        <h2>Histórico de candidaturas </h2>
+                        <!-- <h2 style="color:#FF434C; font-size: 25px">( Em desenvolvimento *)</h2> -->
+                        <div class="graph_history_candidature">
+                                    
+                        </div>
+                    </div>
                     <div class="time_line">
                         <h4 class="time_line_title">Linha do Tempo</h4>
 
                         <div class="time_line_content">
-                            <div>
-                                <div class="time_line_circles">
-                                    <div class="circle_status" id="circle_time_line"></div>
-                                    <span>|</span>
-
-                                </div>
-                                <div class="time_line_info">
-                                    <h4>Foi eleito <b>presidente</b> do Senado Federal </h4>
-                                    <span>1º de Fevereiro de 2017</span>
-                                </div>
-                                <div class="time_line_circles">
-                                    <div class="circle_status" id="circle_time_line"></div>
-                                    <span>|</span>
-
-                                </div>
-                                <div class="time_line_info">
-                                    <h4>Foi eleito <b>presidente</b> do Senado Federal </h4>
-                                    <span>1º de Fevereiro de 2017</span>
-                                </div>
-                                <div class="time_line_circles">
-                                    <div class="circle_status" id="circle_time_line"></div>
-                                    <span>|</span>
-
-                                </div>
-                                <div class="time_line_info">
-                                    <h4>Foi eleito <b>presidente</b> do Senado Federal </h4>
-                                    <span>1º de Fevereiro de 2017</span>
-                                </div>
-                                <div class="time_line_circles">
-                                    <div class="circle_status" id="circle_time_line"></div>
-                                    
-
-                                </div>
-                                <div class="time_line_info">
-                                    <h4>Foi eleito <b>presidente</b> do Senado Federal </h4>
-                                    <span>1º de Fevereiro de 2017</span>
-                                </div>
+                            <div class="time_line_content_inner">
+                                
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
+        </div>
             </div>
             <div id="footer" class="footer_especific_politic full_width"></div>
         </div>

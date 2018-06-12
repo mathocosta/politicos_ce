@@ -12,6 +12,9 @@
               </div>
           </div>
           <!-- <button class="btn noFill userBtn"><span class="userIcon"><span>Login</span> </span> </button> -->
+          <div class="logo_container">
+            <a href="/"><img class="logo_img" src="/static/res/icons/app-logo.png"></a>
+          </div>
       </div>
   </div>
   <div id ="info1">
@@ -31,7 +34,8 @@
                </select>
 
                <input id= "search_input" type="text" name="name_field" placeholder="Nome">
-               <input type="submit" value="Buscar" class="btn fill" id= "search_submit">
+               <input type="submit" value="Buscar" class="btn fill" id="search_submit">
+               <div id="alert" class="dsp_none">*Precisa ter ao menos 3 caracteres</div>
            </form>
           </div>
 
@@ -86,7 +90,11 @@
       </div>
       <div class= "info_box info_box2">
           <h2>Mantida com dados oficiais do governo</h2>
-          <p>Todas as informações foram extraídas da base de dados dos governos federal e estadual, foram usados os bancos: </p>
+          <p>Todas as informações foram extraídas da base de dados dos governos federal e estadual, foram usados as APIs: 
+              API de Dados Abertos da Câmara dos Deputados,
+              API de Dados Abertos do Senado Federal e
+              Politicos API
+          </p>
           <div id="img_bd"></div>
       </div>
   </div>

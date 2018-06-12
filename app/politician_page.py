@@ -26,7 +26,8 @@ class ShowPoliticianPage(View):
                                politician_data=self.politician_data,
                                position=self.position,
                                propositions=self.propositions,
-                               votes=self.votes)
+                               votes=self.votes,
+                               candidacies= self.candidacies)
 
     def fetch_external_data(self):
         politician_id = self.politician_data.id

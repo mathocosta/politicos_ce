@@ -13,6 +13,15 @@ body{
   position: fixed;
   overflow-y: scroll;
 }
+.logo_container{
+  margin: 0 auto;
+  width: 33.5%;
+  display: inline-block;
+  text-align: center;
+}
+.logo_img{
+  width: 200px;
+}
 .menu_container{
   position: absolute;
   width: 100%;
@@ -277,7 +286,11 @@ button, select, input:focus{
   border: none;
   color: #333333;
 }
-
+#alert{
+  margin-top: 5px;
+  font: 14px AsapRegular;
+  color: #F35B63;
+}
 #search_submit{
   margin-right: 5px;
     float: right;
@@ -405,6 +418,7 @@ button, select, input:focus{
   background: url(/static/res/icons/transparente_icon.png) no-repeat;
   width: 148px;
   height: 150px;
+  margin-top: 20px;
 
 }
 #img_bd{
@@ -630,6 +644,7 @@ button, select, input:focus{
   background-color: #00B8A9;
 }
 #title_content{
+  padding-top: 30px;
   background-color: #00B8A9;
   width: 1366px;
   height: auto;
@@ -1482,14 +1497,17 @@ input.tabs:checked + label + div {
 
 /*HISTORY CANDIDATURE STYLE*/
 
-#history_candidature_contaner{
+#history_candidature_container{
   padding-top: 70px;
-  width: 980px;
-  height: 460px;
+  width: 1366px;
+  height: auto;
   background: #15B0BC;
+  padding-bottom: 75px;
 }
-
-#history_candidature_contaner h2{
+#history_candidature_container{
+  width: 940px;
+}
+#history_candidature_container h2{
   margin: 0 0 30px 0; 
 }
 .graph_history .tick text{
@@ -1500,18 +1518,34 @@ input.tabs:checked + label + div {
 }
 .time_line{
   float: right;
-  width: 280px;
+  width: 340px;
   height: 270px;
   margin-top: 10px;
+  color: #333;
+}
+.time_line_content_inner{
+  /*overflow-y: scroll;*/
+  height: 310px;
+}
+.mCSB_dragger_bar{
+  background: #333333;
 }
 .time_line_title{
+  margin: 10px 0 !important;
   font-size: 25px;
 }
-#circle_time_line{
+.circle_time_line{
+  display: inline-block;
   width: 14px;
   height: 14px;
   border: 4px solid;
+  margin: 0 !important;
+}
+.circle_time_line_positive{
   border-color: #b0f28c;
+}
+.circle_time_line_negative{
+  border-color: #F28C91;
 }
 .time_line h4{
   margin: 0;
@@ -1522,11 +1556,15 @@ input.tabs:checked + label + div {
 .time_line_circles, .time_line_info{
   display: inline-table;
 }
+.time_line_info{
+  width: 90%;
+}
 .time_line_circles span{
   font-size: 25px;
   text-align: center;
   display: block;
   color: #fafafa;
+  margin: 15px 0px;
 }
 #history_graph_container{
   display: inline-table;
@@ -1731,6 +1769,29 @@ input.tabs:checked + label + div {
     width: 750px;
   }
 
+  #history_candidature_container{
+    width: 100%;
+  }
+  #history_candidature_container_inner{
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .graph_history_candidature{
+    display: block;
+  }
+  .time_line{
+    margin: 0 auto;
+    text-align: left;
+    float: none;
+    width: auto;
+  }
+  
+  .time_line_title{
+    text-align: center;
+  }
+  
+
 }
 
 
@@ -1934,6 +1995,9 @@ input.tabs:checked + label + div {
   .loading_polls{
     width: 100%;
   }
+  #history_candidature_container{
+    padding-top: 10%;
+  }
 }
 @media (max-width: 800px) {
   .func_inner1{
@@ -1962,6 +2026,7 @@ input.tabs:checked + label + div {
   .work_place_cabinet_container{
     height: 440px;
   }
+
   .work_place_cabinet_container_inner{
     width: 360px;
     margin: 0 auto;
@@ -1980,6 +2045,8 @@ input.tabs:checked + label + div {
     height: 40px !important;
   }
 
+
+
 }
 
 
@@ -1993,6 +2060,9 @@ input.tabs:checked + label + div {
 }
 
 @media (max-width: 682px){
+  .logo_container{
+    width: 80%;
+  }
   #title_content{
     padding-bottom: 15px;
   }
@@ -2077,6 +2147,14 @@ input.tabs:checked + label + div {
   }
    .choice_detailed {
     width: auto;
+   }
+   .tick text{
+    font-size: 12px;
+   }
+
+   .x .tick text{
+     transform: rotate(90deg) translate(0,-15px) ;
+     text-anchor: start !important;
    }
 
 }
@@ -2381,6 +2459,9 @@ input.tabs:checked + label + div {
     width: 100%;
   }
   /**/
+  .time_line{
+    width: 95%;
+  }
 
 }
 

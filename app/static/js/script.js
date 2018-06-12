@@ -74,7 +74,10 @@ var isFixed = false;
 $( window ).on('load', function() {
 
 
-    $(window).scrollLeft(0);
+	// var str = "[{'id':1,'name':'Test1'},{'id':2,'name':'Test2'}]";
+	// var jsonObj = $.parseJSON( str );
+	// console.log(jsonObj);
+ //    $(window).scrollLeft(0);
 
 	$("#content").css("display", "block");
     $("#line").width($("body").width() * 2);
@@ -163,6 +166,7 @@ $( window ).on('load', function() {
 
 	if(window.location.pathname.split("/")[1] == "politician"){
 		loadGraphs();
+		showHistoryChart(600,240,30,100,30);
 	}
 
 	//se for uma pagina de politico específico fazer o request das votação
@@ -174,7 +178,8 @@ $( window ).on('load', function() {
 	filterPropsByYear();
 
 	definePageProps();
-	showHistoryChart();
+
+	
 	//----------------------------------------------*/
 
 	autoAjustWidthInnerProps("prop");
@@ -207,7 +212,7 @@ $( window ).on('load', function() {
 
 	/*Responsive script*/
 	responsiveChanges();
-
+	responsiveReload();
 	var w = $(window).width();
 	$(window).resize(function(){
 		if ($(window).width()==w) return; 
@@ -255,6 +260,25 @@ $( window ).on('load', function() {
 
 	ajustPropositionsStatus();
 
+
+	$(".time_line_content_inner").mCustomScrollbar({
+		theme:"dark",
+		mouseWheelPixels: 80,
+		scrollInertia: 300
+	});
+
+
+	//Prevenir de o usuário digitar menos de 3 caracteres na busca
+
+
+	$("#search_bar form").submit(function(e){	    
+	    var userInput = $("#search_input").val();
+	    if(userInput.length < 3){
+	    	$("#alert").removeClass("dsp_none");
+	    	e.preventDefault();
+	    }
+
+	  });
 });
 
 
