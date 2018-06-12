@@ -24,6 +24,7 @@
             <p>
                 Eles representam os estados brasileiros na política, elaboram as leis e ﬁscalizam os atos do Executivo. Uma das responsabilidades do Senado é aprovar a indicação feita pelo Poder Executivo de nomes para ocupar cargos importantes e de diplomatas que representaram o Brasil no exterior.
             </p>
+
             <a id="btn_saiba_mais" href="/know-more">
                 <button class="btn fill">Saiba mais</button>
             </a>
@@ -34,7 +35,7 @@
         <p>A lista está organizada em ordem alfabética</p>
         <div id="all_boxes">
             {% if not politicians %}
-                <h2>Nenhum resultado encontrado</h2>
+                <h2 class="none_result">Nenhum resultado encontrado</h2>
             {% else %}
                 {% for p in politicians %}
                 

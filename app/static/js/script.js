@@ -271,6 +271,7 @@ $( window ).on('load', function() {
 	//Prevenir de o usuário digitar menos de 3 caracteres na busca
 
 
+
 	$("#search_bar form").submit(function(e){	    
 	    var userInput = $("#search_input").val();
 	    if(userInput.length < 3){
@@ -279,6 +280,27 @@ $( window ).on('load', function() {
 	    }
 
 	  });
+
+
+	//colocando searchbar também no resultado da busca
+
+	if(window.location.pathname.split("/")[1] == 'search'){
+		$("#top_content_1 p").attr("class","dsp_none");
+		$("#btn_saiba_mais").attr("class","dsp_none");
+		btn_saiba_mais
+		$("#top_content_1").append('<div id= "search_bar" class="search_bar_specific">\
+                <form method="GET" action="search">\
+                    <select id="select_item" name="position_field">\
+                     <option value="senator">Senador</option>\
+                     <option value="federal-deputy">Deputado Federal</option>\
+                     <option value="state-deputy">Deputado Estadual</option>\
+                 </select>\
+                 <input id= "search_input" type="text" name="name_field" placeholder="Nome"> \
+                 <input type="submit" value="Buscar" class="btn fill" id="search_submit"> \
+                 <div id="alert" class="dsp_none">*Precisa ter ao menos 3 caracteres</div> \
+             </form> \
+            </div>').css("padding-bottom","30px");
+	}
 });
 
 
