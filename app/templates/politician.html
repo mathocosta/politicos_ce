@@ -207,9 +207,9 @@
                         <div class="project_voted project_voted_yes">
 
                             <div class="project_prop_inner voted_inner voted_yes">
-                                    {% for v in votes['yes'][:5] %}
+                                    <!-- {% for v in votes['yes'][:5] %}
                                         <div class="especific_project_prop">
-                                            <!-- v.result -->
+                                            
                                             <div class="prop_status">{{ v.result }} </div>
                                             <h3 class="prop_type_n">
                                                 <span class="prop_type">{{ v.siglum }}</span> n° <span class="prop_n">{{ v.number }}</span>
@@ -217,7 +217,7 @@
                                             <div class="prop_desc">{{ v.description }}</div>
                                             <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
                                         </div>
-                                    {% endfor %}
+                                    {% endfor %} -->
                             </div>
                         </div>
                     </div>
@@ -242,7 +242,7 @@
                     <div class="content_voted_inner content_voted_no_inner">
                         <div class="project_voted project_voted_no">
                             <div class="project_prop_inner voted_inner voted_no">
-                                    {% for v in votes['no'][:5] %}
+                                    <!-- {% for v in votes['no'][:5] %}
                                         <div class="especific_project_prop">
                                             <div class="prop_status">{{ v.result }}</div>
                                             <h3 class="prop_type_n">
@@ -251,7 +251,7 @@
                                             <div class="prop_desc">{{ v.description }}</div>
                                             <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
                                         </div>
-                                    {% endfor %}
+                                    {% endfor %} -->
                             </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@
                     <div class="content_voted_inner content_voted_abstain_inner">
                         <div class="project_voted project_voted_abstain">
                             <div class="project_prop_inner voted_inner voted_abstain">                          
-                                    {% for v in votes['abstention'][:5] %}
+                                    <!-- {% for v in votes['abstention'][:5] %}
                                         <div class="especific_project_prop">
                                             <div class="prop_status">{{ v.result }}</div>
                                             <h3 class="prop_type_n">
@@ -284,7 +284,7 @@
                                             <div class="prop_desc">{{ v.description }}</div>
                                             <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
                                         </div>
-                                    {% endfor %}
+                                    {% endfor %} -->
                             </div>
                         </div>
                     </div>
@@ -309,7 +309,7 @@
                     <div class="content_voted_inner content_voted_secret_inner">
                         <div class="project_voted project_voted_secret">
                             <div class="project_prop_inner voted_inner voted_secret">                         
-                                    {% for v in votes['abstention'][:5] %}
+                                    <!-- {% for v in votes['abstention'][:5] %}
                                         <div class="especific_project_prop">
                                             <div class="prop_status">{{ v.result }}</div>
                                             <h3 class="prop_type_n">
@@ -318,7 +318,7 @@
                                             <div class="prop_desc">{{ v.description }}</div>
                                             <a href="{{ v.url }}" class="prop_details">mais detalhes</a>
                                         </div>
-                                    {% endfor %}
+                                    {% endfor %} -->
                             </div>
                         </div>
                     </div>
@@ -384,7 +384,20 @@
             </div>
         </div>
             </div>
-            <div id="footer" class="footer_especific_politic full_width"></div>
+            <div id="footer" class="footer_especific_politic full_width">
+                <div id="footer_inner">
+                  <div class="footer_left">
+                    <h4>Desenvolvido por: </h4>
+                    <img class="logo_team" src="/static/res/icons/logo_team.png">
+                    <h4 >Grupo acadêmico do curso Sistemas e Mídias Digitais (UFC)</h4>
+                  </div>
+                  <div class="footer_right">
+                    <button class="btn fill btn_contact ">Entre em contato</button>
+                    <img class="balls balls_footer" src="/static/res/icons/bolinhas.svg">
+                  </div>
+                  
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

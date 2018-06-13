@@ -39,6 +39,7 @@ function showDonutChart(width, height,yearSel,p_id){
 			        dataType:'json',
 
 			        success: function(d) {
+			        	console.log("carregou status das proposições de 2018");
 			        	d18 = d;
 			        },
 			        error: function(request, status, error) {
@@ -56,6 +57,7 @@ function showDonutChart(width, height,yearSel,p_id){
 		  	      dataType:'json',
 
 		  	      success: function(d2) {
+		  	      	console.log("carregou status das proposições de 2017");
 		  	      	d17 = d2;
 		  	      },
 		  	      error: function(request, status, error) {
@@ -73,6 +75,7 @@ function showDonutChart(width, height,yearSel,p_id){
 	  		      dataType:'json',
 
 	  		      success: function(d3) {
+	  		      	console.log("carregou status das proposições de 2016");
 	  		      	d16 = d3;
 	  		      },
 	  		      error: function(request, status, error) {
@@ -90,6 +93,7 @@ function showDonutChart(width, height,yearSel,p_id){
   			      dataType:'json',
 
   			      success: function(d4) {
+  			      	console.log("carregou status das proposições de 2015");
   			      	d15 = d4;
   			      },
   			      error: function(request, status, error) {
@@ -99,7 +103,7 @@ function showDonutChart(width, height,yearSel,p_id){
   			  	})
 
 			).then(function() {
-
+				console.log("carregou status de TUDO");
 				var dAll = [d18, d17, d16, d15];
 				var flattenObj = flattenObject(dAll);
 				drawDonutChart(flattenObj, width, height);
@@ -422,6 +426,7 @@ function showBarChart(w, h, year_selected,politician_id){
 		        dataType:'json',
 
 		        success: function(d) {
+		        	console.log("carregou proposições de 2018");
 		        	d18 = d;
 		        },
 		        error: function(request, status, error) {
@@ -439,6 +444,7 @@ function showBarChart(w, h, year_selected,politician_id){
 	  	      dataType:'json',
 
 	  	      success: function(d2) {
+	  	      	console.log("carregou tipos de proposições de 2017");
 	  	      	d17 = d2;
 	  	      },
 	  	      error: function(request, status, error) {
@@ -456,6 +462,7 @@ function showBarChart(w, h, year_selected,politician_id){
   		      dataType:'json',
 
   		      success: function(d3) {
+  		      	console.log("carregou tipos de proposições de 2016");
   		      	d16 = d3;
   		      },
   		      error: function(request, status, error) {
@@ -473,6 +480,7 @@ function showBarChart(w, h, year_selected,politician_id){
 			      dataType:'json',
 
 			      success: function(d4) {
+			      	console.log("carregou tipos de proposições de 2015");
 			      	d15 = d4;
 			      },
 			      error: function(request, status, error) {
@@ -499,7 +507,7 @@ function showBarChart(w, h, year_selected,politician_id){
 			dataType:'json',
 
 			success: function(d) {
-
+				console.log("carregou tipos de proposições de ", year_selected);
 				drawBarChart(d,w,h);
 
 				
@@ -824,8 +832,11 @@ function showHistoryChart(w,h,m1,m2,m3){
 	//var color = d3.scale.ordinal().range(["#B0F28C", "#F28C91"]);
 
 
+	try{
+
+
 	var json = $("#candidacies").text();
-	console.log(json);
+
 	json = json.replace(/'/g, '"');
 	json = json.replace(/True/g, 'true');
 	json = json.replace(/False/g, 'false');
@@ -910,6 +921,7 @@ function showHistoryChart(w,h,m1,m2,m3){
     	var dateYear = d.date.substring(0,4);
     	var date = [dateYear , dateMonth, d.date.substring(8,10)];
     	var election_round = electionRoundHash[d.election_round - 1];
+    	var showElectionRound; 
     	var electedColorClass;
 
  		// data_filter.forEach(function(data){
@@ -919,92 +931,74 @@ function showHistoryChart(w,h,m1,m2,m3){
  		// });
  		datesArray[countCandidacies] = dateYear;
 
- 		if(d.elected){
- 			electedColorClass = 'circle_time_line_positive';
 
-	 		historyArray[countCandidacies] = '<div class="time_line_container"> <div class="time_line_circles">\
-		                                    <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
-		                                    <span class="breaker">|</span> \
-		                                </div> \
-		                                <div class="time_line_info"> \
-		                                    <h4>Foi eleito <b>'+ d.position + '</b> em</h4> \
-		                                    <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' no '+ election_round +'</span> \
-		                                </div> </div>';
-
+ 		if(d.position == "Presidente" || d.position == "Governador" || d.position == "Prefeito"){
+ 			showElectionRound = " no " + election_round;
  		}else{
- 			electedColorClass = 'circle_time_line_negative';
-
-	 		historyArray[countCandidacies] = '<div class="time_line_container"> <div class="time_line_circles">\
-		                                    <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
-		                                    <span class="breaker">|</span> \
-		                                </div> \
-		                                <div class="time_line_info"> \
-		                                    <h4>Tentou eleição para <b>'+ d.position + '</b> em</h4> \
-		                                    <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' mas não se elegeu </span> \
-		                                </div> </div>';
+ 			showElectionRound = "";
  		}
 
 
 
+ 		if(parseInt(dateYear) >= 2002 ){
+	 		if(d.elected){
+	 			electedColorClass = 'circle_time_line_positive';
 
+		 		historyArray[countCandidacies] = '<div class="time_line_container"> <div class="time_line_circles">\
+			                                    <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
+			                                    <span class="breaker">|</span> \
+			                                </div> \
+			                                <div class="time_line_info"> \
+			                                    <h4>Foi eleito <b>'+ d.position + '</b> em</h4> \
+			                                    <span>'+date[2] +' de '+ date[1]+' de '+ date[0] + showElectionRound +'</span> \
+			                                </div> </div>';
 
- 		
+	 		}else{
+	 			electedColorClass = 'circle_time_line_negative';
 
+		 		historyArray[countCandidacies] = '<div class="time_line_container"> <div class="time_line_circles">\
+			                                    <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
+			                                    <span class="breaker">|</span> \
+			                                </div> \
+			                                <div class="time_line_info"> \
+			                                    <h4>Tentou eleição para <b>'+ d.position + '</b> em</h4> \
+			                                    <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' mas não se elegeu </span> \
+			                                </div> </div>';
+	 		}
 
- 			
+	 		if(countCandidacies > 0){
+		 		if(datesArray[countCandidacies] == datesArray[countCandidacies - 1]){
 
+		 			if(d.elected){
+		 			
+			 			historyArray[countCandidacies - 1] = '<div class="time_line_container"> <div class="time_line_circles">\
+			                                    <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
+			                                    <span class="breaker">|</span> \
+			                                </div> \
+			                                <div class="time_line_info"> \
+			                                    <h4>Avançou no 1° turno para <b>'+ d.position + '</b> em</h4> \
+			                                    <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' e se elegeu no 2° turno</span> \
+			                                </div></div> ';
+		               
 
- 		if(countCandidacies > 0){
-	 		if(datesArray[countCandidacies] == datesArray[countCandidacies - 1]){
+		            }else{
+	    				historyArray[countCandidacies - 1] = '<div class="time_line_container"> <div class="time_line_circles">\
+	    	                                   <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
+	    	                                   <span class="breaker">|</span> \
+	    	                               </div> \
+	    	                               <div class="time_line_info"> \
+	    	                                   <h4>Avançou no 1° turno para <b>'+ d.position + '</b> em</h4> \
+	    	                                   <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' mas não se elegeu no 2° turno</span> \
+	    	                               </div></div> ';
+		            }  
 
-	 			if(d.elected){
-	 			
-		 			historyArray[countCandidacies - 1] = '<div class="time_line_container"> <div class="time_line_circles">\
-		                                    <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
-		                                    <span class="breaker">|</span> \
-		                                </div> \
-		                                <div class="time_line_info"> \
-		                                    <h4>Avançou no 1° turno para <b>'+ d.position + '</b> em</h4> \
-		                                    <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' e se elegeu no 2° turno</span> \
-		                                </div></div> ';
-	               
+		            historyArray.splice(countCandidacies,1);               
+		 		}	
+	 		}
 
-	            }else{
-    				historyArray[countCandidacies - 1] = '<div class="time_line_container"> <div class="time_line_circles">\
-    	                                   <div class="circle_status circle_time_line '+ electedColorClass +'" ></div> \
-    	                                   <span class="breaker">|</span> \
-    	                               </div> \
-    	                               <div class="time_line_info"> \
-    	                                   <h4>Avançou no 1° turno para <b>'+ d.position + '</b> em</h4> \
-    	                                   <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' mas não se elegeu no 2° turno</span> \
-    	                               </div></div> ';
-	            }  
+	 		countCandidacies++;
 
-	            historyArray.splice(countCandidacies,1);               
-	 		}	
  		}
-
- 		countCandidacies++;
-   //  	if(d.elected && d.election_round == 1){
-	  //   	$(".time_line_content_inner").append('<div class="time_line_circles">\
-	  //                                   <div class="circle_status circle_time_line circle_time_line_positive" ></div> \
-	  //                                   <span>|</span> \
-	  //                               </div> \
-	  //                               <div class="time_line_info"> \
-	  //                                   <h4>Foi eleito <b>'+ d.position + '</b> em</h4> \
-	  //                                   <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' no '+ election_round +'</span> \
-	  //                               </div>');
-   //  	}else if(!d.elected && d.election_round == 1){
-
-			// $(".time_line_content_inner").append('<div class="time_line_circles">\
-		 //                                <div class="circle_status circle_time_line circle_time_line_negative" ></div> \
-		 //                                <span>|</span> \
-		 //                            </div> \
-		 //                            <div class="time_line_info"> \
-		 //                                <h4>Tentou eleição para <b>'+ d.position + '</b> em</h4> \
-		 //                                <span>'+date[2] +' de '+ date[1]+' de '+ date[0] +' no '+ election_round +'</span> \
-		 //                            </div>');
-   //  	}
 
     	
     });
@@ -1016,7 +1010,7 @@ function showHistoryChart(w,h,m1,m2,m3){
     }
     $(".time_line_container").last().find('.time_line_circles').find('.breaker').remove();
 
-    console.log($(".time_line_container").last().find('.time_line_circles'));
+
 
     // $(".time_line_content_inner").each(function(){
     // 	console.log($(this));
@@ -1111,7 +1105,12 @@ function showHistoryChart(w,h,m1,m2,m3){
 		     		
 		     } )
 		     .attr("filter", "url(#drop-shadow)");
-	  		  
+
+	}catch(error){
+		$("#history_candidature_container").css("display","none");
+		console.log(error);
+	}
+
 }
 
 	var count = [0,0,0,0,0];
@@ -1317,9 +1316,111 @@ function getSVGStructure(url, id){
     	svg.removeAttr("height");	
     	
     	$(id).append(svg);
+
+
+    	if(id == '#senator_structure'){
+	    	$("#senator_structure svg g").attr("class","senator_graph")
+	    	
+	    	$('.senator_graph g').each(function(){
+
+	    		var siglum = $(this).attr("id");
+	    		var color = $(this).css('fill');
+
+	    		var cadeiras = $("#"+ siglum).find("circle").length;
+	    		console.log(siglum,  $("#"+ siglum).find("circle").length);
+
+	    		if(siglum == "SemPartido"){
+	    			siglum = "Indep";
+	    		}
+
+	    		$('.structure_graph_2_senator').append('<div class="political_party"> \
+								                <div id="circle_'+ siglum +'" class="circle_status circle_political_party"></div> \
+								                <h3 class="siglum_political_party" >'+ siglum + " - " + cadeiras + '</h3> \
+								                </div>');
+
+	    		$("#circle_" + siglum).css("border-color", color);
+	    	});
+
+    	}else if(id == '#federal_deputies_structure'){
+	    	$("#federal_deputies_structure svg g").attr("class","federal_deputies_graph")
+	    	
+	    	$('.federal_deputies_graph g').each(function(){
+	    		//var parties = ["PCdoB","PRB","PSOL","PV","REDE","PT","AVANTE","PEN","PODE","PPL","PROS","PHS","PSL","PEN","PROS","PHS","PSC",""]
+	    		//var siglum_num = $(this).attr("id").replace('Party','');
+	    		var siglum = $(this).attr("id");
+	    		var color = $(this).css('fill');
+	    		var cadeiras = $("#"+ siglum).find("circle").length;
+	    		$('.structure_graph_2_federal_deputies').append('<div class="political_party political_party_federal"> \
+								                <div id="circle_'+ siglum +'_federal" class="circle_status circle_political_party"></div> \
+								                <h3 class="siglum_political_party" >'+ siglum + " - " + cadeiras + '</h3> \
+								                </div>');
+
+	    		$("#circle_" + siglum + "_federal").css("border-color", color);
+	    	});
+    	}else{
+	    	$("#state_deputies_structure svg g").attr("class","state_deputies_graph")
+	    	
+	    	$('.state_deputies_graph g').each(function(){
+
+	    		var siglum = $(this).attr("id");
+	    		var color = $(this).css('fill');
+	    		var cadeiras = $("#"+ siglum).find("circle").length;
+	    		$('.structure_graph_2_state_deputies').append('<div class="political_party"> \
+								                <div id="circle_'+ siglum +'_state" class="circle_status circle_political_party"></div> \
+								                <h3 class="siglum_political_party" >'+ siglum + " - " + cadeiras + '</h3> \
+								                </div>');
+
+	    		$("#circle_" + siglum + "_state").css("border-color", color);
+	    	});
+    	}
+
+    	$('.political_party').off();
+    	$('.political_party').on('mouseenter',function(){
+
+    		hoverStructure(this,4);
+		
+    	});
+
+    	$('.political_party').on('mouseleave',function(){
+    		hoverStructure(this,0);
+    	});
     });
 
+
+
 }
+
+function hoverStructure(id,r){
+
+	var selectedParty = $(id).find('.circle_political_party').attr("id");
+	var politicalParty = selectedParty.replace("circle_","").replace("_federal","").replace("_state","");
+	if(politicalParty == "Indep"){
+		politicalParty = "SemPartido";
+	}
+	//console.log($(id).parent().attr("id"));
+	if( $(id).parent().attr("id") == "graph_2_senator"){
+		var circle = $(".senator_graph").find("#"+politicalParty).find("circle");
+		console.log(circle);
+		circle.css("stroke-width", r)
+			  .css("stroke", circle.css("fill"));
+		//console.log($(".senator_graph").find("#"+politicalParty).attr("r","10"));
+	}else if( $(id).parent().attr("id") == "graph_2_state_deputies"){
+		var circle = $(".state_deputies_graph").find("#"+politicalParty).find("circle");
+		console.log(circle);
+		circle.css("stroke-width", r)
+			  .css("stroke", circle.css("fill"));
+		//console.log($(".senator_graph").find("#"+politicalParty).attr("r","10"));
+	}else {
+		var circle = $(".federal_deputies_graph").find("#"+politicalParty).find("circle");
+		console.log(circle);
+		circle.css("stroke-width", r/1.5)
+			  .css("stroke", circle.css("fill"));
+
+		//console.log($(".senator_graph").find("#"+politicalParty).attr("r","10"));
+	}   
+}
+
+
 
 function changeColorChechedPropVoted(){
 	//seta o SIM para ser o checked default quando a página carregar
@@ -1567,23 +1668,26 @@ function responsiveReload(){
 	  	}
 
 
-	  	if(windowWidth <= 1050){
-	  		showHistoryChart(windowWidth/1.5, windowWidth/3.75,30,100,30);
-	  		//showHistoryChart(windowWidth/1.75, windowWidth/4.375);
-	  	}
+	  	
 
-	  	if(windowWidth > 1050){
-	  		showHistoryChart(600,240,30,100,30);
-	  	}
+		  	if(windowWidth <= 1050){
+		  		showHistoryChart(windowWidth/1.5, windowWidth/3.75,30,100,30);
+		  		//showHistoryChart(windowWidth/1.75, windowWidth/4.375);
+		  	}
+
+		  	if(windowWidth > 1050){
+		  		showHistoryChart(600,240,30,100,30);
+		  	}
 
 
-	  	if(windowWidth <= 880){
-	  		showHistoryChart(windowWidth/1.1, windowWidth/2.5,30,100,30);
-	  	}
+		  	if(windowWidth <= 880){
+		  		showHistoryChart(windowWidth/1.1, windowWidth/2.5,30,100,30);
+		  	}
 
-	  	if(windowWidth <= 682){
-	  		showHistoryChart(windowWidth, windowWidth/2.5,15,90,30);
-	  	}
+		  	if(windowWidth <= 682){
+		  		showHistoryChart(windowWidth, windowWidth/2.5,15,90,30);
+		  	}
+
 
 	  	
 	  	//showHistoryChart(windowWidth/1.2, windowWidth/3);
@@ -1622,6 +1726,7 @@ function loadFilteredPolls(yearSel){
 	      dataType:'json',
 
 	      success: function(data) {
+	      	console.log("VOTAÇÕES DE ", yearSel, " CARREGADAS");
 	      	$(".loading_polls_polls").css("display","none");
 	      	$(".loading_polls_bkground").css("display","none");
 	      	var lenAll =  data.length;

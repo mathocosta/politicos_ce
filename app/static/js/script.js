@@ -203,7 +203,7 @@ $( window ).on('load', function() {
 
 	if ( page == "know-more" ) {
     	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/c/c9/Senado_Federal_%28Brasil%29_-_atual.svg" , "#senator_structure");
-    	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/5/5f/C%C3%A2mara_dos_Deputados_%28Brasil%29_-_atual.svg", "#federal_deputies_structure")
+    	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/archive/5/5f/20170904010939%21C%C3%A2mara_dos_Deputados_%28Brasil%29_-_atual.svg", "#federal_deputies_structure")
     	getSVGStructure("https://upload.wikimedia.org/wikipedia/commons/1/14/Assembleia_Legislativa_do_Estado_do_CE_-_atual.svg" , "#state_deputies_structure");
 	}
 	
@@ -214,25 +214,23 @@ $( window ).on('load', function() {
 	responsiveChanges();
 	responsiveReload();
 	var w = $(window).width();
-	$(window).resize(function(){
-		if ($(window).width()==w) return; 
+	// $(window).resize(function(){
+	// 	if ($(window).width()==w) return; 
 
-
-		$.ajaxQ.abortAll();
-		  w = $(window).width();	
-		 isFixed = false;
-		 responsiveChanges();
-		 responsiveReload();
+	// 	 $.ajaxQ.abortAll();
+	// 	 w = $(window).width();	
+	// 	 isFixed = false;
+	// 	 responsiveChanges();
+	// 	 responsiveReload();
 		 
 		 
-	});
+	// });
 
 	//correção para a altura da página saiba mais	
 	$(".tab_know_more").on("click", function(){
 		$(window).scrollLeft(0);
 
 		var selected = $(this).attr("id");
-			console.log(selected);
 
 			if(selected != "tab_know_more1"){
 				setTimeout(function(){ 
