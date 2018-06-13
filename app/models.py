@@ -17,19 +17,21 @@ class Politician(db.Model):
     parliamentary_name = db.Column('parliamentary_name', db.String(80))
     ascii_parliamentary_name = db.Column(
         'ascii_parliamentary_name', db.String(80))
+    birth = db.Column('birth', db.String(80))
     party_siglum = db.Column('party_siglum', db.String(80))
     scholarity = db.Column('scholarity', db.String(80))
     hometown = db.Column('hometown', db.String(80))
     position = db.Column('position', db.String(80))
     photo_url = db.Column('photo_url', db.String(255))
 
-    def __init__(self, registered_id, civil_name, parliamentary_name,
+    def __init__(self, registered_id, civil_name, parliamentary_name, birth,
                  scholarity, hometown, party_siglum, position, photo_url):
         self.registered_id = registered_id
         self.civil_name = civil_name
         self.ascii_civil_name = unidecode(civil_name)
         self.parliamentary_name = parliamentary_name
         self.ascii_parliamentary_name = unidecode(parliamentary_name)
+        self.birth = birth
         self.scholarity = scholarity
         self.hometown = hometown
         self.party_siglum = party_siglum

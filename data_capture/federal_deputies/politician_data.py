@@ -4,6 +4,8 @@
 Os dados são obtidos da API da Câmara dos Deputados, e filtrados para obter os
 dados desejados dos deputados cearenses.
 """
+from datetime import datetime
+from dateutil.parser import parse
 import requests
 from bs4 import BeautifulSoup
 
@@ -17,12 +19,15 @@ def get_data_from_deputie(id):
 
     soup = BeautifulSoup(r.content, 'xml')
     dados = soup.dados
-    
+
+    birth_date = datetime.strptime(dados.dataNascimento.text, '%Y-%m-%d')
+
     return {
         'registered_id': dados.id.text,
         'civil_name': dados.nomeCivil.text.title(),
         'parliamentary_name': dados.ultimoStatus.nomeEleitoral.text.title(),
         'party': dados.ultimoStatus.siglaPartido.text,
+        'birth': datetime.strftime(birth_date, '%d/%m/%y'),
         'hometown': dados.municipioNascimento.text,
         'scholarity': dados.escolaridade.text,
         'position': 'federal-deputy',

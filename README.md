@@ -19,7 +19,7 @@ Plataforma desenvolvida para disponibilizar os dados dos políticos do legislati
 - MySQL 5.7.19
 
 ## Como executar
-### Instale as dependências:
+### Instale as dependências
 ```console
 $ pip install -r requirements.txt
 ```
@@ -27,13 +27,12 @@ $ pip install -r requirements.txt
 ### Prepare o ambiente
 Copie o arquivo `contrib/.env.sample` para a raiz do projeto, renomeie para `.env` e coloque as configurações solicitadas.
 
-### Crie a estrutura básica do banco:
+### Crie a estrutura básica do banco
 ```console
-$ python manage.py db migrate
 $ python manage.py db upgrade
 ```
 
-### Carregue os dados para o banco:
+### Carregue os dados para o banco
 ```console
 $ python manage.py seed
 ```

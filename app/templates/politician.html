@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="header full_width" id="title_content">
         <div id="title_content_1">
 
@@ -25,7 +25,7 @@
                 <div class="balls_container">
                     <img class="balls_especific" src="/static/res/icons/bolinhas_yellow.svg">
                 </div>
-                    
+
                 <div class="dsp_none politic_img_src_especific">{{ politician_data.photo_url }}</div>
                 <div class="photo_mask photo_mask_especific"><img class="photo_politic photo_especific" src=""></div>
                 <h1 id="name_politic_especific">{{ politician_data.parliamentary_name }}</h1>
@@ -43,8 +43,8 @@
                             <h3>{{ politician_data.civil_name }}</h3>
                         </div>
                         <div class="info_detail_inner">
-                            <h4 >Data de Nascimento</h4>
-                            <h3>30 de Setembro de 1952</h3>
+                            <h4>Data de Nascimento</h4>
+                            <h3>{{ politician_data.birth }}</h3>
                         </div>
                     </div>
                     <div class="inner_right">
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div id= "box_status_type">
             <div id="box_status_type_inner">
                 <div class="box_prop" >
@@ -189,7 +189,7 @@
             <div id="prop_voted">
                 <input type="radio" name="tabs" class="tabs" id="tab1" checked>
                 <label class="labels" id="label_yes" for="tab1">
-                   
+
                     <img id="choice_icon_yes" class="choice_icon" src="/static/res/icons/white_yes_icon.svg">
                     <div class="choice choice_specific">SIM</div>
                     <div class="choice_detailed choice_detailed_yes">
@@ -224,7 +224,7 @@
                 </div>
                 <input type="radio" name="tabs" class="tabs" id="tab2">
                 <label class="labels"  id="label_no" for="tab2">
-                    
+
                     <img id="choice_icon_no" class="choice_icon" src="/static/res/icons/color_no_icon.svg">
                     <div class="choice choice_specific">
                         NÃO
@@ -274,8 +274,13 @@
                     </div>
                     <div class="content_voted_inner content_voted_abstain_inner">
                         <div class="project_voted project_voted_abstain">
+<<<<<<< HEAD
                             <div class="project_prop_inner voted_inner voted_abstain">                          
                                     <!-- {% for v in votes['abstention'][:5] %}
+=======
+                            <div class="project_prop_inner voted_inner voted_abstain">
+                                    {% for v in votes['abstention'][:5] %}
+>>>>>>> fd35edaf53b319ed058d6d450a198a989b29feba
                                         <div class="especific_project_prop">
                                             <div class="prop_status">{{ v.result }}</div>
                                             <h3 class="prop_type_n">
@@ -291,7 +296,7 @@
                 </div>
                 <input type="radio" name="tabs" class="tabs" id="tab4">
                 <label class="labels" id="label_secret" for="tab4">
-                    
+
                     <img id="choice_icon_secret" class="choice_icon" src="/static/res/icons/color_secret_icon.svg">
                     <div class="choice choice_specific">
                         SECRETO
@@ -308,8 +313,13 @@
                     </div>
                     <div class="content_voted_inner content_voted_secret_inner">
                         <div class="project_voted project_voted_secret">
+<<<<<<< HEAD
                             <div class="project_prop_inner voted_inner voted_secret">                         
                                     <!-- {% for v in votes['abstention'][:5] %}
+=======
+                            <div class="project_prop_inner voted_inner voted_secret">
+                                    {% for v in votes['abstention'][:5] %}
+>>>>>>> fd35edaf53b319ed058d6d450a198a989b29feba
                                         <div class="especific_project_prop">
                                             <div class="prop_status">{{ v.result }}</div>
                                             <h3 class="prop_type_n">
@@ -328,7 +338,7 @@
                     <option selected="selected">2018</option>
                     <option>2017</option>
                     <option>2016</option>
-                    <option>2015</option>  
+                    <option>2015</option>
                 </select>
                 <div id="box_shadow_voted"></div>
                 <div id="bkground_voted" class="full_width"></div>
@@ -365,11 +375,11 @@
 
         <div id="history_candidature_container" class="full_width">
             <div id="history_candidature_container_inner">
-                    <div id="history_graph_container">                  
+                    <div id="history_graph_container">
                         <h2>Histórico de candidaturas </h2>
                         <!-- <h2 style="color:#FF434C; font-size: 25px">( Em desenvolvimento *)</h2> -->
                         <div class="graph_history_candidature">
-                                    
+
                         </div>
                     </div>
                     <div class="time_line">
@@ -377,7 +387,7 @@
 
                         <div class="time_line_content">
                             <div class="time_line_content_inner">
-                                
+
                             </div>
                         </div>
                     </div>
