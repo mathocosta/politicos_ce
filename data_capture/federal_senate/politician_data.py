@@ -4,6 +4,8 @@
 Os dados são obtidos da API do Senado, e filtrados para obter os
 dados desejados dos senadores cearenses.
 """
+from datetime import datetime
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -16,12 +18,16 @@ def get_data_from_senator(id):
 
     dados = soup.Parlamentar
 
+    birth_date = datetime.strptime(
+        dados.DadosBasicosParlamentar.DataNascimento.text, '%Y-%m-%d')
+
     # Os dados da API não contam com cidade de nascimento, nem escolaridade.
     return {
         'registered_id': dados.IdentificacaoParlamentar.CodigoParlamentar.text,
         'civil_name': dados.IdentificacaoParlamentar.NomeCompletoParlamentar.text,
         'parliamentary_name': dados.IdentificacaoParlamentar.NomeParlamentar.text,
         'party': dados.IdentificacaoParlamentar.SiglaPartidoParlamentar.text,
+        'birth': datetime.strftime(birth_date, '%d/%m/%y'),
         'hometown': '',
         'scholarity': '',
         'position': 'senator',

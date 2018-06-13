@@ -10,6 +10,7 @@ def political_data_parser(dataset):
             'civil_name': d['name'],
             'parliamentary_name': d['alternative_names'][-1]['name'],
             'party': d['political_parties'][-1]['political_party']['siglum'],
+            'birth': '',
             'hometown': d['place_of_birth'],
             'scholarity': d['education']['name'],
             'occupation': d['occupation']['name'],
