@@ -1514,8 +1514,10 @@ function responsiveChanges(){
 	var windowWidth = $(window).width();
 	var windowHeight = $(window).height();
 	
-	$(".menu_container").css("height","100vh");	
 
+
+	$(".menu_container").css("height","100vh");	
+	$(".loading_politician_anim").css("height","100vh");	
   	if(windowWidth <= 490){
   		$(".especific_project_prop").width($(this).width() - 37);
   		$(".prop_desc").width($(this).width() - 60);  	
@@ -1565,7 +1567,12 @@ function responsiveChanges(){
   	}
 
 
-  	
+  	if(windowWidth <= 580){
+  		$("#search_submit").val("");
+
+  	}else{
+  		$("#search_submit").val("Buscar");
+  	}
 
 
 
@@ -1726,6 +1733,7 @@ function loadFilteredPolls(yearSel){
 	      dataType:'json',
 
 	      success: function(data) {
+
 	      	console.log("VOTAÇÕES DE ", yearSel, " CARREGADAS");
 	      	$(".loading_polls_polls").css("display","none");
 	      	$(".loading_polls_bkground").css("display","none");
@@ -1735,8 +1743,13 @@ function loadFilteredPolls(yearSel){
 
 	      	for (var i = 0; i < lenAll; i++) {
 
+	      		if(data[i].result == "-"){
+	      			data[i].result = "Aguardando aprovação"
+	      		}
+
+
 	      		switch (data[i].vote){
-	      			case "Sim":	      					      				
+	      			case "Sim":	 	      			     					      				
 	      				$(".voted_yes").append(
 	      					'<div class="especific_project_prop"> \
                             	<div class="prop_status">'+ data[i].result +'</div> \
@@ -1745,9 +1758,10 @@ function loadFilteredPolls(yearSel){
                             	</h3> \
                             	<div class="prop_desc">'+ data[i].description +'</div> \
                             	<a target="_blank" href='+ data[i].url +' class="prop_details">mais detalhes</a> \
-                        	</div>');
-	      		      				
+                        	</div>');	      		      				
 	      				break;
+
+
 	      			case "Não":
 	      				$(".voted_no").append(
 	      					'<div class="especific_project_prop"> \
@@ -1789,6 +1803,7 @@ function loadFilteredPolls(yearSel){
 	      	
 	      	
 
+
 	      },
 	      error: function(request, status, error) {
 	      	$(".loading_polls").css("display","none");
@@ -1808,7 +1823,10 @@ function toggleNoScroll(){
 	$(window).scroll(function() {
 		$(window).scrollTop(pos);
 	});
-	
+
+	$(document.body).on('touchmove', function() {
+		$(window).scrollTop(pos);
+	});
 
 }
 

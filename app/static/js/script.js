@@ -102,42 +102,6 @@ $( window ).on('load', function() {
 		//$(window).scrollTop(0);
 
 
-		/*testando*/
-		// (function( win ){
-		// 	console.log("ééééé");
-		// 	var doc = win.document;
-			
-		// 	// If there's a hash, or addEventListener is undefined, stop here
-		// 	if( !location.hash && win.addEventListener ){
-				
-		// 		//scroll to 1
-		// 		window.scrollTo( 0, 1 );
-		// 		var scrollTop = 1,
-		// 			getScrollTop = function(){
-		// 				return win.pageYOffset || doc.compatMode === "CSS1Compat" && doc.documentElement.scrollTop || doc.body.scrollTop || 0;
-		// 			},
-				
-		// 			//reset to 0 on bodyready, if needed
-		// 			bodycheck = setInterval(function(){
-		// 				if( doc.body ){
-		// 					clearInterval( bodycheck );
-		// 					scrollTop = getScrollTop();
-		// 					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
-		// 				}	
-		// 			}, 15 );
-				
-		// 		win.addEventListener( "load", function(){
-		// 			setTimeout(function(){
-		// 				//at load, if user hasn't scrolled more than 20 or so...
-		// 				if( getScrollTop() < 20 ){
-		// 					//reset to hide addr bar at onload
-		// 					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
-		// 				}
-		// 			}, 0);
-		// 		} );
-		// 	}
-		// })( this );
-
 		/*------*/
 		//se a pagina for de um politico especifio não alternar classe para trocar a cor do menu hamburger
 		if(window.location.pathname.split("/")[1] != "politician"){
@@ -158,7 +122,7 @@ $( window ).on('load', function() {
 	$(window).scroll(function() {
 
 		if($(window).scrollTop() >= 0 && $(window).scrollLeft() != 0 ){
-			console.log("é doido");
+
 			$(window).scrollLeft(0);
 		}
 	});
@@ -175,9 +139,7 @@ $( window ).on('load', function() {
 		loadFilteredPolls($(".select_year_project_voted").val());
 	}
 
-	filterPropsByYear();
-
-	definePageProps();
+	
 
 	
 	//----------------------------------------------*/
@@ -195,6 +157,11 @@ $( window ).on('load', function() {
 	slideProps(2,"voted_no");
 	slideProps(3,"voted_abstain");
 	slideProps(4,"voted_secret");
+
+
+	filterPropsByYear();
+
+	definePageProps();
 
 	showPoliticanDetails();
 	
@@ -214,17 +181,23 @@ $( window ).on('load', function() {
 	responsiveChanges();
 	responsiveReload();
 	var w = $(window).width();
-	// $(window).resize(function(){
-	// 	if ($(window).width()==w) return; 
+	$(window).resize(function(){
+		if ($(window).width()==w) return; 
 
-	// 	 $.ajaxQ.abortAll();
-	// 	 w = $(window).width();	
-	// 	 isFixed = false;
-	// 	 responsiveChanges();
-	// 	 responsiveReload();
+		 // $.ajaxQ.abortAll();
+		  w = $(window).width();	
+		 // isFixed = false;
+		 // responsiveChanges();
+		 // responsiveReload();
+		 console.log(w);
+		 if(w <= 580){
+		 	$("#search_submit").val("");
+
+		 }else{
+		 	$("#search_submit").val("Buscar");
+		 }
 		 
-		 
-	// });
+	});
 
 	//correção para a altura da página saiba mais	
 	$(".tab_know_more").on("click", function(){

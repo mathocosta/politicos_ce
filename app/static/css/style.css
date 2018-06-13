@@ -98,7 +98,7 @@ body{
   width: auto;
   background-color: #fafafa ;
   color: #333333;
-  z-index: 99999;
+  z-index: 999;
 }
 
 h1{
@@ -303,8 +303,9 @@ button, select, input:focus{
 }
 #search_submit{
   margin-right: 5px;
-    float: right;
-    margin-top: 4px;
+  float: right;
+  margin-top: 4px;
+  /*background: url(/static/res/icons/search.svg) no-repeat scroll 0 0 transparent;*/ 
 }
 #boxes{
   text-align: center;
@@ -828,6 +829,11 @@ button, select, input:focus{
 .btns_container_2{
   position: absolute;
   right: 250px;
+  bottom: 338px;
+}
+.pages_count{
+  position: absolute;
+  right: 350px;
   bottom: 338px;
 }
 
@@ -2264,6 +2270,10 @@ input.tabs:checked + label + div {
   }
   #search_submit{
     width: 32.5px;
+    background-image: url('/static/res/icons/search.png');
+    background-size: 60%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
   }
   #img_brasil {
     width: 150%;
